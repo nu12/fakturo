@@ -1,18 +1,17 @@
 class ApiController < ApplicationController
   before_action :set_user
   def all
-    
-    sql = ActiveRecord::Base.send(:sanitize_sql_array, ["select 
+    sql = ActiveRecord::Base.send(:sanitize_sql_array, [ "select
       expenses.date,
-      expenses.value, 
+      expenses.value,
       subcategories.name as subcategory,
       categories.name as category
-      from expenses 
+      from expenses
       left join subcategories on expenses.subcategory_id = subcategories.id
       left join categories on subcategories.category_id = categories.id
       left join documents on expenses.document_id = documents.id
-      where documents.user_id = ?", @user.id])
-    result = ActiveRecord::Base.connection.execute(sql)   
+      where documents.user_id = ?", @user.id ])
+    result = ActiveRecord::Base.connection.execute(sql)
     render json: result
   end
 

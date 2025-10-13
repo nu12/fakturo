@@ -16,10 +16,9 @@ class User < ApplicationRecord
     self.access_token = "f_#{Digest::MD5.hexdigest(something_the_user_has + something_i_know + something_i_dont_know)}"
     self.access_token_expiry_date = Time.now + 90.days
   end
-  
+
   private
   def set_uuid
     self.uuid = SecureRandom.uuid
   end
-
 end

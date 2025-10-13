@@ -1,13 +1,13 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
-    @active = 'home'
+    @active = "home"
   end
 
   def policy
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Data & Privacy policy"}]
-    @active = 'policy'
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Data & Privacy policy" } ]
+    @active = "policy"
     render("guest/policy")
   end
 
@@ -27,7 +27,7 @@ class HomeController < ApplicationController
   end
 
   def access
-    @active = 'access'
+    @active = "access"
   end
 
   def access_regenerate

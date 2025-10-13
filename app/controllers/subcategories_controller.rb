@@ -3,28 +3,28 @@ class SubcategoriesController < ApplicationController
   load_and_authorize_resource :category
   before_action :set_subcategory, only: %i[ show edit update destroy ]
   before_action :set_category, only: %i[ index new create edit update destroy ]
-  before_action {set_active_page('home')}
+  before_action { set_active_page("home") }
 
   # GET /subcategories or /subcategories.json
   def index
     @subcategories = Subcategory.accessible_by(current_ability).where(category_id: @category.id)
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Categories", path: categories_path}, {name: @category.name, path: category_path(@category)}, {name: "Sub-categories"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: @category.name, path: category_path(@category) }, { name: "Sub-categories" } ]
   end
 
   # GET /subcategories/1 or /subcategories/1.json
   def show
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Categories", path: categories_path}, {name: @category.name, path: category_path(@category)}, {name: "Sub-categories", path: category_subcategories_path(@category)}, {name: @subcategory.name}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: @category.name, path: category_path(@category) }, { name: "Sub-categories", path: category_subcategories_path(@category) }, { name: @subcategory.name } ]
   end
 
   # GET /subcategories/new
   def new
     @subcategory = Subcategory.new
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Categories", path: categories_path}, {name: @category.name, path: category_path(@category)}, {name: "Sub-categories", path: category_subcategories_path(@category)}, {name: "New"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: @category.name, path: category_path(@category) }, { name: "Sub-categories", path: category_subcategories_path(@category) }, { name: "New" } ]
   end
 
   # GET /subcategories/1/edit
   def edit
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Categories", path: categories_path}, {name: @category.name, path: category_path(@category)}, {name: "Sub-categories", path: category_subcategories_path(@category)}, {name: @subcategory.name, path: category_subcategory_path(@category, @subcategory)}, {name: "Edit"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: @category.name, path: category_path(@category) }, { name: "Sub-categories", path: category_subcategories_path(@category) }, { name: @subcategory.name, path: category_subcategory_path(@category, @subcategory) }, { name: "Edit" } ]
   end
 
   # POST /subcategories or /subcategories.json

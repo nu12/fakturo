@@ -17,9 +17,9 @@ class DocumentsTest < ApplicationSystemTestCase
     click_on "New Document"
 
     fill_in "Name", with: @document.name
-    select(@document.year, from: 'document_year')
-    select(@document.month, from: 'document_month')
-    select(@document.source.name, from: 'document_source_id')
+    select(@document.year, from: "document_year")
+    select(@document.month, from: "document_month")
+    select(@document.source.name, from: "document_source_id")
     click_on "Save"
 
     assert_text "Document was successfully created"
@@ -31,9 +31,9 @@ class DocumentsTest < ApplicationSystemTestCase
     click_on "Edit this document", match: :first
 
     fill_in "Name", with: @document.name
-    select(@document.year, from: 'document_year')
-    select(@document.month, from: 'document_month')
-    select(@document.source.name, from: 'document_source_id')
+    select(@document.year, from: "document_year")
+    select(@document.month, from: "document_month")
+    select(@document.source.name, from: "document_source_id")
     click_on "Save"
 
     assert_text "Document was successfully updated"
@@ -43,7 +43,7 @@ class DocumentsTest < ApplicationSystemTestCase
   test "should destroy Document" do
     visit document_url(@document)
     click_on "Delete this document"
-    
+
     assert_text "Yes, delete this document"
     click_on "Yes, delete this document"
   end

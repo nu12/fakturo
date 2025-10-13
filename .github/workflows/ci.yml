@@ -1,9 +1,10 @@
 name: CI
 
 on:
+  workflow_dispatch: {}
   pull_request:
-  push:
-    branches: [ main ]
+    branches:
+    - main
 
 jobs:
   scan_ruby:
@@ -88,3 +89,13 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        uses: nu12/templates/actions/build/docker@main
+        with:
+          tag: 'latest'
+          registry-password: '${{ secrets.TOKEN }}'
+          push: false

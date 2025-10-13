@@ -2,28 +2,28 @@ class CategoriesController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
   before_action :set_category, only: %i[ show edit update destroy ]
-  before_action {set_active_page('home')}
+  before_action { set_active_page("home") }
 
   # GET /categories or /categories.json
   def index
     @categories = Category.accessible_by(current_ability)
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Categories"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories" } ]
   end
 
   # GET /categories/1 or /categories/1.json
   def show
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Categories", path: categories_path}, {name: @category.name}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: @category.name } ]
   end
 
   # GET /categories/new
   def new
     @category = Category.new
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Categories", path: categories_path}, {name: "New"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: "New" } ]
   end
 
   # GET /categories/1/edit
   def edit
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Categories", path: categories_path}, {name: @category.name, path: category_path(@category)}, {name: "Edit"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: @category.name, path: category_path(@category) }, { name: "Edit" } ]
   end
 
   # POST /categories or /categories.json
@@ -75,5 +75,4 @@ class CategoriesController < ApplicationController
     def category_params
       params.expect(category: [ :name, :description ])
     end
-
 end

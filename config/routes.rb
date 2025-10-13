@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   # Categories and sub-categories
-  resources :categories do 
+  resources :categories do
     resources :subcategories do
       resources :expenses, only: :show
     end
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   # Anonymous access
   get "policy" => "guest#policy"
-  
+
   # User navigation
   get "home" => "home#index"
   get "home/policy" => "home#policy"

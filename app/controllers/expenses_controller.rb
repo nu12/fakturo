@@ -4,44 +4,44 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: %i[ show edit update destroy ]
   before_action :load_categories, only: %i[ new create edit ]
   before_action :load_documents, only: %i[ new create edit ]
-  before_action {set_active_page('home')}
+  before_action { set_active_page("home") }
 
   # GET /expenses or /expenses.json
   def index
     @page = params[:page]||1
     @expenses = Expense.accessible_by(current_ability).paginate(page: @page).order(id: :asc)
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Expenses"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses" } ]
   end
 
   # GET /expenses/1 or /expenses/1.json
   def show
     if params[:subcategory_id]
       subcategory = Subcategory.find(params[:subcategory_id])
-      @breadcrumb = [{name: "Home", path: root_path}, {name: "Categories", path: categories_path}, {name: subcategory.category.name, path: category_path(subcategory.category)}, {name: "Sub-categories", path: category_subcategories_path}, {name: subcategory.name, path: category_subcategory_path(subcategory.category, subcategory)}, {name: "Expense: #{@expense.description}"}]
+      @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: subcategory.category.name, path: category_path(subcategory.category) }, { name: "Sub-categories", path: category_subcategories_path }, { name: subcategory.name, path: category_subcategory_path(subcategory.category, subcategory) }, { name: "Expense: #{@expense.description}" } ]
     elsif params[:category_id]
       category = Category.find(params[:category_id])
-      @breadcrumb = [{name: "Home", path: root_path}, {name: "Categories", path: categories_path}, {name: category.name, path: category_path(category)}, {name: "Expense: #{@expense.description}"}]
+      @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: category.name, path: category_path(category) }, { name: "Expense: #{@expense.description}" } ]
     elsif params[:source_id]
       source = Source.find(params[:source_id])
-      @breadcrumb = [{name: "Home", path: root_path}, {name: "Sources", path: sources_path}, {name: source.name, path: source_path(source)}, {name: "Expense: #{@expense.description}"}]
+      @breadcrumb = [ { name: "Home", path: root_path }, { name: "Sources", path: sources_path }, { name: source.name, path: source_path(source) }, { name: "Expense: #{@expense.description}" } ]
     elsif params[:document_id]
       document = Document.find(params[:document_id])
-      @breadcrumb = [{name: "Home", path: root_path}, {name: "Documents", path: documents_path}, {name: document.name, path: document_path(document)}, {name: "Expense: #{@expense.description}"}]
+      @breadcrumb = [ { name: "Home", path: root_path }, { name: "Documents", path: documents_path }, { name: document.name, path: document_path(document) }, { name: "Expense: #{@expense.description}" } ]
     else
       page = params[:page]||1
-      @breadcrumb = [{name: "Home", path: root_path}, {name: "Expenses (Page #{page})", path: expenses_page_path(page)}, {name: @expense.description}]
+      @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses (Page #{page})", path: expenses_page_path(page) }, { name: @expense.description } ]
     end
   end
 
   # GET /expenses/new
   def new
     @expense = Expense.new
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Expenses", path: expenses_path}, {name: "New"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses", path: expenses_path }, { name: "New" } ]
   end
 
   # GET /expenses/1/edit
   def edit
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Expenses", path: expenses_path}, {name: @expense.description, path: expense_path(@expense)}, {name: "Edit"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses", path: expenses_path }, { name: @expense.description, path: expense_path(@expense) }, { name: "Edit" } ]
   end
 
   # POST /expenses or /expenses.json

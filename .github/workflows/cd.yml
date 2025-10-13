@@ -4,12 +4,20 @@ on:
     tags:
       - 'v*.*.*'
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+    - name: Release
+      uses: nu12/templates/actions/github/release@main
       with:
-        ruby-version: 3.3
+        version: '${{ github.ref_name }}'
+    - name: Build
+      uses: nu12/templates/actions/build/docker@main
+      with:
+        tag: '${{ github.ref_name }}'
+        registry-password: '${{ secrets.TOKEN }}'

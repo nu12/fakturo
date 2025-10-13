@@ -8,7 +8,6 @@ class Source < ApplicationRecord
   private
 
   def destroy_documents
-    self.documents.each {|d| d.destroy!}
+    self.documents.each { |d| d.destroy! }
   end
-
 end

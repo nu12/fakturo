@@ -3,28 +3,28 @@ class DocumentsController < ApplicationController
   load_and_authorize_resource
   before_action :set_document, only: %i[ show edit update destroy ]
   before_action :load_sources, only: %i[ new create edit ]
-  before_action {set_active_page('home')}
+  before_action { set_active_page("home") }
 
   # GET /documents or /documents.json
   def index
     @documents = Document.accessible_by(current_ability)
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Documents"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Documents" } ]
   end
 
   # GET /documents/1 or /documents/1.json
   def show
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Documents", path: documents_path}, {name: @document.name}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Documents", path: documents_path }, { name: @document.name } ]
   end
 
   # GET /documents/new
   def new
     @document = Document.new
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Documents", path: documents_path}, {name: "New"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Documents", path: documents_path }, { name: "New" } ]
   end
 
   # GET /documents/1/edit
   def edit
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Documents", path: documents_path}, {name: @document.name, path: document_path(@document)}, {name: "Edit"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Documents", path: documents_path }, { name: @document.name, path: document_path(@document) }, { name: "Edit" } ]
   end
 
   # POST /documents or /documents.json
