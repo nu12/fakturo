@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2025-09-25 12:31:23
+  value: 1
+  ignore: false
+  document: one
+  subcategory: one
+
+two:
+  date: 2025-09-25 12:31:23
+  value: 1
+  ignore: false
+  document: two
+  subcategory: two

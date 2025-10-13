@@ -1,0 +1,22 @@
+%h1 Dashboards
+
+.row.row-cols-1.row-cols-md-3.g-4
+  
+  .col.d-flex.align-items-stretch
+    .card.w-100
+      = image_tag("echarts_pie.jpeg", alt: "Pie Chart", width: "100%")
+      .card-body.d-flex.flex-column
+        = link_to "Categories by document", "/dashboards/category_by_document", {class: "btn btn-fakturo align-self-stretch mt-auto"}
+	
+  .col.d-flex.align-items-stretch
+    .card.w-100
+      = image_tag("echarts_pie.jpeg", alt: "Pie Chart", width: "100%")
+      .card-body.d-flex.flex-column
+        = link_to "Categories by year", "/dashboards/category_by_year", {class: "btn btn-fakturo align-self-stretch mt-auto"}
+  
+  .col.d-flex.align-items-stretch
+    .card.w-100
+      = image_tag("echarts_pie.jpeg", alt: "Pie Chart", width: "100%")
+      .card-body.d-flex.flex-column
+        = link_to "Categories by month", "/dashboards/category_by_month", {class: "btn btn-fakturo align-self-stretch mt-auto"}
+

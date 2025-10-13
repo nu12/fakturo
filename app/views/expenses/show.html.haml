@@ -1,0 +1,47 @@
+%h1
+  View expense
+
+.container.w-50
+
+  %table.table
+    %thead
+      %tr
+        %th Info
+        %th Value
+    %tbody
+      %tr
+        %td Date
+        %td= @expense.date
+      %tr
+        %td Description
+        %td= @expense.description
+      %tr
+        %td Value
+        %td= format("%.2f", @expense.value)
+      %tr
+        %td Comment
+        %td= @expense.comment
+      %tr
+        %td Ignored
+        %td= @expense.ignore
+      %tr
+        %td Document
+        %td= @expense.document.name
+      %tr
+        %td Source
+        %td= @expense.document.source.name
+      %tr
+        %td Category
+        %td= @expense.subcategory.category.name
+      %tr
+        %td Sub-category
+        %td= @expense.subcategory.name
+      %tr
+        %td{colspan: "2"}
+          = link_to 'Edit this expense', edit_expense_path(@expense), class: "btn btn-light form-control"
+      %tr
+        %td{colspan: "2"}
+          %button.btn.btn-danger.form-control{:type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#deleteModal"}
+            Delete this expense
+  
+= render partial: "layouts/delete_modal", locals: {element: "expense", link: @expense}

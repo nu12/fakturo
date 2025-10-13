@@ -1,0 +1,23 @@
+= link_to 'New Sub-category', new_category_subcategory_path, {class: "btn btn-fakturo btn-fakturo-action float-end"}
+
+%h1 Sub-categories
+%p
+  Category:
+  = @category.name
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th # of expenses
+      %th
+
+  %tbody
+    - @subcategories.each do |subcategory|
+      %tr
+        %td= subcategory.name
+        %td= subcategory.description
+        %td= subcategory.expenses.count
+        %td= link_to 'Show details', category_subcategory_path(subcategory.category, subcategory)
+       

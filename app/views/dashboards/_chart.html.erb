@@ -1,0 +1,7 @@
+<script type="text/javascript">
+    var chartDom = document.getElementById('chart');
+    var myChart = echarts.init(chartDom);
+    var option;
+    option = <%= raw @option.to_json %>;
+    option && myChart.setOption(option);
+</script>

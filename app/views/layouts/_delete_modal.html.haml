@@ -1,0 +1,14 @@
+
+.modal#deleteModal{:tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5.modal-title
+          Caution
+      .modal-body
+        %p
+          This action is irreversible. Do you want to proceed?
+      .modal-footer
+        %button.btn.btn-secondary{:type => "button", "data-bs-dismiss" => "modal"}
+          No, go back
+        = link_to "Yes, delete this #{element}", link, class: "btn btn-danger", data: {turbo_method: :delete}

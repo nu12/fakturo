@@ -1,0 +1,20 @@
+%h1 Category by year
+
+%p Select the year and the month
+
+= form_with url: "/dashboards/category_by_month", method: :get do |form|
+  .field.mb-3
+    = form.select :year, [2024, 2025].map { |y| [y, y] }, {selected: params[:year], prompt: "Select a year" },{ class: "form-control" }
+
+  .field.mb-3
+    = form.select :month, [1,2,3,4,5,6,7,8,9,10,11,12].map { |m| [m, m] }, {selected: params[:month], prompt: "Select a month" },{ class: "form-control" }
+  
+  .actions.mb-3
+    = form.submit "Update chart", class: "form-control btn btn-fakturo btn-fakturo-action"
+
+#chart.container.w-100.h-100
+
+= render "import_echarts"
+
+= render partial: "chart", locals: {option: @option}
+

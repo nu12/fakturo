@@ -1,0 +1,17 @@
+= link_to 'New Source', new_source_path, {class: "btn btn-fakturo btn-fakturo-action float-end"}
+
+%h1 Sources
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th # of expenses
+      %th
+
+  %tbody
+    - @sources.each do |source|
+      %tr
+        %td= source.name
+        %td= source.expenses.count
+        %td= link_to 'Show details', source

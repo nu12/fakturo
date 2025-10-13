@@ -1,0 +1,26 @@
+= form_for @document do |f|
+  - if @document.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@document.errors.count, "error")} prohibited this document from being saved:"
+      %ul
+        - @document.errors.full_messages.each do |message|
+          %li= message
+
+  .field.mb-3
+    = f.label :name, {class: "form-label"}
+    = f.text_field :name, class: "form-control"
+
+  .field.mb-3
+    = f.label :year, {class: "form-label"}
+    = f.select :year, Array.new(10){ |i| i }.map { |s| [2021 + s, 2021 + s] }, { prompt: "Select a year" }, { class: "form-control" }
+
+  .field.mb-3
+    = f.label :month, {class: "form-label"}
+    = f.select :month, Array.new(12){ |i| i }.map { |s| [s + 1, s + 1] }, { prompt: "Select a month" }, { class: "form-control" }
+
+  .field.mb-3
+    = f.label :source_id, {class: "form-label"}
+    = f.select :source_id, @sources.map { |s| [s.name, s.id] }, { prompt: "Select a source" }, { class: "form-control" }
+
+  .actions.mb-3
+    = f.submit 'Save', class: "form-control btn btn-fakturo btn-fakturo-action"

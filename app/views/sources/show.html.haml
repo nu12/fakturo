@@ -1,0 +1,59 @@
+%h1
+  Source details
+
+.container.w-50
+  %table.table
+    %thead
+      %tr
+        %th Info
+        %th Value
+    %tbody
+      %tr
+        %td Name
+        %td= @source.name
+      %tr
+        %td # of expenses
+        %td= @source.expenses.count
+      %tr
+        %td{colspan: "2"}
+          = link_to 'Edit this source', edit_source_path(@source), class: "btn btn-light form-control"
+      %tr
+        %td{colspan: "2"}
+          %button.btn.btn-danger.form-control{:type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#deleteModal"}
+            Delete this source
+  
+= render partial: "layouts/delete_modal", locals: {element: "source", link: @source}
+
+.accordion#accordionExpenses
+  .accordion-item
+    %h2.accordion-header
+      %button.accordion-button.collapsed{:type => "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapseOne", "aria-expanded" => "false", "aria-controls" => "collapseOne"}
+        Expenses
+    #collapseOne.accordion-collapse.collapse{"data-bs-parent" => "#accordionExpenses"}
+      .accordion-body
+
+        %table.table.table-sm.table-striped
+          %thead
+            %tr
+              %th Date
+              %th Description
+              %th Value
+              %th Comment
+              %th Ignore
+              %th Document
+              %th Category
+              %th Sub-category
+              %th
+
+          %tbody
+            - @source.expenses.each do |expense|
+              %tr
+                %td= expense.date.strftime("%Y-%m-%d")
+                %td= expense.description
+                %td= format("%.2f", expense.value)
+                %td= expense.comment
+                %td= expense.ignore
+                %td= expense.document.name
+                %td= expense.subcategory.category.name
+                %td= expense.subcategory.name
+                %td= link_to 'Show', source_expense_path(@source, expense)

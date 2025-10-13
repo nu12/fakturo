@@ -1,0 +1,25 @@
+= link_to 'New Document', new_document_path, {class: "btn btn-fakturo btn-fakturo-action float-end"}
+
+%h1 Documents
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Year
+      %th Month
+      %th Is upload
+      %th Source
+      %th # of expenses
+      %th
+
+  %tbody
+    - @documents.each do |document|
+      %tr
+        %td= document.name
+        %td= document.year
+        %td= "%02d" % document.month
+        %td= document.is_upload
+        %td= document.source.name
+        %td= document.expenses.count
+        %td= link_to 'Show details', document
