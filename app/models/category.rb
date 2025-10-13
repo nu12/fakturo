@@ -8,7 +8,6 @@ class Category < ApplicationRecord
   private
 
   def destroy_subcategories
-    self.subcategories.each {|d| d.destroy!}
+    self.subcategories.each { |d| d.destroy! }
   end
-
 end

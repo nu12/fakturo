@@ -2,28 +2,28 @@ class SourcesController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
   before_action :set_source, only: %i[ show edit update destroy ]
-  before_action {set_active_page('home')}
+  before_action { set_active_page("home") }
 
   # GET /sources or /sources.json
   def index
     @sources = Source.accessible_by(current_ability)
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Sources"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Sources" } ]
   end
 
   # GET /sources/1 or /sources/1.json
   def show
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Sources", path: sources_path}, {name: @source.name}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Sources", path: sources_path }, { name: @source.name } ]
   end
 
   # GET /sources/new
   def new
     @source = Source.new
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Sources", path: sources_path}, {name: "New"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Sources", path: sources_path }, { name: "New" } ]
   end
 
   # GET /sources/1/edit
   def edit
-    @breadcrumb = [{name: "Home", path: root_path}, {name: "Sources", path: sources_path}, {name: @source.name, path: source_path(@source)}, {name: "Edit"}]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Sources", path: sources_path }, { name: @source.name, path: source_path(@source) }, { name: "Edit" } ]
   end
 
   # POST /sources or /sources.json

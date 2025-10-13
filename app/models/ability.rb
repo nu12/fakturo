@@ -28,14 +28,14 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
-    
 
-    return unless user.present? 
+
+    return unless user.present?
     can :manage, Category, user: user
-    can :manage, Subcategory, category: {user: user}
+    can :manage, Subcategory, category: { user: user }
     can :manage, Source, user: user
     can :manage, Document, user: user
-    can [:read, :update, :destroy], Expense, document: {user: user}
-    can [:create], Expense
+    can [ :read, :update, :destroy ], Expense, document: { user: user }
+    can [ :create ], Expense
   end
 end
