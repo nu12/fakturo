@@ -54,6 +54,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  gem "haml-rails", "~> 3.0"
 end
 
 group :test do
@@ -65,8 +67,6 @@ end
 gem "devise", "~> 4.9"
 
 gem "haml", "~> 6.3"
-
-gem "haml-rails", "~> 3.0"
 
 gem "cancancan", "~> 3.6"
 

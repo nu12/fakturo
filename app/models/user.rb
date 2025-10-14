@@ -10,10 +10,10 @@ class User < ApplicationRecord
   before_create :set_uuid
 
   def regenerate_token
-    something_the_user_has = self.uuid
-    something_i_know = "my-secret"
-    something_i_dont_know = Time.now.to_s
-    self.access_token = "f_#{Digest::MD5.hexdigest(something_the_user_has + something_i_know + something_i_dont_know)}"
+    factor_1 = self.uuid
+    factor_2 = SecureRandom.alphanumeric
+    factor_3 = Time.now.to_s
+    self.access_token = "f_#{Digest::MD5.hexdigest(factor_1 + factor_2 + factor_3)}"
     self.access_token_expiry_date = Time.now + 90.days
   end
 
