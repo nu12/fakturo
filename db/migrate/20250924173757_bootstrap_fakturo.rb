@@ -23,8 +23,7 @@ class BootstrapFakturo < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    create_table :documents do |t|
-      t.string :name
+    create_table :statements do |t|
       t.integer :year
       t.integer :month
       t.boolean :is_upload, default: false
@@ -37,11 +36,11 @@ class BootstrapFakturo < ActiveRecord::Migration[8.0]
     create_table :expenses do |t|
       t.date :date
       t.float :value
-      t.boolean :ignore
+      t.boolean :ignore, default: false
       t.string :raw_description
       t.string :description
       t.string :comment
-      t.references :document, null: false, foreign_key: true
+      t.references :statement, null: false, foreign_key: true
       t.references :subcategory, null: false, foreign_key: true
 
       t.timestamps

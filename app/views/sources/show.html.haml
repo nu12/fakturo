@@ -40,7 +40,7 @@
               %th Value
               %th Comment
               %th Ignore
-              %th Document
+              %th Statement date
               %th Category
               %th Sub-category
               %th
@@ -53,7 +53,10 @@
                 %td= format("%.2f", expense.value)
                 %td= expense.comment
                 %td= expense.ignore
-                %td= expense.document.name
+                %td
+                  = expense.statement.year
+                  \-
+                  = expense.statement.year
                 %td= expense.subcategory.category.name
                 %td= expense.subcategory.name
                 %td= link_to 'Show', source_expense_path(@source, expense)

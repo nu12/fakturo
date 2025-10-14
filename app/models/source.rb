@@ -1,13 +1,13 @@
 class Source < ApplicationRecord
   belongs_to :user
-  has_many :documents, dependent: :delete_all
-  has_many :expenses, through: :documents
+  has_many :statements, dependent: :delete_all
+  has_many :expenses, through: :statements
 
-  before_destroy :destroy_documents, prepend: true
+  before_destroy :destroy_statements, prepend: true
 
   private
 
-  def destroy_documents
-    self.documents.each { |d| d.destroy! }
+  def destroy_statements
+    self.statements.each { |d| d.destroy! }
   end
 end

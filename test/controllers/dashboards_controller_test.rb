@@ -11,8 +11,8 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get category_by_document" do
-    get dashboards_category_by_document_url
+  test "should get category_by_statement" do
+    get dashboards_category_by_statement_url
     assert_response :success
   end
 

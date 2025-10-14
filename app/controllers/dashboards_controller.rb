@@ -6,14 +6,14 @@ class DashboardsController < ApplicationController
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards" } ]
   end
 
-  def category_by_document
-    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by document" } ]
-    @documents = Document.accessible_by(current_ability)
-    authorize! :read, Document, @documents
-    if params[:document_id]
-      @cat = Category.accessible_by(current_ability).order(id: :desc).joins(:expenses).where("expenses.document_id" => params[:document_id]).group(:name).sum("expenses.value").map { |k, v| { "name" => k, "value" => v } }
+  def category_by_statement
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by statement" } ]
+    @statements = Statement.accessible_by(current_ability)
+    authorize! :read, Statement, @statements
+    if params[:statement_id]
+      @cat = Category.accessible_by(current_ability).order(id: :desc).joins(:expenses).where("expenses.statement_id" => params[:statement_id]).group(:name).sum("expenses.value").map { |k, v| { "name" => k, "value" => v } }
       authorize! :read, Category, @cat
-      @sub = Subcategory.accessible_by(current_ability).order(category_id: :desc).joins(:expenses).where("expenses.document_id" => params[:document_id]).group(:name).sum("expenses.value").map { |k, v| { "name" => k, "value" => v } }
+      @sub = Subcategory.accessible_by(current_ability).order(category_id: :desc).joins(:expenses).where("expenses.statement_id" => params[:statement_id]).group(:name).sum("expenses.value").map { |k, v| { "name" => k, "value" => v } }
       authorize! :read, Subcategory, @sub
 
       @option = double_pie_chart(

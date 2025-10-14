@@ -34,8 +34,8 @@ class Ability
     can :manage, Category, user: user
     can :manage, Subcategory, category: { user: user }
     can :manage, Source, user: user
-    can :manage, Document, user: user
-    can [ :read, :update, :destroy ], Expense, document: { user: user }
+    can :manage, Statement, user: user
+    can [ :read, :update, :destroy ], Expense, statement: { user: user }
     can [ :create ], Expense
   end
 end

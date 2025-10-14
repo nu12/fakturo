@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   has_many :categories
   has_many :sources
-  has_many :documents
+  has_many :statements
 
   before_create :set_uuid
 

@@ -9,8 +9,8 @@ class ApiController < ApplicationController
       from expenses
       left join subcategories on expenses.subcategory_id = subcategories.id
       left join categories on subcategories.category_id = categories.id
-      left join documents on expenses.document_id = documents.id
-      where documents.user_id = ?", @user.id ])
+      left join statements on expenses.statement_id = statements.id
+      where statements.user_id = ?", @user.id ])
     result = ActiveRecord::Base.connection.execute(sql)
     render json: result
   end

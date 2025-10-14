@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   get "/expenses/page/:page/:id" => "expenses#show", :as => :expense_page
   resources :expenses
 
-  # Documents
-  resources :documents do
+  # Statements
+  resources :statements do
     resources :expenses, only: :show
   end
 
@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
   # Dashboards
   get "dashboards" => "dashboards#index", :as => :dashboards
-  get "dashboards/category_by_document"
+  get "dashboards/category_by_statement"
   get "dashboards/category_by_month"
   get "dashboards/category_by_year"
 

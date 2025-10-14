@@ -20,31 +20,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_24_173757) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
-  create_table "documents", force: :cascade do |t|
-    t.string "name"
-    t.integer "year"
-    t.integer "month"
-    t.boolean "is_upload", default: false
-    t.integer "source_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["source_id"], name: "index_documents_on_source_id"
-    t.index ["user_id"], name: "index_documents_on_user_id"
-  end
-
   create_table "expenses", force: :cascade do |t|
     t.date "date"
     t.float "value"
-    t.boolean "ignore"
+    t.boolean "ignore", default: false
     t.string "raw_description"
     t.string "description"
     t.string "comment"
-    t.integer "document_id", null: false
+    t.integer "statement_id", null: false
     t.integer "subcategory_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["document_id"], name: "index_expenses_on_document_id"
+    t.index ["statement_id"], name: "index_expenses_on_statement_id"
     t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
   end
 
@@ -54,6 +41,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_24_173757) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_sources_on_user_id"
+  end
+
+  create_table "statements", force: :cascade do |t|
+    t.integer "year"
+    t.integer "month"
+    t.boolean "is_upload", default: false
+    t.integer "source_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source_id"], name: "index_statements_on_source_id"
+    t.index ["user_id"], name: "index_statements_on_user_id"
   end
 
   create_table "subcategories", force: :cascade do |t|
@@ -79,10 +78,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_24_173757) do
   end
 
   add_foreign_key "categories", "users"
-  add_foreign_key "documents", "sources"
-  add_foreign_key "documents", "users"
-  add_foreign_key "expenses", "documents"
+  add_foreign_key "expenses", "statements"
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "sources", "users"
+  add_foreign_key "statements", "sources"
+  add_foreign_key "statements", "users"
   add_foreign_key "subcategories", "categories"
 end
