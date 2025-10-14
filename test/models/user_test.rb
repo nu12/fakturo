@@ -10,4 +10,13 @@ class UserTest < ActiveSupport::TestCase
     user.save
     assert user.uuid != nil
   end
+
+  test "regenerate access token" do
+    user = User.new
+    user.save
+    user.regenerate_token
+    previous_token = user.access_token
+    user.regenerate_token
+    assert user.access_token != previous_token
+  end
 end

@@ -12,17 +12,17 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get category_by_statement" do
-    get dashboards_category_by_statement_url
+    get category_by_statement_url
     assert_response :success
   end
 
   test "should get category_by_month" do
-    get dashboards_category_by_month_url
+    get category_by_month_url
     assert_response :success
   end
 
   test "should get category_by_year" do
-    get dashboards_category_by_year_url
+    get category_by_year_url
     assert_response :success
   end
 end

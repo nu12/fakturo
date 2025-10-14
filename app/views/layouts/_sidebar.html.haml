@@ -1,0 +1,60 @@
+
+.d-flex.flex-column.flex-shrink-0.p-3.bg-body-tertiary{:style => "width: 280px;"} 
+  %a.d-flex.align-items-center.mb-3.mb-md-0.me-md-auto.link-body-emphasis.text-decoration-none{:href => "/"}
+    = image_tag("logo.png", alt: "Fakturo", width: "40", height: "40")
+    %span.fs-4.fakturo-title{:style => "margin-left: 10px;"}
+      Fakturo 
+  %hr
+  %ul.nav.nav-pills.flex-column.mb-auto
+    %li.nav-item
+      %a{
+        :href => "/home",
+        :class => "nav-link #{'active' if @active == 'home' }",
+        "aria-current" => "page"
+      }
+        %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true"}
+          %use{ "xlink:href" => "#home" }
+        Home
+    %li.nav-item
+      %a{
+        :href => "/dashboards",
+        :class => "nav-link #{'active' if @active == 'dashboards' }", 
+        "aria-current" => "page"
+      }
+        %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true"}
+          %use{ "xlink:href" => "#speedometer2" }
+        Dashboard
+    %li.nav-item
+      %a{
+        :href => "/user/access",
+        :class => "nav-link #{'active' if @active == 'access' }", 
+        "aria-current" => "page"
+      }
+        %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true"}
+          %use{ "xlink:href" => "#key" }
+        External access
+    %li.nav-item
+      %a{
+        :href => "/home/policy",
+        :class => "nav-link #{'active' if @active == 'policy' }", 
+        "aria-current" => "page"
+      }
+        %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true"}
+          %use{ "xlink:href" => "#info" }
+        Data & Privacy policy
+  %hr
+  .dropdown
+    %a.d-flex.align-items-center.link-body-emphasis.text-decoration-none.dropdown-toggle{ :href => "#", "data-bs-toggle" => "dropdown", "aria-expanded" => "false" }
+      %img.rounded-circle.me-2{ :src => "https://github.com/mdo.png", :alt => "", :width => "32", :height => "32" } 
+      %strong
+        = current_user.username 
+    %ul.dropdown-menu.text-small.shadow
+      %li
+        = link_to "Change password", edit_user_password_path, class: "dropdown-item"
+      %li
+        = link_to "Erase all user data", delete_data_path, class: "dropdown-item"
+      %li
+        %hr.dropdown-divider
+      %li
+        = link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item"
+.b-example-divider.b-example-vr

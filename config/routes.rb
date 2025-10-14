@@ -40,9 +40,9 @@ Rails.application.routes.draw do
 
   # Dashboards
   get "dashboards" => "dashboards#index", :as => :dashboards
-  get "dashboards/category_by_statement"
-  get "dashboards/category_by_month"
-  get "dashboards/category_by_year"
+  get "dashboards/category_by_statement", as: :category_by_statement
+  get "dashboards/category_by_month", as: :category_by_month
+  get "dashboards/category_by_year", as: :category_by_year
 
   # External access configuration
 
