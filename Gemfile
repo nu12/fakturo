@@ -66,7 +66,7 @@ gem "devise", "~> 4.9"
 
 gem "haml", "~> 6.3"
 
-gem "haml-rails", "~> 2.1"
+gem "haml-rails", "~> 3.0"
 
 gem "cancancan", "~> 3.6"
 
