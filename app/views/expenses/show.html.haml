@@ -25,11 +25,14 @@
         %td Ignored
         %td= @expense.ignore
       %tr
-        %td Document
-        %td= @expense.document.name
+        %td Statement date
+        %td
+          = @expense.statement.year
+          \-
+          = @expense.statement.month
       %tr
         %td Source
-        %td= @expense.document.source.name
+        %td= @expense.statement.source.name
       %tr
         %td Category
         %td= @expense.subcategory.category.name

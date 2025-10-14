@@ -28,15 +28,15 @@ end
         Source.new(name: source, user_id: user.id).save
 end
 
-[   { name: "Statement January 2025", source_id: 1, year: 2025, month: 1 },
-    { name: "Statement January 2025", source_id: 2, year: 2025, month: 1 },
-    { name: "Statement January 2025", source_id: 3, year: 2025, month: 1 },
-    { name: "Statement January 2025", source_id: 4, year: 2025, month: 1 },
-    { name: "Statement February 2025", source_id: 1, year: 2025, month: 2 },
-    { name: "Statement February 2025", source_id: 2, year: 2025, month: 2 },
-    { name: "Statement February 2025", source_id: 3, year: 2025, month: 2 },
-    { name: "Statement February 2025", source_id: 4, year: 2025, month: 2 } ].each do | document |
-        d = Document.new(document.merge({ user_id: user.id })).save
+[   { source_id: 1, year: 2025, month: 1 },
+    { source_id: 2, year: 2025, month: 1 },
+    { source_id: 3, year: 2025, month: 1 },
+    { source_id: 4, year: 2025, month: 1 },
+    { source_id: 1, year: 2025, month: 2 },
+    { source_id: 2, year: 2025, month: 2 },
+    { source_id: 3, year: 2025, month: 2 },
+    { source_id: 4, year: 2025, month: 2 } ].each do | statement |
+        Statement.new(statement.merge({ user_id: user.id })).save
 end
 
 dates = [
@@ -47,7 +47,7 @@ dates = [
 ]
 
 values = Array.new(300) { (rand * (100 - 1) + 1).round(2) }
-documents = Document.all
+statements = Statement.all
 subcategories = Subcategory.all
 
 150.times do |n|
@@ -55,7 +55,7 @@ subcategories = Subcategory.all
     e.date = dates.sample
     e.description = "Generic #{n}"
     e.value = values.sample
-    e.document = documents.sample
+    e.statement = statements.sample
     e.subcategory = subcategories.sample
     e.save
 end

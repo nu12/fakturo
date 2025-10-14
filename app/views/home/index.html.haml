@@ -1,4 +1,4 @@
-= link_to "Upload new document", "#", {class: "btn btn-light float-end"}
+= link_to "Upload new statement", "#", {class: "btn btn-light float-end"}
 %h1 My panel
 %p Use the options below to manage your data
 
@@ -26,22 +26,22 @@
           They can be registered as "Bank X" and "Credit card Y" and will be linked to the expenses. 
           %br
           %br
-          Sources emit documents.
+          Sources emit statements.
         = link_to "Manage sources", sources_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}
   
   .col.d-flex.align-items-stretch
     .card
       .card-body.d-flex.flex-column
-        %h5.card-title Documents
+        %h5.card-title Statements
         %p.card-text 
-          Documents are collections of expenses. 
+          Statements are collections of expenses. 
           %br
           %br
-          They belong to an institution and are produced in a regular interval, usually monthly. Think of "Checking account statement for the month of april from Bank X".
+          They belong to an institution (source) and are produced in a regular interval, usually monthly. Think of "Checking account statement for the month of april from Bank X".
           %br
           %br
-          When you upload a document, the expenses it contains will be automatically extracted and registered in the system.
-        = link_to "Manage documents", documents_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}
+          When you upload a statement, the expenses it contains will be automatically extracted and registered in the system.
+        = link_to "Manage statements", statements_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}
         
 
   .col.d-flex.align-items-stretch
@@ -52,5 +52,5 @@
           Each line in a checking account statement or credit card statement is an expense. 
           %br
           %br
-          Here you can manage extracted expenses from documents or create them manually.
+          Here you can manage extracted expenses from statements or create them manually.
         = link_to "Manage expenses", expenses_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}

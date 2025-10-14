@@ -1,0 +1,23 @@
+= link_to 'New Statement', new_statement_path, {class: "btn btn-fakturo btn-fakturo-action float-end"}
+
+%h1 Statements
+
+%table.table
+  %thead
+    %tr
+      %th Year
+      %th Month
+      %th Is upload
+      %th Source
+      %th # of expenses
+      %th
+
+  %tbody
+    - @statements.each do |statement|
+      %tr
+        %td= statement.year
+        %td= "%02d" % statement.month
+        %td= statement.is_upload
+        %td= statement.source.name
+        %td= statement.expenses.count
+        %td= link_to 'Show details', statement
