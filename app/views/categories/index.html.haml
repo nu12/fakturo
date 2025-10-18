@@ -17,6 +17,7 @@
         %td= category.description
         %td= category.subcategories.count
         %td= category.expenses.count
-        %td= link_to 'Show details', category
-        
-        
+        %td
+          %a{ :href => "#{category_path(category.id)}", "data-bs-toggle" => "tooltip", "data-bs-placement" => "left", "data-bs-title" => "Show details" }
+            %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+              %use{ "xlink:href" => "#edit" }

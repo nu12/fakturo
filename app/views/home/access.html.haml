@@ -22,7 +22,8 @@
         %td= current_user.access_token_expiry_date
       %tr
         %td External access status
-        %td= current_user.access_token_enabled
+        %td{:class => "#{current_user.access_token_enabled ? 'bg-success-subtle' : 'bg-danger-subtle'}"}
+          = current_user.access_token_enabled ? 'Enabled' : 'Disabled'
       %tr
         %td{colspan: "2"}
           = link_to 'Regenerate token', user_access_regenerate_path, class: "btn btn-light form-control", data: {turbo_method: :put}
@@ -30,19 +31,20 @@
         %td{colspan: "2"}
           = link_to 'Enable/disable external access', user_access_toogle_path, class: "btn btn-light form-control", data: {turbo_method: :put}
 
-.accordion#accordionExpenses
-  .accordion-item
-    %h2.accordion-header
-      %button.accordion-button.collapsed{:type => "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapseOne", "aria-expanded" => "false", "aria-controls" => "collapseOne"}
-        Available external access endpoints
-    #collapseOne.accordion-collapse.collapse{"data-bs-parent" => "#accordionExpenses"}
-      .accordion-body
-        %table.table
-          %thead
-            %tr
-              %th Description
-              %th Link
-          %tbody
-            %tr
-              %td List of user's expenses
-              %td= link_to "Link", api_all_path(uuid: current_user.uuid, access_token: current_user.access_token)
+- if current_user.access_token_enabled
+  .accordion#accordionExpenses
+    .accordion-item
+      %h2.accordion-header
+        %button.accordion-button.collapsed{:type => "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapseOne", "aria-expanded" => "false", "aria-controls" => "collapseOne"}
+          Available external access endpoints
+      #collapseOne.accordion-collapse.collapse{"data-bs-parent" => "#accordionExpenses"}
+        .accordion-body
+          %table.table
+            %thead
+              %tr
+                %th Description
+                %th Link
+            %tbody
+              %tr
+                %td List of user's expenses
+                %td= link_to "Link", api_all_path(uuid: current_user.uuid, access_token: current_user.access_token)

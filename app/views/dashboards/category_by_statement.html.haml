@@ -4,7 +4,7 @@
 
 = form_with url: "/dashboards/category_by_statement", method: :get do |form|
   .field.mb-3
-    = form.select :statement_id, @statements.map { |s| ["#{s.source.name} (#{s.year}, #{s.month})", s.id] }, {selected: params[:statement_id], prompt: "Select a statement" },{ class: "form-control" }
+    = form.select :statement_id, @statements.map { |s| ["#{s.source.name} (#{s.year}-#{'%02d' % s.month})", s.id] }, {selected: params[:statement_id], prompt: "Select a statement" },{ class: "form-control" }
   
   .actions.mb-3
     = form.submit "Update chart", class: "form-control btn btn-fakturo btn-fakturo-action"

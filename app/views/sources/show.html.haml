@@ -24,39 +24,39 @@
   
 = render partial: "layouts/delete_modal", locals: {element: "source", link: @source}
 
-.accordion#accordionExpenses
-  .accordion-item
-    %h2.accordion-header
-      %button.accordion-button.collapsed{:type => "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapseOne", "aria-expanded" => "false", "aria-controls" => "collapseOne"}
-        Expenses
-    #collapseOne.accordion-collapse.collapse{"data-bs-parent" => "#accordionExpenses"}
-      .accordion-body
+- if @source.expenses.count > 0
+  .accordion#accordionExpenses
+    .accordion-item
+      %h2.accordion-header
+        %button.accordion-button.collapsed{:type => "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapseOne", "aria-expanded" => "false", "aria-controls" => "collapseOne"}
+          Expenses
+      #collapseOne.accordion-collapse.collapse{"data-bs-parent" => "#accordionExpenses"}
+        .accordion-body
 
-        %table.table.table-sm.table-striped
-          %thead
-            %tr
-              %th Date
-              %th Description
-              %th Value
-              %th Comment
-              %th Ignore
-              %th Statement date
-              %th Category
-              %th Sub-category
-              %th
-
-          %tbody
-            - @source.expenses.each do |expense|
+          %table.table.table-sm.table-striped
+            %thead
               %tr
-                %td= expense.date.strftime("%Y-%m-%d")
-                %td= expense.description
-                %td= format("%.2f", expense.value)
-                %td= expense.comment
-                %td= expense.ignore
-                %td
-                  = expense.statement.year
-                  \-
-                  = expense.statement.year
-                %td= expense.subcategory.category.name
-                %td= expense.subcategory.name
-                %td= link_to 'Show', source_expense_path(@source, expense)
+                %th Date
+                %th Description
+                %th Value
+                %th Statement date
+                %th Category
+                %th Sub-category
+                %th
+
+            %tbody
+              - @source.expenses.each do |expense|
+                %tr
+                  %td= expense.date.strftime("%Y-%m-%d")
+                  %td
+                    = expense.description
+                    - if expense.comment && expense.comment != ""
+                      %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "#{expense.comment}"}
+                        %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+                          %use{ "xlink:href" => "#info" }
+                  %td{ :class => "#{p 'text-decoration-line-through fw-lighter' if expense.ignore}" }
+                    = format("%.2f", expense.value)
+                  %td= "#{expense.statement.year}-#{"%02d" % expense.statement.month}"
+                  %td= expense.subcategory.category.name
+                  %td= expense.subcategory.name
+                  %td= link_to 'Show', source_expense_path(@source, expense)

@@ -11,8 +11,6 @@
       %th Date
       %th Description
       %th Value
-      %th Comment
-      %th Ignore
       %th Statement
       %th Source
       %th Category
@@ -23,18 +21,25 @@
     - @expenses.each do |expense|
       %tr
         %td= expense.date.strftime("%Y-%m-%d")
-        %td= expense.description
-        %td= format("%.2f", expense.value)
-        %td= expense.comment
-        %td= expense.ignore
         %td
-          = expense.statement.year
-          \-
-          = expense.statement.month
-        %td= expense.statement.source.name
+          = expense.description
+          - if expense.comment && expense.comment != ""
+            %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "#{expense.comment}"}
+              %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+                %use{ "xlink:href" => "#info" }
+        %td{ :class => "#{p 'text-decoration-line-through fw-lighter' if expense.ignore}" }
+          = format("%.2f", expense.value)
+        %td= "#{expense.statement.year}-#{"%02d" % expense.statement.month}"
+        %td
+          %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "#{expense.statement.source.name}"}
+            %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+              %use{ "xlink:href" => "#info" }
         %td= expense.subcategory.category.name
         %td= expense.subcategory.name
-        %td= link_to 'Show details', expense_page_path(@page, expense)
+        %td
+          %a{ :href => "#{expense_page_path(@page, expense)}", "data-bs-toggle" => "tooltip", "data-bs-placement" => "left", "data-bs-title" => "Show details" }
+            %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+              %use{ "xlink:href" => "#edit" }
 
 .digg_pagination.d-flex.justify-content-center.mb-3
   = will_paginate @expenses, :container => false

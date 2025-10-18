@@ -20,5 +20,6 @@ class User < ApplicationRecord
   private
   def set_uuid
     self.uuid = SecureRandom.uuid
+    self.regenerate_token
   end
 end

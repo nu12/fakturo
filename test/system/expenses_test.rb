@@ -18,7 +18,7 @@ class ExpensesTest < ApplicationSystemTestCase
 
     fill_in "Date", with: @expense.date
     check "Ignore" if @expense.ignore
-    select("#{@expense.statement.source.name} (#{@expense.statement.year}-#{@expense.statement.month})", from: "expense_statement_id")
+    select("#{@expense.statement.source.name} (#{@expense.statement.year}-#{'%02d' % @expense.statement.month})", from: "expense_statement_id")
     select(@expense.subcategory.category.name, from: "category_id")
     select(@expense.subcategory.name, from: "subcategory_id")
     fill_in "Value", with: @expense.value
@@ -34,7 +34,7 @@ class ExpensesTest < ApplicationSystemTestCase
 
     fill_in "Date", with: @expense.date.to_s
     check "Ignore" if @expense.ignore
-    select("#{@expense.statement.source.name} (#{@expense.statement.year}-#{@expense.statement.month})", from: "expense_statement_id")
+    select("#{@expense.statement.source.name} (#{@expense.statement.year}-#{'%02d' % @expense.statement.month})", from: "expense_statement_id")
     select(@expense.subcategory.category.name, from: "category_id")
     select(@expense.subcategory.name, from: "subcategory_id")
     fill_in "Value", with: @expense.value
