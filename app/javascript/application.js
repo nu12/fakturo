@@ -2,11 +2,10 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-/* global bootstrap: false */
-(() => {
+document.addEventListener('turbo:load',() => {
   'use strict'
   const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   tooltipTriggerList.forEach(tooltipTriggerEl => {
     new bootstrap.Tooltip(tooltipTriggerEl)
-  })
-})()
+  })()
+})

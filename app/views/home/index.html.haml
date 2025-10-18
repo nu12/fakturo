@@ -5,41 +5,40 @@
 .row.row-cols-1.row-cols-md-2.g-4
   
   .col.d-flex.align-items-stretch
-    .card
+    .card.w-100
       .card-body.d-flex.flex-column
-        %h5.card-title Categories
-        %p.card-text 
-          Each expense belongs to a category and a subcategory. 
-          %br
-          %br
-          For instance, expenses for a car can belong to the category "transportation" and one of the following subcategories: "fuel", "maintenance" or "repair". 
+        %h5.card-title
+          Categories
+        %p.card-text
+          Each expense belongs to a category and a subcategory.
+          %a{"data-bs-toggle" => "tooltip", "data-bs-placement" => "top", "data-bs-title" => "Example: expenses for a car can belong to the category \"transportation\" and one of the following subcategories: \"fuel\", \"maintenance\" or \"repair\". "}
+            %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+              %use{ "xlink:href" => "#info" }
         = link_to "Manage categories", categories_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}
 
   .col.d-flex.align-items-stretch
-    .card
+    .card.w-100
       .card-body.d-flex.flex-column
-        %h5.card-title Sources
-        %p.card-text 
-          Sources of expenses, like checking accounts and credit cards. 
-          %br
-          %br
-          They can be registered as "Bank X" and "Credit card Y" and will be linked to the expenses. 
-          %br
-          %br
-          Sources emit statements.
+        %h5.card-title 
+          Sources
+        %p.card-text
+          Sources of expenses, like checking accounts and credit cards.
+          %a{"data-bs-toggle" => "tooltip", "data-bs-placement" => "top", "data-bs-title" => "They can be registered as \"Bank X\" and \"Credit card Y\" and will be linked to the expenses. Sources emit statements."}
+            %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+              %use{ "xlink:href" => "#info" }
         = link_to "Manage sources", sources_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}
   
   .col.d-flex.align-items-stretch
-    .card
+    .card.w-100
       .card-body.d-flex.flex-column
-        %h5.card-title Statements
-        %p.card-text 
-          Statements are collections of expenses. 
-          %br
-          %br
-          They belong to an institution (source) and are produced in a regular interval, usually monthly. Think of "Checking account statement for the month of april from Bank X".
-          %br
-          %br
+        %h5.card-title 
+          Statements
+        %p.card-text
+          Statements are collections of expenses.
+          %a{"data-bs-toggle" => "tooltip", "data-bs-placement" => "top", "data-bs-title" => "They belong to an institution (source) and are produced in a regular interval, usually monthly. Think of \"Statement for the month of april from Bank X\"."}
+            %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+              %use{ "xlink:href" => "#info" }
+        .alert.alert-info
           When you upload a statement, the expenses it contains will be automatically extracted and registered in the system.
         = link_to "Manage statements", statements_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}
         
@@ -52,5 +51,5 @@
           Each line in a checking account statement or credit card statement is an expense. 
           %br
           %br
-          Here you can manage extracted expenses from statements or create them manually.
+          Here you can manage extracted expenses from uploaded statements or create them manually.
         = link_to "Manage expenses", expenses_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}

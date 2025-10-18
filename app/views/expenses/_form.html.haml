@@ -20,7 +20,7 @@
     = f.text_field :comment, class: "form-control"
   .field.mb-3
     = f.label :statement_id, {class: "form-label"}
-    = f.select :statement_id, @statements.map { |d| ["#{d.source.name} (#{d.year}-#{d.month})", d.id] }, { prompt: "Select a statement" },{ class: "form-control" }
+    = f.select :statement_id, @statements.map { |d| ["#{d.source.name} (#{d.year}-#{"%02d" % d.month})", d.id] }, { prompt: "Select a statement" },{ class: "form-control" }
   .field.mb-3
     = f.label :category_id, {class: "form-label"}
     = select :category, :category_id, @categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" },{id: "category_id", onchange: "select_subcategory()", class: "form-control" }

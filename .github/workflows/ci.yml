@@ -99,3 +99,4 @@ jobs:
           tag: 'latest'
           registry-password: '${{ secrets.TOKEN }}'
           push: false
+          platforms: 'linux/amd64'

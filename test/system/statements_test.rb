@@ -17,7 +17,7 @@ class StatementsTest < ApplicationSystemTestCase
     click_on "New Statement"
 
     select(@statement.year, from: "statement_year")
-    select(@statement.month, from: "statement_month")
+    select("%02d" % @statement.month, from: "statement_month")
     select(@statement.source.name, from: "statement_source_id")
     click_on "Save"
 
@@ -30,7 +30,7 @@ class StatementsTest < ApplicationSystemTestCase
     click_on "Edit this statement", match: :first
 
     select(@statement.year, from: "statement_year")
-    select(@statement.month, from: "statement_month")
+    select("%02d" % @statement.month, from: "statement_month")
     select(@statement.source.name, from: "statement_source_id")
     click_on "Save"
 

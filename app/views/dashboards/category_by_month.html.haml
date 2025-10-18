@@ -7,7 +7,7 @@
     = form.select :year, [2024, 2025].map { |y| [y, y] }, {selected: params[:year], prompt: "Select a year" },{ class: "form-control" }
 
   .field.mb-3
-    = form.select :month, [1,2,3,4,5,6,7,8,9,10,11,12].map { |m| [m, m] }, {selected: params[:month], prompt: "Select a month" },{ class: "form-control" }
+    = form.select :month, [1,2,3,4,5,6,7,8,9,10,11,12].map { |m| [ "%02d" % m, m] }, {selected: params[:month], prompt: "Select a month" },{ class: "form-control" }
   
   .actions.mb-3
     = form.submit "Update chart", class: "form-control btn btn-fakturo btn-fakturo-action"

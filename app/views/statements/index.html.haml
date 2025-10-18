@@ -5,19 +5,31 @@
 %table.table
   %thead
     %tr
+      %th
+      %th Source
       %th Year
       %th Month
-      %th Is upload
-      %th Source
       %th # of expenses
+      %th $ total
       %th
 
   %tbody
     - @statements.each do |statement|
       %tr
+        %td
+          - if statement.is_upload
+            %a{ "data-bs-toggle" => "tooltip", "data-bs-title" => "This statement was uploaded" }
+              %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+                %use{ "xlink:href" => "#upload" }
+        %td
+          = statement.source.name
         %td= statement.year
         %td= "%02d" % statement.month
-        %td= statement.is_upload
-        %td= statement.source.name
         %td= statement.expenses.count
-        %td= link_to 'Show details', statement
+        %td
+          $ 
+          = statement.value
+        %td
+          %a{ :href => "#{statement_path(statement.id)}", "data-bs-toggle" => "tooltip", "data-bs-placement" => "left", "data-bs-title" => "Show details" }
+            %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+              %use{ "xlink:href" => "#edit" }

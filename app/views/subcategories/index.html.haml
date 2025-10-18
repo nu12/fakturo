@@ -19,5 +19,8 @@
         %td= subcategory.name
         %td= subcategory.description
         %td= subcategory.expenses.count
-        %td= link_to 'Show details', category_subcategory_path(subcategory.category, subcategory)
+        %td
+          %a{ :href => "#{category_subcategory_path(subcategory.category, subcategory)}", "data-bs-toggle" => "tooltip", "data-bs-placement" => "left", "data-bs-title" => "Show details" }
+            %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+              %use{ "xlink:href" => "#edit" }
        

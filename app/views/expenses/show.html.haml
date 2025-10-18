@@ -23,13 +23,10 @@
         %td= @expense.comment
       %tr
         %td Ignored
-        %td= @expense.ignore
+        %td= @expense.ignore ? 'Yes' : 'No'
       %tr
         %td Statement date
-        %td
-          = @expense.statement.year
-          \-
-          = @expense.statement.month
+        %td= "#{@expense.statement.year}-#{"%02d" % @expense.statement.month}"
       %tr
         %td Source
         %td= @expense.statement.source.name
