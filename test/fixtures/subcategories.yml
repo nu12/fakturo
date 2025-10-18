@@ -4,8 +4,10 @@ one:
   name: SubOne
   description: Description
   category: one
+  user: one
 
 two:
   name: SubTwo
   description: Description
   category: two
+  user: two

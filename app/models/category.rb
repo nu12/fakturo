@@ -1,7 +1,7 @@
 class Category < ApplicationRecord
   belongs_to :user
   has_many :subcategories, dependent: :delete_all
-  has_many :expenses, through: :subcategories
+  has_many :expenses, dependent: :delete_all
 
   before_destroy :destroy_subcategories, prepend: true
 

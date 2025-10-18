@@ -32,10 +32,9 @@ class Ability
 
     return unless user.present?
     can :manage, Category, user: user
-    can :manage, Subcategory, category: { user: user }
+    can :manage, Subcategory, user: user
     can :manage, Source, user: user
     can :manage, Statement, user: user
-    can [ :read, :update, :destroy ], Expense, statement: { user: user }
-    can [ :create ], Expense
+    can :manage, Expense, user: user
   end
 end

@@ -31,6 +31,7 @@ class SubcategoriesController < ApplicationController
   def create
     @subcategory = Subcategory.new(subcategory_params)
     @subcategory.category = @category
+    @subcategory.user = current_user
 
     respond_to do |format|
       if @subcategory.save

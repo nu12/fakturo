@@ -28,11 +28,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_24_173757) do
     t.string "description"
     t.string "comment"
     t.integer "statement_id", null: false
+    t.integer "category_id", null: false
     t.integer "subcategory_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_expenses_on_category_id"
     t.index ["statement_id"], name: "index_expenses_on_statement_id"
     t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
+    t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
   create_table "sources", force: :cascade do |t|
@@ -59,9 +63,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_24_173757) do
     t.string "name"
     t.string "description"
     t.integer "category_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_subcategories_on_category_id"
+    t.index ["user_id"], name: "index_subcategories_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,10 +84,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_24_173757) do
   end
 
   add_foreign_key "categories", "users"
+  add_foreign_key "expenses", "categories"
   add_foreign_key "expenses", "statements"
   add_foreign_key "expenses", "subcategories"
+  add_foreign_key "expenses", "users"
   add_foreign_key "sources", "users"
   add_foreign_key "statements", "sources"
   add_foreign_key "statements", "users"
   add_foreign_key "subcategories", "categories"
+  add_foreign_key "subcategories", "users"
 end
