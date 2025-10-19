@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # Expenses
   get "/expenses/page/:page" => "expenses#index", :as => :expenses_page
   get "/expenses/page/:page/:id" => "expenses#show", :as => :expense_page
+  get "/expenses/renderform/:id" => "expenses#render_form", :as => :expense_render_form
   resources :expenses
 
   # Statements

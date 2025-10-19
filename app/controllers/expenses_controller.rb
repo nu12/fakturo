@@ -1,9 +1,9 @@
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
-  before_action :set_expense, only: %i[ show edit update destroy ]
-  before_action :load_categories, only: %i[ new create edit ]
-  before_action :load_statements, only: %i[ new create edit ]
+  before_action :set_expense, only: %i[ show edit update destroy render_form]
+  before_action :load_categories, only: %i[ new create edit render_form ]
+  before_action :load_statements, only: %i[ new create edit render_form ]
   before_action { set_active_page("home") }
 
   # GET /expenses or /expenses.json
@@ -81,6 +81,10 @@ class ExpensesController < ApplicationController
       format.html { redirect_to expenses_path, notice: "Expense was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
+  end
+
+  def render_form
+    render partial: "inner_form", layout: false, locals: {expense: @expense, statements: @statements, categories: @categories, async: true}
   end
 
   private
