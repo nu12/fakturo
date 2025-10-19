@@ -3,11 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable, :omniauthable, :recoverable, :validatable
   devise :database_authenticatable, :registerable, :rememberable
 
-  has_many :categories, dependent: :delete_all
-  has_many :subcategories, dependent: :delete_all
-  has_many :sources, dependent: :delete_all
-  has_many :statements, dependent: :delete_all
-  has_many :expenses, dependent: :delete_all
+  has_many :categories, dependent: :destroy
+  has_many :subcategories, dependent: :destroy
+  has_many :sources, dependent: :destroy
+  has_many :statements, dependent: :destroy
+  has_many :expenses, dependent: :destroy
 
   before_create :set_uuid
 

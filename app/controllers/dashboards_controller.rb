@@ -1,5 +1,6 @@
 class DashboardsController < ApplicationController
   before_action :authenticate_user!
+
   before_action { set_active_page("dashboards") }
 
   def index
@@ -11,10 +12,14 @@ class DashboardsController < ApplicationController
     @statements = Statement.accessible_by(current_ability)
     authorize! :read, Statement, @statements
     if params[:statement_id]
-      @cat = Expense.accessible_by(current_ability).order(category_id: :desc).where(statement_id: params[:statement_id]).joins(:category).group("categories.name").sum(:value).map { |k, v| { "name" => k, "value" => v } }
-      authorize! :read, Category, @cat
-      @sub = Expense.accessible_by(current_ability).order(category_id: :desc).where(statement_id: params[:statement_id]).joins(:subcategory).group("subcategories.name").sum(:value).map { |k, v| { "name" => k, "value" => v } }
-      authorize! :read, Subcategory, @sub
+      @cat = Expense.accessible_by(current_ability)
+        .valid.where(statement_id: params[:statement_id])
+        .group_by_category
+      authorize! :read, Expense, @cat
+      @sub = Expense.accessible_by(current_ability)
+        .valid.where(statement_id: params[:statement_id])
+        .group_by_subcategory
+      authorize! :read, Expense, @sub
 
       @option = double_pie_chart(
         { name: "Categories", data: @cat },
@@ -26,10 +31,14 @@ class DashboardsController < ApplicationController
   def category_by_year
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by year" } ]
     if params[:year]
-      @cat = Expense.accessible_by(current_ability).order(category_id: :desc).where("cast(strftime('%Y', date) as int) = ?", params[:year]).joins(:category).group("categories.name").sum(:value).map { |k, v| { "name" => k, "value" => v } }
-      authorize! :read, Category, @cat
-      @sub = Expense.accessible_by(current_ability).order(category_id: :desc).where("cast(strftime('%Y', date) as int) = ?", params[:year]).joins(:subcategory).group("subcategories.name").sum(:value).map { |k, v| { "name" => k, "value" => v } }
-      authorize! :read, Subcategory, @sub
+      @cat = Expense.accessible_by(current_ability)
+      .valid.where("cast(strftime('%Y', date) as int) = ?", params[:year])
+      .group_by_category
+      authorize! :read, Expense, @cat
+      @sub = Expense.accessible_by(current_ability)
+      .valid.where("cast(strftime('%Y', date) as int) = ?", params[:year])
+      .group_by_subcategory
+      authorize! :read, Expense, @sub
 
       @option = double_pie_chart(
         { name: "Categories", data: @cat },
@@ -41,10 +50,14 @@ class DashboardsController < ApplicationController
   def category_by_month
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by month" } ]
     if params[:year] && params[:month]
-      @cat = Expense.accessible_by(current_ability).order(category_id: :desc).where("cast(strftime('%Y', date) as int) = ? and cast(strftime('%m', date) as int) = ?", params[:year], params[:month]).joins(:category).group("categories.name").sum(:value).map { |k, v| { "name" => k, "value" => v } }
-      authorize! :read, Category, @cat
-      @sub = Expense.accessible_by(current_ability).order(category_id: :desc).where("cast(strftime('%Y', date) as int) = ? and cast(strftime('%m', date) as int) = ?", params[:year], params[:month]).joins(:subcategory).group("subcategories.name").sum(:value).map { |k, v| { "name" => k, "value" => v } }
-      authorize! :read, Subcategory, @sub
+      @cat = Expense.accessible_by(current_ability)
+      .valid.where("cast(strftime('%Y', date) as int) = ? and cast(strftime('%m', date) as int) = ?", params[:year], params[:month])
+      .group_by_category
+      authorize! :read, Expense, @cat
+      @sub = Expense.accessible_by(current_ability)
+      .valid.where("cast(strftime('%Y', date) as int) = ? and cast(strftime('%m', date) as int) = ?", params[:year], params[:month])
+      .group_by_subcategory
+      authorize! :read, Expense, @sub
 
       @option = double_pie_chart(
         { name: "Categories", data: @cat },
@@ -57,9 +70,12 @@ class DashboardsController < ApplicationController
 
   def double_pie_chart(primary, secondary)
     {
+      tooltip: {
         trigger: "item",
-        formatter: "{a} <br/>{b}: {c} ({d}%)",
-        series: [ {
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+      },
+      series: [
+        {
           name: primary[:name],
           type: "pie",
           selectedMode: "single",
@@ -75,7 +91,8 @@ class DashboardsController < ApplicationController
           },
           radius: [ "13%", "43%" ],
           data: secondary[:data]
-        } ]
-      }
+        }
+      ]
+    }
   end
 end

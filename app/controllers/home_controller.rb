@@ -18,9 +18,6 @@ class HomeController < ApplicationController
   end
 
   def destroy
-    current_user.statements.each { |d| d.destroy! }
-    current_user.sources.each { |s| s.destroy! }
-    current_user.categories.each { |c| c.destroy! }
     if current_user.destroy
       redirect_to new_user_session_path, notice: "All user data was erased. See you next time."
     end
