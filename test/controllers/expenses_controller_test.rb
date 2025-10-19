@@ -19,7 +19,7 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create expense" do
     assert_difference("Expense.count") do
-      post expenses_url, params: { expense: { date: @expense.date, statement_id: @expense.statement_id, ignore: @expense.ignore, category_id: @expense.category_id, subcategory_id: @expense.subcategory_id, value: @expense.value } }
+      post expenses_url, params: { expense: { date: "2025-12-31", statement_id: @expense.statement_id, ignore: @expense.ignore, category_id: @expense.category_id, subcategory_id: @expense.subcategory_id, value: @expense.value } }
     end
 
     assert_redirected_to expense_url(Expense.last)

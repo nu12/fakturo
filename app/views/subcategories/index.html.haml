@@ -18,7 +18,7 @@
       %tr
         %td= subcategory.name
         %td= subcategory.description
-        %td= subcategory.expenses.count
+        %td= "#{subcategory.expenses.valid.count}/#{subcategory.expenses.count}"
         %td
           %a{ :href => "#{category_subcategory_path(subcategory.category, subcategory)}", "data-bs-toggle" => "tooltip", "data-bs-placement" => "left", "data-bs-title" => "Show details" }
             %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
