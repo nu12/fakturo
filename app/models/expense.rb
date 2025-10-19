@@ -4,6 +4,8 @@ class Expense < ApplicationRecord
   belongs_to :subcategory
   belongs_to :user
 
+  default_scope { order(date: :asc, description: :asc) }
+
   def self.valid
     where(ignore: false)
   end

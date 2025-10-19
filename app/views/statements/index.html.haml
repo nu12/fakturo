@@ -25,7 +25,7 @@
           = statement.source.name
         %td= statement.year
         %td= "%02d" % statement.month
-        %td= statement.expenses.count
+        %td= "#{statement.expenses.valid.count}/#{statement.expenses.count}"
         %td
           $ 
           = "%.2f" % statement.value

@@ -16,7 +16,7 @@
         %td= @subcategory.description
       %tr
         %td # of expenses
-        %td= @subcategory.expenses.count
+        %td= "#{@subcategory.expenses.valid.count}/#{@subcategory.expenses.count}"
       %tr
         %td{colspan: "2"}
           = link_to 'Edit this sub-category', edit_category_subcategory_path(@subcategory.category, @subcategory), class: "btn btn-light form-control"
