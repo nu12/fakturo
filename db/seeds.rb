@@ -17,7 +17,7 @@ user.save
         c = Category.new(name: category[:name], description: "Description for #{category[:name]}", user_id: user.id)
         c.save
         category[:subcategories].each do | subcategory |
-            Subcategory.new(name: subcategory, description: "Description for #{subcategory}", category_id: c.id).save
+            Subcategory.new(name: subcategory, description: "Description for #{subcategory}", category_id: c.id, user_id: user.id).save
         end
 end
 
@@ -57,5 +57,7 @@ subcategories = Subcategory.all
     e.value = values.sample
     e.statement = statements.sample
     e.subcategory = subcategories.sample
+    e.category = e.subcategory.category
+    e.user = user
     e.save
 end

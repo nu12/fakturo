@@ -12,6 +12,7 @@ class BootstrapFakturo < ActiveRecord::Migration[8.0]
       t.string :name
       t.string :description
       t.references :category, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
@@ -41,7 +42,9 @@ class BootstrapFakturo < ActiveRecord::Migration[8.0]
       t.string :description
       t.string :comment
       t.references :statement, null: false, foreign_key: true
+      t.references :category, null: false, foreign_key: true
       t.references :subcategory, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

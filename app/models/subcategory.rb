@@ -1,4 +1,5 @@
 class Subcategory < ApplicationRecord
   belongs_to :category
-  has_many :expenses, dependent: :delete_all
+  belongs_to :user
+  has_many :expenses, dependent: :destroy
 end

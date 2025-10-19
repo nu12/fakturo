@@ -1,8 +1,9 @@
 require "test_helper"
 
 class ApiControllerTest < ActionDispatch::IntegrationTest
-  test "should get all" do
-    get api_all_url
-    assert_response :forbidden
+  test "should get empty total" do
+    get api_total_url
+    assert_response :success
+    assert_equal([], response.parsed_body)
   end
 end

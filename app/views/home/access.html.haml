@@ -46,5 +46,5 @@
                 %th Link
             %tbody
               %tr
-                %td List of user's expenses
-                %td= link_to "Link", api_all_path(uuid: current_user.uuid, access_token: current_user.access_token)
+                %td Total of expenses by category and subcategory
+                %td= link_to "Link", api_total_path(uuid: current_user.uuid, access_token: current_user.access_token)

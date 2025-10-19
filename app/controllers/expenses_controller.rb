@@ -47,7 +47,7 @@ class ExpensesController < ApplicationController
   # POST /expenses or /expenses.json
   def create
     @expense = Expense.new(expense_params)
-    p @expense.value.to_f
+    @expense.user = current_user
 
     respond_to do |format|
       if @expense.save
@@ -99,6 +99,6 @@ class ExpensesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def expense_params
-      params.expect(expense: [ :date, :description, :value, :comment, :ignore, :statement_id, :subcategory_id ])
+      params.expect(expense: [ :date, :description, :value, :comment, :ignore, :statement_id, :category_id, :subcategory_id ])
     end
 end

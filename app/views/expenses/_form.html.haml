@@ -23,10 +23,10 @@
     = f.select :statement_id, @statements.map { |d| ["#{d.source.name} (#{d.year}-#{"%02d" % d.month})", d.id] }, { prompt: "Select a statement" },{ class: "form-control" }
   .field.mb-3
     = f.label :category_id, {class: "form-label"}
-    = select :category, :category_id, @categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" },{id: "category_id", onchange: "select_subcategory()", class: "form-control" }
+    = f.select :category_id, @categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" },{id: "category_id", onchange: "select_subcategory()", class: "form-control" }
   .field.mb-3
     = f.label :subcategory_id, {class: "form-label"}
-    = f.select :subcategory_id, [], { prompt: "Select a category" }, {id: "subcategory_id", class: "form-control" }
+    = f.select :subcategory_id, @expense.subcategory ? [ [@expense.subcategory.name, @expense.subcategory.id] ] : [], { prompt: "Select a category" }, {id: "subcategory_id", class: "form-control" }
   .field.mb-3
     = f.checkbox :ignore, class: "form-check-input"
     = f.label :ignore, {class: "form-label"}
