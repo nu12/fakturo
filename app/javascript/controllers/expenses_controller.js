@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "categories", "category", "subcategory" ]
+  static targets = [ "categories", "category", "subcategory", "form", "placeholder"]
   connect() {}
   select_subcategories(){
     const element = this.categoriesTarget;
@@ -16,6 +16,33 @@ export default class extends Controller {
       selector.innerHTML = "";
       subcategories.forEach((s) =>  selector.innerHTML += "<option value=" + s.id + ">" + s.name + "</option>");
     }
+  }
+  render_form(e){
+    const id = e.params.id;
+    var formPlaceholder = this.placeholderTarget;
+    fetch("/expenses/renderform/" + id).then(response => response.text()).then(data => formPlaceholder.innerHTML = data);
+  }
+  send_form() {
+    const csrf = document.querySelector('meta[name=csrf-token]').content;
+    const f = this.formTarget;
+    var data = new URLSearchParams();
+    
+    for (const pair of new FormData(f)) {
+      data.append(pair[0], pair[1]);
+    }
+    fetch(f.action + ".json", {
+      method: 'post',
+      body: data,
+      headers: {"X-CSRF-Token": csrf},
+    }).then(response => console.log(response)).then(location.reload());
+  }
+  delete_expense() {
+    const csrf = document.querySelector('meta[name=csrf-token]').content;
+    const f = this.formTarget;
+    fetch(f.action + ".json", {
+      method: 'delete',
+      headers: {"X-CSRF-Token": csrf},
+    }).then(response => console.log(response)).then(location.reload());
   }
 }
 

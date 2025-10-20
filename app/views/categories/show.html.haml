@@ -35,4 +35,4 @@
 
 - if @category.expenses.count > 0
   %hr
-  = render partial: "expenses/table", locals: {expenses: @category.expenses}
+  = render partial: "expenses/table", locals: {expenses: @category.expenses, show: %i[ statement source subcategory ]}
