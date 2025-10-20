@@ -1,0 +1,36 @@
+= form_for expense, :html => {"data-expenses-target" => "form"} do |f|
+  - if expense.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(expense.errors.count, "error")} prohibited this expense from being saved:"
+      %ul
+        - expense.errors.full_messages.each do |message|
+          %li= message
+
+  = f.hidden_field :categories, "data-expenses-target" => "categories" ,value: "#{raw categories.to_json(include: :subcategories)}"
+  .field.mb-3
+    = f.label :date, {class: "form-label"}
+    = f.date_field :date, class: "form-control"
+  .field.mb-3
+    = f.label :description, {class: "form-label"}
+    = f.text_field :description, class: "form-control"
+  .field.mb-3
+    = f.label :value, {class: "form-label"}
+    = f.number_field :value, class: "form-control", step: 0.01
+  .field.mb-3
+    = f.label :comment, {class: "form-label"}
+    = f.text_field :comment, class: "form-control"
+  .field.mb-3
+    = f.label :statement_id, {class: "form-label"}
+    = f.select :statement_id, statements.map { |d| ["#{d.source.name} (#{d.year}-#{"%02d" % d.month})", d.id] }, { prompt: "Select a statement" },{ class: "form-control" }
+  .field.mb-3
+    = f.label :category_id, {class: "form-label"}
+    = f.select :category_id, categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" },{id: "category_id", "data-action" => "expenses#select_subcategories", "data-expenses-target" => "category", class: "form-control" }
+  .field.mb-3
+    = f.label :subcategory_id, {class: "form-label"}
+    = f.select :subcategory_id, expense.subcategory ? [ [expense.subcategory.name, expense.subcategory.id] ] : [], { prompt: "Select a category" }, {id: "subcategory_id", "data-expenses-target" => "subcategory", class: "form-control" }
+  .field.mb-3
+    = f.checkbox :ignore, class: "form-check-input"
+    = f.label :ignore, {class: "form-label"}
+  - unless async
+    .actions.mb-3
+      = f.submit 'Save', class: "form-control btn btn-fakturo btn-fakturo-action"
