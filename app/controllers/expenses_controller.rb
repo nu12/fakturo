@@ -10,27 +10,13 @@ class ExpensesController < ApplicationController
   def index
     @page = params[:page]||1
     @expenses = Expense.accessible_by(current_ability).paginate(page: @page).order(id: :asc)
-    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses" } ]
+    @breadcrumb = [ { name: "Home", path: root_path }, {name: "Expenses (Page #{@page})" } ]
   end
 
   # GET /expenses/1 or /expenses/1.json
   def show
-    if params[:subcategory_id]
-      subcategory = Subcategory.find(params[:subcategory_id])
-      @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: subcategory.category.name, path: category_path(subcategory.category) }, { name: "Sub-categories", path: category_subcategories_path }, { name: subcategory.name, path: category_subcategory_path(subcategory.category, subcategory) }, { name: "Expense: #{@expense.description}" } ]
-    elsif params[:category_id]
-      category = Category.find(params[:category_id])
-      @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: category.name, path: category_path(category) }, { name: "Expense: #{@expense.description}" } ]
-    elsif params[:source_id]
-      source = Source.find(params[:source_id])
-      @breadcrumb = [ { name: "Home", path: root_path }, { name: "Sources", path: sources_path }, { name: source.name, path: source_path(source) }, { name: "Expense: #{@expense.description}" } ]
-    elsif params[:statement_id]
-      statement = Statement.find(params[:statement_id])
-      @breadcrumb = [ { name: "Home", path: root_path }, { name: "Statements", path: statements_path }, { name: statement.id, path: statement_path(statement) }, { name: "Expense: #{@expense.description}" } ]
-    else
-      page = params[:page]||1
-      @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses (Page #{page})", path: expenses_page_path(page) }, { name: @expense.description } ]
-    end
+    page = params[:page]||1
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses (Page #{page})", path: expenses_page_path(page) }, { name: @expense.description } ]
   end
 
   # GET /expenses/new

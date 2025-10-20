@@ -25,16 +25,6 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to expense_url(Expense.last)
   end
 
-  test "should show expense" do
-    get expense_url(@expense)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_expense_url(@expense)
-    assert_response :success
-  end
-
   test "should update expense" do
     patch expense_url(@expense), params: { expense: { date: @expense.date, statement_id: @expense.statement_id, ignore: @expense.ignore, subcategory_id: @expense.subcategory_id, value: @expense.value } }
     assert_redirected_to expense_url(@expense)

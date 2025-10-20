@@ -34,13 +34,15 @@ class SourcesTest < ApplicationSystemTestCase
     click_on "Sources"
   end
 
-  test "should access Source's expenses" do
+  test "should edit Source's expenses" do
     visit source_url(@source)
-    click_on "Expenses", match: :first
-    click_on "Show", match: :first
+    within("table.table-striped") do
+      find_button.click
+    end
+    check("expense_ignore", visible: false)
+    click_on "Save changes", visible: false
 
     assert_text @source.name
-    click_on @source.name
   end
 
   test "should destroy Source" do

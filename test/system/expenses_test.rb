@@ -29,26 +29,21 @@ class ExpensesTest < ApplicationSystemTestCase
   end
 
   test "should update Expense" do
-    visit expense_page_url(1, @expense)
-    click_on "Edit this expense", match: :first
-
-    fill_in "Date", with: @expense.date.to_s
-    check "Ignore" if @expense.ignore
-    select("#{@expense.statement.source.name} (#{@expense.statement.year}-#{'%02d' % @expense.statement.month})", from: "expense_statement_id")
-    select(@expense.subcategory.category.name, from: "category_id")
-    select(@expense.subcategory.name, from: "subcategory_id")
-    fill_in "Value", with: @expense.value
-    click_on "Save"
-
-    assert_text "Expense was successfully updated"
-    click_on "Expenses"
+    visit expenses_page_url(1)
+    within("table.table-striped") do
+      find_button.click
+    end
+    check("expense_ignore", visible: false)
+    click_on "Save changes", visible: false
+    assert_text "Expenses"
   end
 
   test "should destroy Expense" do
-    visit expense_url(@expense)
-    click_on "Delete this expense"
-
-    assert_text "Yes, delete this expense"
-    click_on "Yes, delete this expense"
+    visit expenses_page_url(1)
+    within("table.table-striped") do
+      find_button.click
+    end
+    click_on "Delete expense", visible: false
+    assert_text "Expenses"
   end
 end

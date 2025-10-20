@@ -36,13 +36,15 @@ class CategoriesTest < ApplicationSystemTestCase
     click_on "Categories"
   end
 
-  test "should access Category's expenses" do
+  test "should edit Category's expenses" do
     visit category_url(@category)
-    click_on "Expenses", match: :first
-    click_on "Show", match: :first
-
+    within("table.table-striped") do
+      find_button.click
+    end
+    check("expense_ignore", visible: false)
+    click_on "Save changes", visible: false
+    
     assert_text @category.name
-    click_on @category.name
   end
 
   test "should destroy Category" do

@@ -36,13 +36,15 @@ class SubcategoriesTest < ApplicationSystemTestCase
     click_on "Sub-categories"
   end
 
-  test "should access Sub-category's expenses" do
+  test "should edit Subcategory's expenses" do
     visit category_subcategory_url(@subcategory.category, @subcategory)
-    click_on "Expenses", match: :first
-    click_on "Show", match: :first
-
+    within("table.table-striped") do
+      find_button.click
+    end
+    check("expense_ignore", visible: false)
+    click_on "Save changes", visible: false
+    
     assert_text @subcategory.name
-    click_on @subcategory.name
   end
 
   test "should destroy Subcategory" do

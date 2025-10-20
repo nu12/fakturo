@@ -57,7 +57,7 @@
         .modal-body#formPlaceholder{"data-expenses-target" => "placeholder"}
           
         .modal-footer
-          %button.btn{ :type => "button", "data-action" => "expenses#delete_expense"} 
+          %button.btn.btn-danger{ :type => "button", "data-action" => "expenses#delete_expense"} 
             Delete expense
-          %button.btn{ :type => "button", "data-action" => "expenses#send_form"} 
+          %button.btn.btn-fakturo-action{ :type => "button", "data-action" => "expenses#send_form"} 
             Save changes

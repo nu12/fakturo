@@ -7,24 +7,17 @@ Rails.application.routes.draw do
   get "/expenses/page/:page" => "expenses#index", :as => :expenses_page
   get "/expenses/page/:page/:id" => "expenses#show", :as => :expense_page
   get "/expenses/renderform/:id" => "expenses#render_form", :as => :expense_render_form
-  resources :expenses
+  resources :expenses, except: [ :show, :edit ]
 
   # Statements
-  resources :statements do
-    resources :expenses, only: :show
-  end
+  resources :statements
 
   # Sources
-  resources :sources do
-    resources :expenses, only: :show
-  end
+  resources :sources
 
   # Categories and sub-categories
   resources :categories do
-    resources :subcategories do
-      resources :expenses, only: :show
-    end
-    resources :expenses, only: :show
+    resources :subcategories 
   end
 
   # Anonymous access
