@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   # Categories and sub-categories
   resources :categories do
-    resources :subcategories 
+    resources :subcategories
   end
 
   # Anonymous access

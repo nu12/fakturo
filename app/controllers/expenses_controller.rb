@@ -10,7 +10,7 @@ class ExpensesController < ApplicationController
   def index
     @page = params[:page]||1
     @expenses = Expense.accessible_by(current_ability).paginate(page: @page).order(id: :asc)
-    @breadcrumb = [ { name: "Home", path: root_path }, {name: "Expenses (Page #{@page})" } ]
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses (Page #{@page})" } ]
   end
 
   # GET /expenses/1 or /expenses/1.json
@@ -70,7 +70,7 @@ class ExpensesController < ApplicationController
   end
 
   def render_form
-    render partial: "inner_form", layout: false, locals: {expense: @expense, statements: @statements, categories: @categories, async: true}
+    render partial: "inner_form", layout: false, locals: { expense: @expense, statements: @statements, categories: @categories, async: true }
   end
 
   private

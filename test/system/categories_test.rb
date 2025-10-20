@@ -43,7 +43,7 @@ class CategoriesTest < ApplicationSystemTestCase
     end
     check("expense_ignore", visible: false)
     click_on "Save changes", visible: false
-    
+
     assert_text @category.name
   end
 
