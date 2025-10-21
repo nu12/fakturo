@@ -34,7 +34,7 @@ export default class extends Controller {
       method: 'post',
       body: data,
       headers: {"X-CSRF-Token": csrf},
-    }).then(response => console.log(response)).then(location.reload());
+    }).then(setTimeout(function() {location.reload()}, 100));
   }
   delete_expense() {
     const csrf = document.querySelector('meta[name=csrf-token]').content;
@@ -42,7 +42,7 @@ export default class extends Controller {
     fetch(f.action + ".json", {
       method: 'delete',
       headers: {"X-CSRF-Token": csrf},
-    }).then(response => console.log(response)).then(location.reload());
+    }).then(setTimeout(function() {location.reload()}, 100));
   }
 }
 
