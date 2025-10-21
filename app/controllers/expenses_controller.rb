@@ -50,10 +50,10 @@ class ExpensesController < ApplicationController
   def update
     respond_to do |format|
       if @expense.update(expense_params)
-        format.html { redirect_to @expense, notice: "Expense was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @expense }
+        flash[:notice] = "Expense was successfully updated."
+        format.json { render json: @expense, status: :ok }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        flash[:alert] = "#{@expense.errors.full_messages.join('. ')}."
         format.json { render json: @expense.errors, status: :unprocessable_entity }
       end
     end
@@ -64,7 +64,7 @@ class ExpensesController < ApplicationController
     @expense.destroy!
 
     respond_to do |format|
-      format.html { redirect_to expenses_path, notice: "Expense was successfully destroyed.", status: :see_other }
+      flash[:notice] = "Expense was successfully destroyed."
       format.json { head :no_content }
     end
   end
