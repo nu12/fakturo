@@ -26,15 +26,15 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update expense" do
-    patch expense_url(@expense), params: { expense: { date: @expense.date, statement_id: @expense.statement_id, ignore: @expense.ignore, subcategory_id: @expense.subcategory_id, value: @expense.value } }
-    assert_redirected_to expense_url(@expense)
+    patch expense_url(@expense, format: :json), params: { expense: { date: @expense.date, statement_id: @expense.statement_id, ignore: @expense.ignore, subcategory_id: @expense.subcategory_id, value: @expense.value } }
+    assert_response :success
   end
 
   test "should destroy expense" do
     assert_difference("Expense.count", -1) do
-      delete expense_url(@expense)
+      delete expense_url(@expense, format: :json)
     end
 
-    assert_redirected_to expenses_url
+    assert_response :success
   end
 end
