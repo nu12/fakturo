@@ -12,5 +12,5 @@ task :version do
     Fakturo::Application.config.version[:patch]
   ]
 
-  p Fakturo::Application.config.version[:build] > 0 ? "%s+%d" % [sem_ver, Fakturo::Application.config.version[:build]] : sem_ver
+  p Fakturo::Application.config.version[:build] > 0 ? "%s+%d" % [ sem_ver, Fakturo::Application.config.version[:build] ] : sem_ver
 end
