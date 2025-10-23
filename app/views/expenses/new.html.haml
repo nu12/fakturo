@@ -2,4 +2,4 @@
 
 .container.w-50{"data-controller" => "expenses"}
 
-  = render 'form'
+  = render partial: "form", locals: {expense: @expense, statements: @statements, categories: @categories, async: false} 

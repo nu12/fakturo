@@ -6,11 +6,13 @@ require_relative "config/application"
 Rails.application.load_tasks
 
 task :version do
-  sem_ver = "v%d.%d.%d" % [
+  ver_base = "v%d.%d.%d" % [
     Fakturo::Application.config.version[:major],
     Fakturo::Application.config.version[:minor],
     Fakturo::Application.config.version[:patch]
   ]
 
-  p Fakturo::Application.config.version[:build] > 0 ? "%s+%d" % [ sem_ver, Fakturo::Application.config.version[:build] ] : sem_ver
+  ver_build = "%s.%d" % [ ver_base, Fakturo::Application.config.version[:build] ]
+
+  p Fakturo::Application.config.version[:build] > 0 ? ver_build : ver_base
 end
