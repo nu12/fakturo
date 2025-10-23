@@ -28,7 +28,7 @@ module Fakturo
       major: 0,
       minor: 1,
       patch: 1,
-      build: 0
+      build: 1
     }
   end
 end
