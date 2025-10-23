@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = [ "categories", "category", "subcategory", "form", "placeholder"]
   connect() {}
-  select_subcategories(){
+  selectSubcategories(){
     const element = this.categoriesTarget;
     const categories = JSON.parse(element.value);
     var category_id = this.categoryTarget.value;
@@ -17,12 +17,12 @@ export default class extends Controller {
       subcategories.forEach((s) =>  selector.innerHTML += "<option value=" + s.id + ">" + s.name + "</option>");
     }
   }
-  render_form(e){
+  renderForm(e){
     const id = e.params.id;
     var formPlaceholder = this.placeholderTarget;
     fetch("/expenses/renderform/" + id).then(response => response.text()).then(data => formPlaceholder.innerHTML = data);
   }
-  send_form() {
+  sendForm() {
     const csrf = document.querySelector('meta[name=csrf-token]').content;
     const f = this.formTarget;
     var data = new URLSearchParams();
@@ -36,7 +36,7 @@ export default class extends Controller {
       headers: {"X-CSRF-Token": csrf},
     }).then(setTimeout(function() {location.reload()}, 100));
   }
-  delete_expense() {
+  deleteExpense() {
     const csrf = document.querySelector('meta[name=csrf-token]').content;
     const f = this.formTarget;
     fetch(f.action + ".json", {

@@ -24,7 +24,7 @@
     = f.select :statement_id, statements.map { |d| ["#{d.source.name} (#{d.year}-#{"%02d" % d.month})", d.id] }, { prompt: "Select a statement" },{ class: "form-control" }
   .field.mb-3
     = f.label :category_id, {class: "form-label"}
-    = f.select :category_id, categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" },{id: "category_id", "data-action" => "expenses#select_subcategories", "data-expenses-target" => "category", class: "form-control" }
+    = f.select :category_id, categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" },{id: "category_id", "data-action" => "expenses#selectSubcategories", "data-expenses-target" => "category", class: "form-control" }
   .field.mb-3
     = f.label :subcategory_id, {class: "form-label"}
     = f.select :subcategory_id, expense.subcategory ? [ [expense.subcategory.name, expense.subcategory.id] ] : [], { prompt: "Select a category" }, {id: "subcategory_id", "data-expenses-target" => "subcategory", class: "form-control" }
