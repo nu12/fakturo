@@ -43,7 +43,7 @@
             %td= expense.subcategory.name
           
           %td
-            %button.btn.btn-sm{ :type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#editExpenseModal", "data-action" => "expenses#render_form", "data-expenses-id-param" => "#{expense.id}" }
+            %button.btn.btn-sm{ :type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#editExpenseModal", "data-action" => "expenses#renderForm", "data-expenses-id-param" => "#{expense.id}" }
               %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "Edit"}
                 %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
                   %use{ "xlink:href" => "#edit" }
@@ -57,7 +57,7 @@
         .modal-body#formPlaceholder{"data-expenses-target" => "placeholder"}
           
         .modal-footer
-          %button.btn.btn-danger{ :type => "button", "data-action" => "expenses#delete_expense"} 
+          %button.btn.btn-danger{ :type => "button", "data-action" => "expenses#deleteExpense"} 
             Delete expense
-          %button.btn.btn-fakturo-action{ :type => "button", "data-action" => "expenses#send_form"} 
+          %button.btn.btn-fakturo-action{ :type => "button", "data-action" => "expenses#sendForm"} 
             Save changes

@@ -70,7 +70,7 @@ class ExpensesController < ApplicationController
   end
 
   def render_form
-    render partial: "inner_form", layout: false, locals: { expense: @expense, statements: @statements, categories: @categories, async: true }
+    render partial: "form", layout: false, locals: { expense: @expense, statements: @statements, categories: @categories, async: true }
   end
 
   private
