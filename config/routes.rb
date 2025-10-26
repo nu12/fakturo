@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get "/sources/:id(/page/:page)" => "sources#show", :as => :source_page
 
   # Categories and sub-categories
-  
+
   resources :categories, except: [ :show ] do
     resources :subcategories, except: [ :show ]
   end
