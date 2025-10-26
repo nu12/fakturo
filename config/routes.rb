@@ -16,9 +16,11 @@ Rails.application.routes.draw do
   resources :sources
 
   # Categories and sub-categories
-  resources :categories do
+  
+  resources :categories, except: [ :show ] do
     resources :subcategories
   end
+  get "/categories/:id(/page/:page)" => "categories#show", :as => :category_page
 
   # Anonymous access
   get "policy" => "guest#policy"

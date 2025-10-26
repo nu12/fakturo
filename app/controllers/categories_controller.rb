@@ -12,6 +12,8 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1 or /categories/1.json
   def show
+    page = params[:page]||1
+    @paginated_expenses = @category.expenses.paginate(page: page).order(date: :asc)
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: @category.name } ]
   end
 

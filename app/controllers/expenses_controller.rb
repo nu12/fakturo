@@ -9,7 +9,7 @@ class ExpensesController < ApplicationController
   # GET /expenses or /expenses.json
   def index
     @page = params[:page]||1
-    @expenses = Expense.accessible_by(current_ability).paginate(page: @page).order(id: :asc)
+    @expenses = Expense.accessible_by(current_ability).paginate(page: @page).order(date: :asc)
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses (Page #{@page})" } ]
   end
 

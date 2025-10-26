@@ -1,4 +1,6 @@
 %div{"data-controller" => "expenses"}
+  .digg_pagination.d-flex.justify-content-center.mb-3
+    = will_paginate expenses, :container => false
   %table.table.table-sm.table-striped
     %thead
       %tr
@@ -48,6 +50,9 @@
                 %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
                   %use{ "xlink:href" => "#edit" }
 
+  .digg_pagination.d-flex.justify-content-center.mb-3
+    = will_paginate expenses, :container => false
+    
   .modal.fade#editExpenseModal{ :tabindex => "-1", "aria-labelledby" => "editExpenseModalLabel", "aria-hidden" => "true"}
     .modal-dialog
       .modal-content
