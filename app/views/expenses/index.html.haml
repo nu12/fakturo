@@ -2,10 +2,4 @@
 
 %h1 Expenses
 
-.digg_pagination.d-flex.justify-content-center.mb-3
-  = will_paginate @expenses, :container => false
-
 = render partial: "table", locals: {expenses: @expenses, show: %i[ statement source category subcategory ]}
-
-.digg_pagination.d-flex.justify-content-center.mb-3
-  = will_paginate @expenses, :container => false

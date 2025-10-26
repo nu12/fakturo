@@ -13,6 +13,8 @@ class SubcategoriesController < ApplicationController
 
   # GET /subcategories/1 or /subcategories/1.json
   def show
+    page = params[:page]||1
+    @paginated_expenses = @subcategory.expenses.paginate(page: page).order(date: :asc)
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: @category.name, path: category_path(@category) }, { name: "Sub-categories", path: category_subcategories_path(@category) }, { name: @subcategory.name } ]
   end
 
