@@ -30,6 +30,6 @@
           $ 
           = "%.2f" % statement.value
         %td
-          %a{ :href => "#{statement_path(statement.id)}", "data-bs-toggle" => "tooltip", "data-bs-placement" => "left", "data-bs-title" => "Show details" }
+          %a{ :href => "#{statement_page_path(statement.id)}", "data-bs-toggle" => "tooltip", "data-bs-placement" => "left", "data-bs-title" => "Show details" }
             %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
               %use{ "xlink:href" => "#three-dots" }

@@ -15,6 +15,6 @@
         %td= source.name
         %td= "#{source.expenses.valid.count}/#{source.expenses.count}"
         %td
-          %a{ :href => "#{source_path(source.id)}", "data-bs-toggle" => "tooltip", "data-bs-placement" => "left", "data-bs-title" => "Show details" }
+          %a{ :href => "#{source_page_path(source.id)}", "data-bs-toggle" => "tooltip", "data-bs-placement" => "left", "data-bs-title" => "Show details" }
             %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
               %use{ "xlink:href" => "#three-dots" }

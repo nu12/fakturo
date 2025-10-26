@@ -13,6 +13,8 @@ class StatementsController < ApplicationController
 
   # GET /statements/1 or /statements/1.json
   def show
+    page = params[:page]||1
+    @paginated_expenses = @statement.expenses.paginate(page: page).order(date: :asc)
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Statements", path: statements_path }, { name: @statement.id } ]
   end
 

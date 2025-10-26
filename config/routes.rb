@@ -10,16 +10,19 @@ Rails.application.routes.draw do
   resources :expenses, except: [ :show, :edit ]
 
   # Statements
-  resources :statements
+  resources :statements, except: [ :show ]
+  get "/statements/:id(/page/:page)" => "statements#show", :as => :statement_page
 
   # Sources
-  resources :sources
+  resources :sources, except: [ :show ]
+  get "/sources/:id(/page/:page)" => "sources#show", :as => :source_page
 
   # Categories and sub-categories
   
   resources :categories, except: [ :show ] do
-    resources :subcategories
+    resources :subcategories, except: [ :show ]
   end
+  get "/categories/:category_id/subcategories/:id(/page/:page)" => "subcategories#show", :as => :category_subcategory_page
   get "/categories/:id(/page/:page)" => "categories#show", :as => :category_page
 
   # Anonymous access
