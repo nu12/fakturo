@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "categories", "category", "subcategory", "form", "placeholder"]
+  static targets = [ "categories", "category", "subcategory", "form" ]
   connect() {}
   selectSubcategories(){
     const element = this.categoriesTarget;
@@ -16,11 +16,6 @@ export default class extends Controller {
       selector.innerHTML = "";
       subcategories.forEach((s) =>  selector.innerHTML += "<option value=" + s.id + ">" + s.name + "</option>");
     }
-  }
-  renderForm(e){
-    const id = e.params.id;
-    var formPlaceholder = this.placeholderTarget;
-    fetch("/expenses/renderform/" + id).then(response => response.text()).then(data => formPlaceholder.innerHTML = data);
   }
   sendForm() {
     const csrf = document.querySelector('meta[name=csrf-token]').content;
