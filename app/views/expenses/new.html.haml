@@ -1,5 +1,5 @@
 %h1 New expense
 
-.container.w-50{"data-controller" => "expenses"}
+.container.w-50
 
   = render partial: "form", locals: {expense: @expense, statements: @statements, categories: @categories, async: false} 

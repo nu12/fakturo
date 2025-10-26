@@ -1,4 +1,4 @@
-%div{"data-controller" => "expenses"}
+%div{"data-controller" => "expenses--table"}
   .digg_pagination.d-flex.justify-content-center.mb-3
     = will_paginate expenses, :container => false
   %table.table.table-sm.table-striped
@@ -45,7 +45,7 @@
             %td= expense.subcategory.name
           
           %td
-            %button.btn.btn-sm{ :type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#editExpenseModal", "data-action" => "expenses#renderForm", "data-expenses-id-param" => "#{expense.id}" }
+            %button.btn.btn-sm{ :type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#editExpenseModal", "data-action" => "expenses--table#renderForm", "data-expenses--table-id-param" => "#{expense.id}" }
               %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "Edit"}
                 %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
                   %use{ "xlink:href" => "#edit" }
@@ -59,10 +59,5 @@
         .modal-header
           Edit expense
           %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
-        .modal-body#formPlaceholder{"data-expenses-target" => "placeholder"}
-          
-        .modal-footer
-          %button.btn.btn-danger{ :type => "button", "data-action" => "expenses#deleteExpense"} 
-            Delete expense
-          %button.btn.btn-fakturo-action{ :type => "button", "data-action" => "expenses#sendForm"} 
-            Save changes
+        .modal-body#formPlaceholder{"data-expenses--table-target" => "placeholder"}
+
