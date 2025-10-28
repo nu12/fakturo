@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  date: "2025-01-10"
   year: 2025
   month: 1
   is_upload: false
@@ -8,6 +9,7 @@ one:
   user: one
 
 two:
+  date: "2025-01-20"
   year: 2025
   month: 1
   is_upload: false

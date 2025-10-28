@@ -8,4 +8,10 @@ class StatementTest < ActiveSupport::TestCase
     s.expenses << Expense.new(value: 9.99, ignore: true)
     assert s.value == 12.32
   end
+
+  test "extract year and month from date" do
+    s = Statement.create(source: sources(:one), user: users(:one), date: "2025-10-20")
+    assert s.month == 10
+    assert s.year == 2025
+  end
 end
