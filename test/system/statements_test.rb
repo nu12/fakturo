@@ -16,8 +16,7 @@ class StatementsTest < ApplicationSystemTestCase
     visit statements_url
     click_on "New Statement"
 
-    select(@statement.year, from: "statement_year")
-    select("%02d" % @statement.month, from: "statement_month")
+    fill_in "Date", with: @statement.date
     select(@statement.source.name, from: "statement_source_id")
     click_on "Save"
 
@@ -29,8 +28,7 @@ class StatementsTest < ApplicationSystemTestCase
     visit statement_url(@statement)
     click_on "Edit this statement", match: :first
 
-    select(@statement.year, from: "statement_year")
-    select("%02d" % @statement.month, from: "statement_month")
+    fill_in "Date", with: @statement.date
     select(@statement.source.name, from: "statement_source_id")
     click_on "Save"
 

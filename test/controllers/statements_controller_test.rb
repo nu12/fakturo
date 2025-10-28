@@ -19,7 +19,7 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create statement" do
     assert_difference("Statement.count") do
-      post statements_url, params: { statement: { is_upload: false, month: 3, source_id: @statement.source.id, year: 2025 } }
+      post statements_url, params: { statement: { is_upload: false, date: "2025-03-10", source_id: @statement.source.id } }
     end
 
     assert_redirected_to statement_url(Statement.last)

@@ -28,14 +28,14 @@ end
         Source.new(name: source, user_id: user.id).save
 end
 
-[   { source_id: 1, year: 2025, month: 1 },
-    { source_id: 2, year: 2025, month: 1 },
-    { source_id: 3, year: 2025, month: 1 },
-    { source_id: 4, year: 2025, month: 1 },
-    { source_id: 1, year: 2025, month: 2 },
-    { source_id: 2, year: 2025, month: 2 },
-    { source_id: 3, year: 2025, month: 2 },
-    { source_id: 4, year: 2025, month: 2 } ].each do | statement |
+[   { source_id: 1, date: "2025-01-10" },
+    { source_id: 2, date: "2025-01-10" },
+    { source_id: 3, date: "2025-01-10" },
+    { source_id: 4, date: "2025-01-10" },
+    { source_id: 1, date: "2025-02-10" },
+    { source_id: 2, date: "2025-02-10" },
+    { source_id: 3, date: "2025-02-10" },
+    { source_id: 4, date: "2025-02-10" } ].each do | statement |
         Statement.new(statement.merge({ user_id: user.id })).save
 end
 
