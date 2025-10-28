@@ -11,10 +11,10 @@ class Expense < ApplicationRecord
   end
 
   def self.group_by_category
-    order(category_id: :desc).joins(:category).select("categories.name as name, sum(value) as value").group("categories.name")
+    order(category_id: :desc).joins(:category).select("categories.id as id, categories.name as name, sum(value) as value").group("categories.id", "categories.name")
   end
 
   def self.group_by_subcategory
-    order(category_id: :desc).joins(:subcategory).select("subcategories.name as name, sum(value) as value").group("subcategories.name")
+    order(category_id: :desc).joins(:subcategory).select("subcategories.id as id, subcategories.name as name, sum(value) as value").group("subcategories.id", "subcategories.name")
   end
 end

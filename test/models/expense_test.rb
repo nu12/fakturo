@@ -11,7 +11,7 @@ class ExpenseTest < ActiveSupport::TestCase
   test "group by category" do
     es =  Expense.all.group_by_category
     assert es[0].name == "MyString"
-    assert es[0].value == 2.0
+    assert es[0].value == 1.0
   end
 
   test "group by subcategory" do
