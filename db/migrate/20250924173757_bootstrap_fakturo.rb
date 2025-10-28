@@ -25,6 +25,7 @@ class BootstrapFakturo < ActiveRecord::Migration[8.0]
     end
 
     create_table :statements do |t|
+      t.date :date
       t.integer :year
       t.integer :month
       t.boolean :is_upload, default: false

@@ -66,7 +66,7 @@ end
 
 gem "devise", "~> 4.9"
 
-gem "haml", "~> 6.3"
+gem "haml", "~> 7.0"
 
 gem "cancancan", "~> 3.6"
 
