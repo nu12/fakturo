@@ -3,6 +3,7 @@ class SubcategoriesController < ApplicationController
   load_and_authorize_resource :category
   before_action :set_subcategory, only: %i[ show edit update destroy ]
   before_action :set_category, only: %i[ index new create edit update destroy ]
+  before_action :load_categories, only: %i[ show ]
   before_action { set_active_page("home") }
 
   # GET /subcategories or /subcategories.json
@@ -67,6 +68,23 @@ class SubcategoriesController < ApplicationController
       format.html { redirect_to category_subcategories_path(@category), notice: "Subcategory was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
+  end
+
+  def transfer
+    params.expect(:selected, :subcategory_id)
+    expenses_to_transfer = params[:selected].split(",")
+    expenses = Expense.where(id: expenses_to_transfer)
+    subcategory = Subcategory.find(params[:subcategory_id])
+    expenses.each do | expense |
+      expense.update(category: subcategory.category, subcategory: subcategory)
+    end
+    errors = expenses.map{|e| e[:errors]}.flatten.select{|e| e != nil}
+    if errors.count > 0
+      flash[:alert] = "#{errors.full_messages.join('. ')}."
+    else
+      flash[:notice] = "Expenses were successfully transfered."
+    end
+    redirect_to category_subcategory_path(subcategory.category, subcategory), status: :see_other
   end
 
   private

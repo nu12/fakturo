@@ -1,9 +1,15 @@
 %div{"data-controller" => "expenses--table"}
   .digg_pagination.d-flex.justify-content-center.mb-3
     = will_paginate expenses, :container => false
+  - if show.include? :checkbox
+    %button.btn.btn-primary{"data-bs-toggle" => "modal", "data-bs-target" => "#transferExpensesModal", "data-action" => "expenses--table#getSelectedSubcategories"}
+      Transfer
   %table.table.table-sm.table-striped
     %thead
       %tr
+        - if show.include? :checkbox
+          %th
+            %input.form-check-input{ :type => :checkbox, "data-expenses--table-target" => "control", "data-action" => "expenses--table#changeAll" }
         %th Date
         %th Description
         %th Value
@@ -19,6 +25,9 @@
     %tbody
       - expenses.each do |expense|
         %tr
+          - if show.include? :checkbox
+            %td
+              %input.form-check-input{ :type => :checkbox, "data-expenses--table-target" => "expense", "data-id" => "#{expense.id}"}
           %td= expense.date.strftime("%Y-%m-%d")
           %td
             = expense.description
@@ -60,4 +69,25 @@
           Edit expense
           %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
         .modal-body#formPlaceholder{"data-expenses--table-target" => "placeholder"}
-
+  - if show.include? :checkbox
+    .modal.fade#transferExpensesModal{ :tabindex => "-1", "aria-labelledby" => "transferExpensesModalLabel", "aria-hidden" => "true"}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            Transfer expenses
+            %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
+          = form_with url: {controller: :subcategories, action: :transfer} do |f|
+            .modal-body
+              .alert.alert-info
+                Text here
+              = f.hidden_field :categories, "data-expenses--table-target" => "categories" ,value: "#{raw @categories.to_json(include: :subcategories)}"
+              = f.hidden_field :subcategories, {:id => "selected", :name => "selected"}
+              .field.mb-3
+                = f.label :category_id, {class: "form-label"}
+                = f.select :category_id, @categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" }, {"data-action" => "expenses--table#selectSubcategories", "data-expenses--table-target" => "category", class: "form-control" }
+              .field.mb-3
+                = f.label :subcategory_id, {class: "form-label"}
+                = f.select :subcategory_id, [], { prompt: "Select a category" }, {"data-expenses--table-target" => "subcategory", class: "form-control" }    
+            .modal-footer
+              .actions.mb-3
+                = f.submit 'Transfer', class: "form-control btn btn-fakturo btn-fakturo-action"

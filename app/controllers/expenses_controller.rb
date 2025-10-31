@@ -79,14 +79,6 @@ class ExpensesController < ApplicationController
       @expense = Expense.find(params.expect(:id))
     end
 
-    def load_categories
-      @categories = Category.includes(:subcategories).where(user_id: current_user.id)
-    end
-
-    def load_statements
-      @statements = Statement.where(user_id: current_user.id)
-    end
-
     # Only allow a list of trusted parameters through.
     def expense_params
       params.expect(expense: [ :date, :description, :value, :comment, :ignore, :statement_id, :category_id, :subcategory_id ])
