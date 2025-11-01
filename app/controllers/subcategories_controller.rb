@@ -78,7 +78,7 @@ class SubcategoriesController < ApplicationController
     expenses.each do | expense |
       expense.update(category: subcategory.category, subcategory: subcategory)
     end
-    errors = expenses.map{|e| e[:errors]}.flatten.select{|e| e != nil}
+    errors = expenses.map { |e| e[:errors] }.flatten.select { |e| e != nil }
     if errors.count > 0
       flash[:alert] = "#{errors.full_messages.join('. ')}."
     else

@@ -57,7 +57,7 @@ class SubcategoriesTest < ApplicationSystemTestCase
 
   test "should transfer Subcategory" do
     visit category_subcategory_url(@subcategory.category, @subcategory)
-    all('input[type=checkbox]').each do |checkbox|
+    all("input[type=checkbox]").each do |checkbox|
       checkbox.check
     end
     click_on "Transfer"
