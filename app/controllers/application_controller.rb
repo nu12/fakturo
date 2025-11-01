@@ -4,6 +4,13 @@ class ApplicationController < ActionController::Base
 
   private
   def set_active_page(page)
-      @active = page
-    end
+    @active = page
+  end
+  def load_categories
+    @categories = Category.includes(:subcategories).where(user_id: current_user.id)
+  end
+
+  def load_statements
+    @statements = Statement.where(user_id: current_user.id)
+  end
 end

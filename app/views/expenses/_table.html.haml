@@ -1,9 +1,14 @@
-%div{"data-controller" => "expenses--table"}
+%div{"data-controller" => "expenses"}
+  %input{:type => "hidden",:id => "categoriesForCurrentUser", :value => "#{raw @categories.to_json(include: :subcategories)}"}
   .digg_pagination.d-flex.justify-content-center.mb-3
     = will_paginate expenses, :container => false
+  
   %table.table.table-sm.table-striped
     %thead
       %tr
+        - if show.include? :checkbox
+          %th
+            %input.form-check-input{ :type => :checkbox, "data-action" => "expenses#changeAll" }
         %th Date
         %th Description
         %th Value
@@ -19,6 +24,9 @@
     %tbody
       - expenses.each do |expense|
         %tr
+          - if show.include? :checkbox
+            %td
+              %input.form-check-input{ :type => :checkbox, "data-expenses-target" => "expense", "data-id" => "#{expense.id}"}
           %td= expense.date.strftime("%Y-%m-%d")
           %td
             = expense.description
@@ -45,10 +53,15 @@
             %td= expense.subcategory.name
           
           %td
-            %button.btn.btn-sm{ :type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#editExpenseModal", "data-action" => "expenses--table#renderForm", "data-expenses--table-id-param" => "#{expense.id}" }
+            %button.btn.btn-sm{ :type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#editExpenseModal", "data-action" => "expenses#renderForm", "data-expenses-id-param" => "#{expense.id}" }
               %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "Edit"}
                 %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
                   %use{ "xlink:href" => "#edit" }
+
+  - if show.include? :checkbox
+    .mb-3
+      %button.btn.btn-primary.form-control{"data-bs-toggle" => "modal", "data-bs-target" => "#transferExpensesModal", "data-action" => "expenses#getSelectedSubcategories"}
+        Transfer selected
 
   .digg_pagination.d-flex.justify-content-center.mb-3
     = will_paginate expenses, :container => false
@@ -59,5 +72,26 @@
         .modal-header
           Edit expense
           %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
-        .modal-body#formPlaceholder{"data-expenses--table-target" => "placeholder"}
-
+        .modal-body#formPlaceholder
+  - if show.include? :checkbox
+    .modal.fade#transferExpensesModal{ :tabindex => "-1", "aria-labelledby" => "transferExpensesModalLabel", "aria-hidden" => "true"}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            Transfer expenses
+            %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
+          = form_with url: {controller: :subcategories, action: :transfer} do |f|
+            .modal-body
+              .alert.alert-info
+                The selected expenses will be transfered to the category and sub-category selected below.
+              
+              = f.hidden_field :subcategories, {:id => "selected", :name => "selected"}
+              .field.mb-3
+                = f.label :category_id, {class: "form-label"}
+                = f.select :category_id, @categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" }, {"data-action" => "expenses#updateSubcategorySelector", class: "form-control" }
+              .field.mb-3
+                = f.label :subcategory_id, {class: "form-label"}
+                = f.select :subcategory_id, [], { prompt: "Select a category" }, {class: "form-control subcategorySelector" }
+            .modal-footer
+              .actions.mb-3
+                = f.submit 'Save', class: "form-control btn btn-fakturo btn-fakturo-action"
