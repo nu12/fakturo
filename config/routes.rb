@@ -18,12 +18,12 @@ Rails.application.routes.draw do
   get "/sources/:id(/page/:page)" => "sources#show", :as => :source_page
 
   # Categories and sub-categories
-
   resources :categories, except: [ :show ] do
     resources :subcategories, except: [ :show ]
   end
   get "/categories/:category_id/subcategories/:id(/page/:page)" => "subcategories#show", :as => :category_subcategory_page
   get "/categories/:id(/page/:page)" => "categories#show", :as => :category_page
+  post "/subcategories/transfer" => "subcategories#transfer", :as => :subcategories_transfer
 
   # Anonymous access
   get "policy" => "guest#policy"
