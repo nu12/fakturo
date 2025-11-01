@@ -1,5 +1,5 @@
-%div{"data-controller" => "expenses--form"}
-  = form_for expense, :html => {"data-expenses--form-target" => "form"} do |f|
+%div
+  = form_for expense, :html => {"data-expenses-target" => "form"} do |f|
     - if expense.errors.any?
       #error_explanation
         %h2= "#{pluralize(expense.errors.count, "error")} prohibited this expense from being saved:"
@@ -7,7 +7,6 @@
           - expense.errors.full_messages.each do |message|
             %li= message
 
-    = f.hidden_field :categories, "data-expenses--form-target" => "categories" ,value: "#{raw categories.to_json(include: :subcategories)}"
     .field.mb-3
       = f.label :date, {class: "form-label"}
       = f.date_field :date, class: "form-control"
@@ -25,20 +24,20 @@
       = f.select :statement_id, statements.map { |d| ["#{d.source.name} (#{d.year}-#{"%02d" % d.month})", d.id] }, { prompt: "Select a statement" },{ class: "form-control" }
     .field.mb-3
       = f.label :category_id, {class: "form-label"}
-      = f.select :category_id, categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" },{id: "category_id", "data-action" => "expenses--form#selectSubcategories", "data-expenses--form-target" => "category", class: "form-control" }
+      = f.select :category_id, categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" },{id: "category_id", "data-action" => "expenses#updateSubcategorySelector", class: "form-control" }
     .field.mb-3
       = f.label :subcategory_id, {class: "form-label"}
-      = f.select :subcategory_id, expense.subcategory ? [ [expense.subcategory.name, expense.subcategory.id] ] : [], { prompt: "Select a category" }, {id: "subcategory_id", "data-expenses--form-target" => "subcategory", class: "form-control" }
+      = f.select :subcategory_id, expense.subcategory ? [ [expense.subcategory.name, expense.subcategory.id] ] : [], { prompt: "Select a category" }, {id: "subcategory_id", class: "form-control subcategorySelector" }
     .field.mb-3
       = f.checkbox :ignore, class: "form-check-input"
       = f.label :ignore, {class: "form-label"}
     - if async # If the form is loaded from async request from any expenses table 
       .field.mb-3.d-flex
         .w-50.pe-2
-          %button.btn.btn-danger.form-control{ :type => "button", "data-action" => "expenses--form#deleteExpense"} 
+          %button.btn.btn-danger.form-control{ :type => "button", "data-action" => "expenses#deleteExpense"} 
             Delete expense
         .w-50.ps-2
-          %button.btn.btn-fakturo-action.form-control{ :type => "button", "data-action" => "expenses--form#sendForm"} 
+          %button.btn.btn-fakturo-action.form-control{ :type => "button", "data-action" => "expenses#sendForm"} 
             Save changes
     - else # if the form is loaded from expenses/new 
       .actions.mb-3

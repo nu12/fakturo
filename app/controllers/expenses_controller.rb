@@ -2,7 +2,7 @@ class ExpensesController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
   before_action :set_expense, only: %i[ show edit update destroy render_form]
-  before_action :load_categories, only: %i[ new create edit render_form ]
+  before_action :load_categories, only: %i[ index new create edit render_form ]
   before_action :load_statements, only: %i[ new create edit render_form ]
   before_action { set_active_page("home") }
 
