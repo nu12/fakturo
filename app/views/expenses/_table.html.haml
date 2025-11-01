@@ -79,7 +79,7 @@
           = form_with url: {controller: :subcategories, action: :transfer} do |f|
             .modal-body
               .alert.alert-info
-                Text here
+                The selected expenses will be transfered to the category and sub-category selected below.
               = f.hidden_field :categories, "data-expenses--table-target" => "categories" ,value: "#{raw @categories.to_json(include: :subcategories)}"
               = f.hidden_field :subcategories, {:id => "selected", :name => "selected"}
               .field.mb-3
