@@ -2,9 +2,7 @@
   %input{:type => "hidden",:id => "categoriesForCurrentUser", :value => "#{raw @categories.to_json(include: :subcategories)}"}
   .digg_pagination.d-flex.justify-content-center.mb-3
     = will_paginate expenses, :container => false
-  - if show.include? :checkbox
-    %button.btn.btn-primary{"data-bs-toggle" => "modal", "data-bs-target" => "#transferExpensesModal", "data-action" => "expenses#getSelectedSubcategories"}
-      Transfer
+  
   %table.table.table-sm.table-striped
     %thead
       %tr
@@ -59,6 +57,11 @@
               %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "Edit"}
                 %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
                   %use{ "xlink:href" => "#edit" }
+
+  - if show.include? :checkbox
+    .mb-3
+      %button.btn.btn-primary.form-control{"data-bs-toggle" => "modal", "data-bs-target" => "#transferExpensesModal", "data-action" => "expenses#getSelectedSubcategories"}
+        Transfer selected
 
   .digg_pagination.d-flex.justify-content-center.mb-3
     = will_paginate expenses, :container => false
