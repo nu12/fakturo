@@ -26,10 +26,10 @@
           = Current.user.access_token_enabled ? 'Enabled' : 'Disabled'
       %tr
         %td{colspan: "2"}
-          = link_to 'Regenerate token', user_access_regenerate_path, class: "btn btn-light form-control", data: {turbo_method: :put}
+          = link_to 'Regenerate token', api_access_path, class: "btn btn-light form-control", data: {turbo_method: :put}
       %tr
         %td{colspan: "2"}
-          = link_to 'Enable/disable external access', user_access_toogle_path, class: "btn btn-light form-control", data: {turbo_method: :put}
+          = link_to 'Enable/disable external access', toogle_api_access_path, class: "btn btn-light form-control", data: {turbo_method: :put}
 
 - if Current.user.access_token_enabled
   .accordion#accordionExpenses

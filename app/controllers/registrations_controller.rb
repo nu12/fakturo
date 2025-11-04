@@ -13,4 +13,13 @@ class RegistrationsController < ApplicationController
   def new
     @user = User.new
   end
+
+  def delete
+  end
+
+  def destroy
+    if Current.user.destroy
+      redirect_to new_session_path, notice: "All user data was erased. See you next time."
+    end
+  end
 end

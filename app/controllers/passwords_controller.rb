@@ -4,9 +4,9 @@ class PasswordsController < ApplicationController
 
   def update
     if Current.user.update(params.permit(:password, :password_confirmation))
-      redirect_to edit_user_password_path, notice: "Password has been reset."
+      redirect_to edit_password_path, notice: "Password has been reset."
     else
-      redirect_to edit_user_password_path, alert: "Passwords did not match."
+      redirect_to edit_password_path, alert: "Passwords did not match."
     end
   end
 end

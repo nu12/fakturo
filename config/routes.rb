@@ -29,14 +29,6 @@ Rails.application.routes.draw do
   # User navigation
   get "home" => "home#index"
   get "home/policy" => "home#policy"
-  get "/user/erase" => "home#delete", :as => :delete_data
-  delete "/user/erase" => "home#destroy", :as => :destroy_data
-  get "/users/edit" => "passwords#edit", :as => :edit_user_password
-
-  # External access configuration
-  get "/user/access" => "home#access", :as => :user_access
-  put "/user/access/regenerate" => "home#access_regenerate", :as => :user_access_regenerate
-  put "/user/access/toogle" => "home#access_toogle", :as => :user_access_toogle
 
   # Dashboards
   get "dashboards" => "dashboards#index", :as => :dashboards
@@ -48,9 +40,18 @@ Rails.application.routes.draw do
   get "api/total"
   get "api/monthly"
 
-  resource :session
-  resources :passwords
-  resource :registration
+  resource :api_access, :path => "access", only: [ :edit, :update ] do
+    collection do
+      put :toogle
+    end
+  end
+  resource :session, only: [ :new, :create, :destroy ]
+  resource :password, only: [ :edit, :update ]
+  resource :registration, only: [ :new, :create, :destroy ] do
+    collection do
+      get :delete
+    end
+  end
 
   # Defines the root path route ("/")
   root "home#index"

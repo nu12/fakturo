@@ -6,14 +6,14 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "edit" do
-    get edit_user_password_path
+    get edit_password_path
     assert_response :success
   end
 
   test "update" do
     assert_changes -> { Current.user.reload.password_digest } do
       put password_path(Current.user), params: { password: "new", password_confirmation: "new" }
-      assert_redirected_to edit_user_password_path
+      assert_redirected_to edit_password_path
     end
 
     follow_redirect!
@@ -24,7 +24,7 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
     token = Current.user.password_reset_token
     assert_no_changes -> { Current.user.reload.password_digest } do
       put password_path(token), params: { password: "no", password_confirmation: "match" }
-      assert_redirected_to edit_user_password_path
+      assert_redirected_to edit_password_path
     end
 
     follow_redirect!

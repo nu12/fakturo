@@ -2,8 +2,10 @@
 
 one:
   username: one
+  uuid: bde8c2a6-b063-bf1a-0516-2d40abeb2beb
   password_digest: <%= password_digest %>
 
 two:
   username: two
+  uuid: f5a98add-cbfc-8d41-27d4-cdb5b1b7cf69
   password_digest: <%= password_digest %>
