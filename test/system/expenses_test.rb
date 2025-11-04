@@ -1,9 +1,8 @@
 require "application_system_test_case"
 
 class ExpensesTest < ApplicationSystemTestCase
-  include Devise::Test::IntegrationHelpers
   setup do
-    sign_in users(:one)
+    login_as_user_one
     @expense = expenses(:one)
   end
 

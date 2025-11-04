@@ -39,6 +39,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_24_173757) do
     t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "sources", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -76,10 +85,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_24_173757) do
     t.boolean "access_token_enabled", default: false
     t.datetime "access_token_expiry_date"
     t.datetime "created_at", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.datetime "remember_created_at"
+    t.string "password_digest", null: false
     t.datetime "updated_at", null: false
-    t.string "username", default: "", null: false
+    t.string "username", null: false
     t.string "uuid"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
@@ -89,6 +97,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_24_173757) do
   add_foreign_key "expenses", "statements"
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "users"
+  add_foreign_key "sessions", "users"
   add_foreign_key "sources", "users"
   add_foreign_key "statements", "sources"
   add_foreign_key "statements", "users"

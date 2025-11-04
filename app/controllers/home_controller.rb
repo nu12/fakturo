@@ -1,6 +1,4 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!
-
   def index
     @active = "home"
   end
@@ -11,15 +9,12 @@ class HomeController < ApplicationController
     render("guest/policy")
   end
 
-  def password
-  end
-
   def delete
   end
 
   def destroy
-    if current_user.destroy
-      redirect_to new_user_session_path, notice: "All user data was erased. See you next time."
+    if Current.user.destroy
+      redirect_to new_session_path, notice: "All user data was erased. See you next time."
     end
   end
 
@@ -28,8 +23,8 @@ class HomeController < ApplicationController
   end
 
   def access_regenerate
-    current_user.regenerate_token
-    if current_user.save
+    Current.user.regenerate_token
+    if Current.user.save
       redirect_to user_access_path, notice: "Access token was regenerated successfully."
     else
       redirect_to user_access_path, alert: "Error regenerating token."
@@ -37,9 +32,9 @@ class HomeController < ApplicationController
   end
 
   def access_toogle
-    current_user.access_token_enabled = !current_user.access_token_enabled
-    if current_user.save
-      redirect_to user_access_path, notice: "Access token was #{ current_user.access_token_enabled ? 'enabled' : 'disabled' } successfully."
+    Current.user.access_token_enabled = !Current.user.access_token_enabled
+    if Current.user.save
+      redirect_to user_access_path, notice: "Access token was #{ Current.user.access_token_enabled ? 'enabled' : 'disabled' } successfully."
     else
       redirect_to user_access_path, alert: "Error enabling/disabling token."
     end

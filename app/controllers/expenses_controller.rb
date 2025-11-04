@@ -1,9 +1,6 @@
 class ExpensesController < ApplicationController
-  before_action :authenticate_user!
   load_and_authorize_resource
   before_action :set_expense, only: %i[ show edit update destroy render_form]
-  before_action :load_categories, only: %i[ index new create edit render_form ]
-  before_action :load_statements, only: %i[ new create edit render_form ]
   before_action { set_active_page("home") }
 
   # GET /expenses or /expenses.json
@@ -70,7 +67,7 @@ class ExpensesController < ApplicationController
   end
 
   def render_form
-    render partial: "form", layout: false, locals: { expense: @expense, statements: @statements, categories: @categories, async: true }
+    render partial: "form", layout: false, locals: { expense: @expense, statements: Current.user.statements, categories: Current.user.categories, async: true }
   end
 
   private

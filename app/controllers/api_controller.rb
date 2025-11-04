@@ -1,4 +1,5 @@
 class ApiController < ApplicationController
+  allow_unauthenticated_access
   before_action :set_user
   def total
     result = Expense.accessible_by(current_ability)

@@ -10,20 +10,20 @@
     %tbody
       %tr
         %td Username
-        %td= current_user.username
+        %td= Current.user.username
       %tr
         %td User unique identifier
-        %td= current_user.uuid
+        %td= Current.user.uuid
       %tr
         %td User access token
-        %td= current_user.access_token
+        %td= Current.user.access_token
       %tr
         %td User access token expiration date
-        %td= current_user.access_token_expiry_date
+        %td= Current.user.access_token_expiry_date
       %tr
         %td External access status
-        %td{:class => "#{current_user.access_token_enabled ? 'bg-success-subtle' : 'bg-danger-subtle'}"}
-          = current_user.access_token_enabled ? 'Enabled' : 'Disabled'
+        %td{:class => "#{Current.user.access_token_enabled ? 'bg-success-subtle' : 'bg-danger-subtle'}"}
+          = Current.user.access_token_enabled ? 'Enabled' : 'Disabled'
       %tr
         %td{colspan: "2"}
           = link_to 'Regenerate token', user_access_regenerate_path, class: "btn btn-light form-control", data: {turbo_method: :put}
@@ -31,7 +31,7 @@
         %td{colspan: "2"}
           = link_to 'Enable/disable external access', user_access_toogle_path, class: "btn btn-light form-control", data: {turbo_method: :put}
 
-- if current_user.access_token_enabled
+- if Current.user.access_token_enabled
   .accordion#accordionExpenses
     .accordion-item
       %h2.accordion-header
@@ -47,7 +47,7 @@
             %tbody
               %tr
                 %td Total of expenses by category and subcategory
-                %td= link_to "Link", api_total_path(uuid: current_user.uuid, access_token: current_user.access_token)
+                %td= link_to "Link", api_total_path(uuid: Current.user.uuid, access_token: Current.user.access_token)
               %tr
                 %td Monthly expenses by category and subcategory
-                %td= link_to "Link", api_monthly_path(uuid: current_user.uuid, access_token: current_user.access_token)
+                %td= link_to "Link", api_monthly_path(uuid: Current.user.uuid, access_token: Current.user.access_token)

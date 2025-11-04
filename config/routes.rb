@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get "api/total"
-  get "api/monthly"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Expenses
@@ -33,7 +31,9 @@ Rails.application.routes.draw do
   get "home/policy" => "home#policy"
   get "/user/erase" => "home#delete", :as => :delete_data
   delete "/user/erase" => "home#destroy", :as => :destroy_data
-  get "/users/edit" => "home#password", :as => :edit_user_password
+  get "/users/edit" => "passwords#edit", :as => :edit_user_password
+
+  # External access configuration
   get "/user/access" => "home#access", :as => :user_access
   put "/user/access/regenerate" => "home#access_regenerate", :as => :user_access_regenerate
   put "/user/access/toogle" => "home#access_toogle", :as => :user_access_toogle
@@ -44,11 +44,13 @@ Rails.application.routes.draw do
   get "dashboards/category_by_month", as: :category_by_month
   get "dashboards/category_by_year", as: :category_by_year
 
-  # External access configuration
-
   # API
+  get "api/total"
+  get "api/monthly"
 
-  devise_for :users
+  resource :session
+  resources :passwords
+  resource :registration
 
   # Defines the root path route ("/")
   root "home#index"

@@ -1,8 +1,8 @@
 .container.w-50
   .w-100.text-center
-    %h2 Log in
+    %h2 Sign in
     = image_tag("logo.png", alt: "Fakturo", width: "60", height: "60")
-  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  = form_with url: session_path do |f|
     .field.mb-3
       = f.label :username, {class: "form-label"}
       = f.text_field :username, autofocus: true, autocomplete: "email", class: "form-control"
@@ -10,13 +10,8 @@
     .field.mb-3
       = f.label :password, {class: "form-label"}
       = f.password_field :password, autocomplete: "current-password", class: "form-control"
-    
-    - if devise_mapping.rememberable?
-      .field
-        = f.check_box :remember_me, class: "form-check-input"
-        = f.label :remember_me, {class: "form-label"}
 
     .actions.mb-3
-      = f.submit "Log in", class: "form-control btn btn-fakturo btn-fakturo-action"
+      = f.submit "Sign in", class: "form-control btn btn-fakturo btn-fakturo-action"
 
-  = render "devise/shared/links"
+  = link_to "Sign up", new_registration_path

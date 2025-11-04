@@ -1,5 +1,4 @@
 class StatementsController < ApplicationController
-  before_action :authenticate_user!
   load_and_authorize_resource
   before_action :set_statement, only: %i[ show edit update destroy ]
   before_action :load_sources, only: %i[ new create edit ]
