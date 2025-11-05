@@ -24,7 +24,7 @@ export default class extends Controller {
   renderForm(e){
     const id = e.params.id;
     var formPlaceholder = document.getElementById("formPlaceholder")
-    fetch("/expenses/renderform/" + id).then(response => response.text()).then(data => formPlaceholder.innerHTML = data);
+    fetch("/expenses/" + id + "/edit").then(response => response.text()).then(data => formPlaceholder.innerHTML = data);
   }
   sendForm() {
     const csrf = document.querySelector('meta[name=csrf-token]').content;

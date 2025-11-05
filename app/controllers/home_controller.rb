@@ -1,12 +1,6 @@
 class HomeController < ApplicationController
-  def index
-    @active = "home"
+  before_action { set_active_page("home") }
+  
+  def index  
   end
-
-  def policy
-    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Data & Privacy policy" } ]
-    @active = "policy"
-    render("guest/policy")
-  end
-
 end

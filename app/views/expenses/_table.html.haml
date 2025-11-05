@@ -80,7 +80,7 @@
           .modal-header
             Transfer expenses
             %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
-          = form_with url: {controller: :subcategories, action: :transfer} do |f|
+          = form_with url: transfer_subcategory_path do |f|
             .modal-body
               .alert.alert-info
                 The selected expenses will be transfered to the category and sub-category selected below.

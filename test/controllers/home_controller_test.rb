@@ -6,7 +6,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get home_url
+    get root_url
     assert_response :success
   end
 end

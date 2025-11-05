@@ -1,6 +1,6 @@
 class ExpensesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_expense, only: %i[ show edit update destroy render_form]
+  before_action :set_expense, only: %i[ show edit update destroy ]
   before_action { set_active_page("home") }
 
   # GET /expenses or /expenses.json
@@ -24,7 +24,7 @@ class ExpensesController < ApplicationController
 
   # GET /expenses/1/edit
   def edit
-    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses", path: expenses_path }, { name: @expense.description, path: expense_path(@expense) }, { name: "Edit" } ]
+    render partial: "form", layout: false, locals: { expense: @expense, statements: Current.user.statements, categories: Current.user.categories, async: true }
   end
 
   # POST /expenses or /expenses.json
@@ -64,10 +64,6 @@ class ExpensesController < ApplicationController
       flash[:notice] = "Expense was successfully destroyed."
       format.json { head :no_content }
     end
-  end
-
-  def render_form
-    render partial: "form", layout: false, locals: { expense: @expense, statements: Current.user.statements, categories: Current.user.categories, async: true }
   end
 
   private

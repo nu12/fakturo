@@ -47,7 +47,7 @@
             %tbody
               %tr
                 %td Total of expenses by category and subcategory
-                %td= link_to "Link", api_total_path(uuid: Current.user.uuid, access_token: Current.user.access_token)
+                %td= link_to "Link", total_api_path(uuid: Current.user.uuid, access_token: Current.user.access_token)
               %tr
                 %td Monthly expenses by category and subcategory
-                %td= link_to "Link", api_monthly_path(uuid: Current.user.uuid, access_token: Current.user.access_token)
+                %td= link_to "Link", monthly_api_path(uuid: Current.user.uuid, access_token: Current.user.access_token)

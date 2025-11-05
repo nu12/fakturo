@@ -7,12 +7,12 @@ class ExpensesTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    visit expenses_page_url(1)
+    visit expenses_url
     assert_selector "h1", text: "Expenses"
   end
 
   test "should create expense" do
-    visit expenses_page_url(1)
+    visit expenses_url
     click_on "New Expense"
 
     fill_in "Date", with: @expense.date
@@ -28,7 +28,7 @@ class ExpensesTest < ApplicationSystemTestCase
   end
 
   test "should update Expense" do
-    visit expenses_page_url(1)
+    visit page_expenses_url
     within("table.table-striped") do
       find_button.click
     end
@@ -38,7 +38,7 @@ class ExpensesTest < ApplicationSystemTestCase
   end
 
   test "should destroy Expense" do
-    visit expenses_page_url(1)
+    visit page_expenses_url
     within("table.table-striped") do
       find_button.click
     end

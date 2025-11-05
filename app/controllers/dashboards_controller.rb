@@ -5,7 +5,7 @@ class DashboardsController < ApplicationController
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards" } ]
   end
 
-  def category_by_statement
+  def statement
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by statement" } ]
     @statements = Statement.accessible_by(current_ability)
     authorize! :read, Statement, @statements
@@ -26,7 +26,7 @@ class DashboardsController < ApplicationController
     end
   end
 
-  def category_by_year
+  def year
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by year" } ]
     if params[:year]
       @cat = Expense
@@ -45,7 +45,7 @@ class DashboardsController < ApplicationController
     end
   end
 
-  def category_by_month
+  def month
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by month" } ]
     if params[:year] && params[:month]
       @cat = Expense

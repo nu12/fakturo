@@ -1,4 +1,4 @@
-class ApiController < ApplicationController
+class ApisController < ApplicationController
   allow_unauthenticated_access
   before_action :set_user
   def total

@@ -69,7 +69,8 @@ class CategoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
-      @category = Category.find(params.expect(:id))
+      params.permit(:id, :category_id)
+      @category = Category.find(params[:id] || params[:category_id])
     end
 
     # Only allow a list of trusted parameters through.

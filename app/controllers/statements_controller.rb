@@ -70,7 +70,8 @@ class StatementsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_statement
-      @statement = Statement.find(params.expect(:id))
+      params.permit(:id, :statement_id)
+      @statement = Statement.find(params[:id] || params[:statement_id])
     end
 
     def load_sources

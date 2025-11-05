@@ -6,37 +6,37 @@ class DashboardsTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    visit dashboards_url
+    visit dashboards_path
     assert_selector "h1", text: "Dashboards"
   end
 
   test "visiting category by statement" do
     statement = statements(:one)
 
-    visit category_by_statement_url
+    visit statement_dashboards_path
     assert_no_selector "canvas"
 
-    visit category_by_statement_url(statement_id: statement.id)
+    visit statement_dashboards_path(statement_id: statement.id)
     assert_selector "canvas"
   end
 
   test "visiting category by year" do
     statement = statements(:one)
 
-    visit category_by_year_url
+    visit year_dashboards_path
     assert_no_selector "canvas"
 
-    visit category_by_year_url(year: statement.year)
+    visit year_dashboards_path(year: statement.year)
     assert_selector "canvas"
   end
 
   test "visiting category by month" do
     statement = statements(:one)
 
-    visit category_by_month_url
+    visit month_dashboards_path
     assert_no_selector "canvas"
 
-    visit category_by_month_url(year: statement.year, month: statement.month)
+    visit month_dashboards_path(year: statement.year, month: statement.month)
     assert_selector "canvas"
   end
 end

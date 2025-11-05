@@ -8,7 +8,7 @@
   %ul.nav.nav-pills.flex-column.mb-auto
     %li.nav-item
       %a{
-        :href => "/home",
+        :href => root_path,
         :class => "nav-link #{'active' if @active == 'home' }",
         "aria-current" => "page"
       }
@@ -35,7 +35,7 @@
         External access
     %li.nav-item
       %a{
-        :href => "/home/policy",
+        :href => policy_path,
         :class => "nav-link #{'active' if @active == 'policy' }", 
         "aria-current" => "page"
       }
