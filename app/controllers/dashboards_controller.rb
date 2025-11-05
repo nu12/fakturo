@@ -1,13 +1,11 @@
 class DashboardsController < ApplicationController
-  before_action :authenticate_user!
-
   before_action { set_active_page("dashboards") }
 
   def index
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards" } ]
   end
 
-  def category_by_statement
+  def statement
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by statement" } ]
     @statements = Statement.accessible_by(current_ability)
     authorize! :read, Statement, @statements
@@ -28,15 +26,15 @@ class DashboardsController < ApplicationController
     end
   end
 
-  def category_by_year
+  def year
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by year" } ]
     if params[:year]
-      @cat = Expense.accessible_by(current_ability)
-      .unscoped.valid.where("cast(strftime('%Y', date) as int) = ?", params[:year])
+      @cat = Expense
+      .unscoped.valid.accessible_by(current_ability).where("cast(strftime('%Y', date) as int) = ?", params[:year])
       .group_by_category
       authorize! :read, Expense, @cat
-      @sub = Expense.accessible_by(current_ability)
-      .unscoped.valid.where("cast(strftime('%Y', date) as int) = ?", params[:year])
+      @sub = Expense
+      .unscoped.valid.accessible_by(current_ability).where("cast(strftime('%Y', date) as int) = ?", params[:year])
       .group_by_subcategory
       authorize! :read, Expense, @sub
 
@@ -47,15 +45,15 @@ class DashboardsController < ApplicationController
     end
   end
 
-  def category_by_month
+  def month
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by month" } ]
     if params[:year] && params[:month]
-      @cat = Expense.accessible_by(current_ability)
-      .unscoped.valid.where("cast(strftime('%Y', date) as int) = ? and cast(strftime('%m', date) as int) = ?", params[:year], params[:month])
+      @cat = Expense
+      .unscoped.valid.accessible_by(current_ability).where("cast(strftime('%Y', date) as int) = ? and cast(strftime('%m', date) as int) = ?", params[:year], params[:month])
       .group_by_category
       authorize! :read, Expense, @cat
-      @sub = Expense.accessible_by(current_ability)
-      .unscoped.valid.where("cast(strftime('%Y', date) as int) = ? and cast(strftime('%m', date) as int) = ?", params[:year], params[:month])
+      @sub = Expense
+      .unscoped.valid.accessible_by(current_ability).where("cast(strftime('%Y', date) as int) = ? and cast(strftime('%m', date) as int) = ?", params[:year], params[:month])
       .group_by_subcategory
       authorize! :read, Expense, @sub
 

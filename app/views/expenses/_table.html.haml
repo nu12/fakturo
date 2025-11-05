@@ -1,5 +1,5 @@
 %div{"data-controller" => "expenses"}
-  %input{:type => "hidden",:id => "categoriesForCurrentUser", :value => "#{raw @categories.to_json(include: :subcategories)}"}
+  %input{:type => "hidden",:id => "categoriesForCurrentUser", :value => "#{raw Current.user.categories.to_json(include: :subcategories)}"}
   .digg_pagination.d-flex.justify-content-center.mb-3
     = will_paginate expenses, :container => false
   
@@ -80,7 +80,7 @@
           .modal-header
             Transfer expenses
             %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
-          = form_with url: {controller: :subcategories, action: :transfer} do |f|
+          = form_with url: transfer_subcategory_path do |f|
             .modal-body
               .alert.alert-info
                 The selected expenses will be transfered to the category and sub-category selected below.
@@ -88,7 +88,7 @@
               = f.hidden_field :subcategories, {:id => "selected", :name => "selected"}
               .field.mb-3
                 = f.label :category_id, {class: "form-label"}
-                = f.select :category_id, @categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" }, {"data-action" => "expenses#updateSubcategorySelector", class: "form-control" }
+                = f.select :category_id, Current.user.categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" }, {"data-action" => "expenses#updateSubcategorySelector", class: "form-control" }
               .field.mb-3
                 = f.label :subcategory_id, {class: "form-label"}
                 = f.select :subcategory_id, [], { prompt: "Select a category" }, {class: "form-control subcategorySelector" }

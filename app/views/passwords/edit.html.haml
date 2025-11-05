@@ -3,9 +3,7 @@
     %h2 Change password
     = image_tag("logo.png", alt: "Fakturo", width: "60", height: "60")
 
-  = form_for(User, as: current_user, url: registration_path(current_user), html: { method: :put }) do |f| 
-    = render "devise/shared/error_messages", resource: current_user
-    
+  = form_with url: password_path(Current.user), method: :put do |f| 
     .field.mb-3
       = f.label :password, {class: "form-label"}
       %i (New password)
@@ -20,11 +18,5 @@
       = f.label :password_confirmation, {class: "form-label"}
       = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
     
-
-    .field.mb-3
-      = f.label :current_password, {class: "form-label"}
-      = f.password_field :current_password, autocomplete: "current-password", class: "form-control"
-    
-
     .actions.mb-3
       = f.submit "Save", class: "form-control btn btn-fakturo btn-fakturo-action"

@@ -1,9 +1,8 @@
 require "test_helper"
 
 class SubcategoriesControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
   setup do
-    sign_in users(:one)
+    sign_in_as users(:one)
     @subcategory = subcategories(:one)
   end
 
@@ -49,7 +48,7 @@ class SubcategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should transfer subcategory" do
-    post subcategories_transfer_url, params: { selected: "1", subcategory_id: @subcategory.id }
+    post transfer_subcategory_url, params: { selected: "1", subcategory_id: @subcategory.id }
     assert_response :see_other
     assert_redirected_to category_subcategory_url(@subcategory.category, @subcategory)
   end

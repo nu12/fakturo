@@ -1,10 +1,9 @@
 require "test_helper"
 
 class SourcesControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
   setup do
+    sign_in_as users(:one)
     @source = sources(:one)
-    sign_in users(:one)
   end
 
   test "should get index" do

@@ -16,5 +16,5 @@
       .accordion-body
         %div.text-start.mt-3.alert.alert-danger{:role => "alert"}
           You will not be prompted to confirm after clicking in the button below. Proceed with caution.
-        = link_to "Erase everything", destroy_data_path, class: "btn btn-danger form-control", data: {turbo_method: :delete}
+        = link_to "Erase everything", registration_path, class: "btn btn-danger form-control", data: {turbo_method: :delete}
   

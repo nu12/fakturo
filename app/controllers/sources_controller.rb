@@ -1,5 +1,4 @@
 class SourcesController < ApplicationController
-  before_action :authenticate_user!
   load_and_authorize_resource
   before_action :set_source, only: %i[ show edit update destroy ]
   before_action { set_active_page("home") }
@@ -70,7 +69,8 @@ class SourcesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_source
-      @source = Source.find(params.expect(:id))
+      params.permit(:id, :source_id)
+      @source = Source.find(params[:id] || params[:source_id])
     end
 
     # Only allow a list of trusted parameters through.

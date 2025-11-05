@@ -1,8 +1,8 @@
 require "test_helper"
 
-class ApiControllerTest < ActionDispatch::IntegrationTest
+class ApisControllerTest < ActionDispatch::IntegrationTest
   test "should get empty total" do
-    get api_total_url
+    get total_api_path
     assert_response :success
     assert_equal([], response.parsed_body)
   end

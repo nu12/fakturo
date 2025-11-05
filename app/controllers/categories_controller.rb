@@ -1,5 +1,4 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!
   load_and_authorize_resource
   before_action :set_category, only: %i[ show edit update destroy ]
   before_action { set_active_page("home") }
@@ -31,7 +30,7 @@ class CategoriesController < ApplicationController
   # POST /categories or /categories.json
   def create
     @category = Category.new(category_params)
-    @category.user = current_user
+    @category.user = Current.user
 
     respond_to do |format|
       if @category.save
@@ -70,7 +69,8 @@ class CategoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
-      @category = Category.find(params.expect(:id))
+      params.permit(:id, :category_id)
+      @category = Category.find(params[:id] || params[:category_id])
     end
 
     # Only allow a list of trusted parameters through.

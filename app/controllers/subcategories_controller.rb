@@ -1,9 +1,7 @@
 class SubcategoriesController < ApplicationController
-  before_action :authenticate_user!
   load_and_authorize_resource :category
   before_action :set_subcategory, only: %i[ show edit update destroy ]
   before_action :set_category, only: %i[ index new create edit update destroy ]
-  before_action :load_categories, only: %i[ show ]
   before_action { set_active_page("home") }
 
   # GET /subcategories or /subcategories.json
@@ -90,7 +88,8 @@ class SubcategoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subcategory
-      @subcategory = Subcategory.find(params.expect(:id))
+      params.permit(:id, :subcategory_id)
+      @subcategory = Subcategory.find(params[:id] || params[:subcategory_id])
     end
 
     def set_category
