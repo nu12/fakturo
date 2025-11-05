@@ -16,7 +16,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_content
   end
 
-  test "delete" do 
+  test "delete" do
     sign_in_as users(:one)
     get delete_registration_path
     assert_response :success

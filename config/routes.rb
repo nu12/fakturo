@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   concern :paginatable, Paginatable.new(action: :show)
-  
+
   resources :expenses, except: [ :show ]
-  resource :expenses, only: [] do 
+  resource :expenses, only: [] do
     concerns :paginatable, action: :index
   end
 
@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :api_access, :path => "access", only: [ :edit, :update ] do
+  resource :api_access, path: "access", only: [ :edit, :update ] do
     collection do
       put :toogle
     end

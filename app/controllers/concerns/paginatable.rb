@@ -5,6 +5,6 @@ class Paginatable
 
   def call(mapper, options = {})
     options = @defaults.merge(options)
-    mapper.get "(/page/:page)", action: options[:action], :as => "page"
+    mapper.get "(/page/:page)", action: options[:action], as: "page"
   end
 end
