@@ -25,11 +25,15 @@ Rails.application.routes.draw do
     post :transfer
   end
 
-  resources :dashboards, only: [ :index ] do
-    collection do
-      get :statement
-      get :month # To delete
-      get :year  # To delete
+  resources :dashboards, only: [ :index ], controller: "dashboards/dashboards"
+  namespace :dashboards do
+    resources :doughnuts, only: [] do
+      collection do
+        get :statement
+        get :dates
+        get :month # To delete
+        get :year  # To delete
+      end
     end
   end
 

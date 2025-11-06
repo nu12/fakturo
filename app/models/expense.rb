@@ -4,11 +4,9 @@ class Expense < ApplicationRecord
   belongs_to :subcategory
   belongs_to :user
 
-  default_scope { order(date: :asc, description: :asc) }
-
-  def self.valid
-    where(ignore: false)
-  end
+  scope :between_dates, lambda{ |start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date ) }
+  scope :ordered, lambda{ order(date: :asc, description: :asc) }
+  scope :valid, lambda{ where(ignore: false) }
 
   def self.group_by_category
     order(category_id: :desc).joins(:category).select("categories.id as id, categories.name as name, sum(value) as value").group("categories.id", "categories.name")

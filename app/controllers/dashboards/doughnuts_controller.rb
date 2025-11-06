@@ -1,10 +1,4 @@
-class DashboardsController < ApplicationController
-  before_action { set_active_page("dashboards") }
-
-  def index
-    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards" } ]
-  end
-
+class Dashboards::DoughnutsController < Dashboards::DashboardsController
   def statement
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by statement" } ]
     @statements = policy_scope(Statement).all

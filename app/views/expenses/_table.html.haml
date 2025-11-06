@@ -22,7 +22,7 @@
           %th Sub-category
         %th
     %tbody
-      - expenses.each do |expense|
+      - expenses.ordered.each do |expense|
         %tr
           - if show.include? :checkbox
             %td
