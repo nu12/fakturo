@@ -1,0 +1,2 @@
+class ExpensePolicy < ApplicationPolicy
+end

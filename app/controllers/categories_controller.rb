@@ -1,11 +1,10 @@
 class CategoriesController < ApplicationController
-  load_and_authorize_resource
   before_action :set_category, only: %i[ show edit update destroy ]
   before_action { set_active_page("home") }
 
   # GET /categories or /categories.json
   def index
-    @categories = Category.accessible_by(current_ability)
+    @categories = policy_scope(Category).all
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories" } ]
   end
 
@@ -71,6 +70,7 @@ class CategoriesController < ApplicationController
     def set_category
       params.permit(:id, :category_id)
       @category = Category.find(params[:id] || params[:category_id])
+      authorize @category
     end
 
     # Only allow a list of trusted parameters through.

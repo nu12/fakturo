@@ -15,6 +15,7 @@ class RegistrationsController < ApplicationController
   end
 
   def delete
+    render "delete", layout: "application"
   end
 
   def destroy

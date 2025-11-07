@@ -1,11 +1,10 @@
 class SourcesController < ApplicationController
-  load_and_authorize_resource
   before_action :set_source, only: %i[ show edit update destroy ]
   before_action { set_active_page("home") }
 
   # GET /sources or /sources.json
   def index
-    @sources = Source.accessible_by(current_ability)
+    @sources = policy_scope(Source).all
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Sources" } ]
   end
 
@@ -71,6 +70,7 @@ class SourcesController < ApplicationController
     def set_source
       params.permit(:id, :source_id)
       @source = Source.find(params[:id] || params[:source_id])
+      authorize @source
     end
 
     # Only allow a list of trusted parameters through.

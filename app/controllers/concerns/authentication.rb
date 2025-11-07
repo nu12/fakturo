@@ -17,7 +17,6 @@ module Authentication
       resume_session
     end
 
-    # This is to be used with cancancan. For anything else, use Current.user
     def current_user
       Current.user
     end
