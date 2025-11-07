@@ -10,33 +10,35 @@ class DashboardsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Dashboards"
   end
 
-  test "visiting category by statement" do
+  test "visiting statement (doughnuts)" do
     statement = statements(:one)
 
-    visit statement_dashboards_path
+    visit statement_dashboards_doughnuts_path
     assert_no_selector "canvas"
 
-    visit statement_dashboards_path(statement_id: statement.id)
+    visit statement_dashboards_doughnuts_path(statement_id: statement.id)
     assert_selector "canvas"
   end
 
-  test "visiting category by year" do
-    statement = statements(:one)
+  test "visiting dates (doughnuts)" do
+    start_date = expenses(:one)
+    end_date = expenses(:two)
 
-    visit year_dashboards_path
+    visit dates_dashboards_doughnuts_path
     assert_no_selector "canvas"
 
-    visit year_dashboards_path(year: statement.year)
+    visit dates_dashboards_doughnuts_path(start_date: start_date, end_date: end_date)
     assert_selector "canvas"
   end
 
-  test "visiting category by month" do
-    statement = statements(:one)
+  test "visiting daily (bars)" do
+    start_date = expenses(:one)
+    end_date = expenses(:two)
 
-    visit month_dashboards_path
+    visit daily_dashboards_bars_path
     assert_no_selector "canvas"
 
-    visit month_dashboards_path(year: statement.year, month: statement.month)
+    visit daily_dashboards_bars_path(start_date: start_date, end_date: end_date)
     assert_selector "canvas"
   end
 end

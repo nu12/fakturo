@@ -5,11 +5,11 @@ class Dashboards::DoughnutsController < Dashboards::DashboardsController
     if params[:statement_id]
       @statement = Statement.find(params[:statement_id])
       authorize @statement, policy_class: StatementPolicy
-      @cat = policy_scope(Expense).unscoped
-        .valid.where(statement_id: params[:statement_id])
+      @cat = policy_scope(Expense)
+        .valid.where(statement: @statement)
         .group_by_category
-      @sub = policy_scope(Expense).unscoped
-        .valid.where(statement_id: params[:statement_id])
+      @sub = policy_scope(Expense)
+        .valid.where(statement: @statement)
         .group_by_subcategory
 
       @option = double_pie_chart(
@@ -19,31 +19,16 @@ class Dashboards::DoughnutsController < Dashboards::DashboardsController
     end
   end
 
-  def year
-    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by year" } ]
-    if params[:year]
+  def dates
+    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category between dates" } ]
+    if params[:start_date] && params[:end_date]
+      @start_date = params[:start_date]
+      @end_date = params[:end_date]
       @cat = policy_scope(Expense)
-      .valid.where("cast(strftime('%Y', date) as int) = ?", params[:year])
+      .valid.between_dates(@start_date, @end_date)
       .group_by_category
       @sub = policy_scope(Expense)
-      .valid.where("cast(strftime('%Y', date) as int) = ?", params[:year])
-      .group_by_subcategory
-
-      @option = double_pie_chart(
-        { name: "Categories", data: @cat },
-        { name: "Sub-categories", data: @sub }
-      )
-    end
-  end
-
-  def month
-    @breadcrumb = [ { name: "Home", path: root_path }, { name: "Dashboards", path: dashboards_path }, { name: "Category by month" } ]
-    if params[:year] && params[:month]
-      @cat = policy_scope(Expense)
-      .valid.where("cast(strftime('%Y', date) as int) = ? and cast(strftime('%m', date) as int) = ?", params[:year], params[:month])
-      .group_by_category
-      @sub = policy_scope(Expense)
-      .valid.where("cast(strftime('%Y', date) as int) = ? and cast(strftime('%m', date) as int) = ?", params[:year], params[:month])
+      .valid.between_dates(@start_date, @end_date)
       .group_by_subcategory
 
       @option = double_pie_chart(

@@ -1,8 +1,8 @@
-%h1 Category between dates
+%h1 Daily amounts
 
 %p Select the dates below
 
-= form_with url: dates_dashboards_doughnuts_path, method: :get do |form|
+= form_with url: daily_dashboards_bars_path, method: :get do |form|
   .field.d-flex
     .mb-3.w-50.pe-1
       = form.label :start_date, {class: "form-label"}

@@ -31,8 +31,11 @@ Rails.application.routes.draw do
       collection do
         get :statement
         get :dates
-        get :month # To delete
-        get :year  # To delete
+      end
+    end
+    resources :bars, only: [] do
+      collection do
+        get :daily
       end
     end
   end
