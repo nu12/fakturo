@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  date: 2025-09-25
+  date: 2025-09-24
   description: Expense-1
   value: 1
   ignore: false
@@ -11,7 +11,7 @@ one:
   user: one
 
 two:
-  date: 2025-09-25
+  date: 2025-09-26
   description: Expense-2
   value: 1
   ignore: false
@@ -19,3 +19,14 @@ two:
   category: two
   subcategory: two
   user: two
+
+three:
+  date: 2025-09-25
+  description: Expense-3
+  value: 1
+  ignore: false
+  statement: two
+  category: two
+  subcategory: two
+  user: two
+

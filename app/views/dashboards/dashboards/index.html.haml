@@ -1,0 +1,27 @@
+%h1 Dashboards
+
+.row.row-cols-1.row-cols-md-4.g-4
+  %div.w-100
+    %h2 Doughnuts
+  
+  .col.d-flex.align-items-stretch
+    .card.w-100
+      = image_tag("echarts_pie.jpeg", alt: "Pie Chart", width: "100%")
+      .card-body.d-flex.flex-column
+        = link_to "Categories by statement", statement_dashboards_doughnuts_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}
+
+  .col.d-flex.align-items-stretch
+    .card.w-100
+      = image_tag("echarts_pie.jpeg", alt: "Pie Chart", width: "100%")
+      .card-body.d-flex.flex-column
+        = link_to "Categories between dates", dates_dashboards_doughnuts_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}
+
+.row.row-cols-1.row-cols-md-4.g-4
+  %div.w-100.mt-5
+    %h2 Lines & Bars
+
+  .col.d-flex.align-items-stretch
+    .card.w-100
+      = image_tag("echarts_bar.jpeg", alt: "Pie Chart", width: "100%")
+      .card-body.d-flex.flex-column
+        = link_to "Daily amounts", daily_dashboards_bars_path, {class: "btn btn-fakturo align-self-stretch mt-auto"}

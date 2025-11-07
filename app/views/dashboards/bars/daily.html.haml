@@ -1,0 +1,21 @@
+%h1 Daily amounts
+
+%p Select the dates below
+
+= form_with url: daily_dashboards_bars_path, method: :get do |form|
+  .field.d-flex
+    .mb-3.w-50.pe-1
+      = form.label :start_date, {class: "form-label"}
+      = form.date_field :start_date, class: "form-control", value: @start_date
+    .mb-3.w-50.ps-1
+      = form.label :end_date, {class: "form-label"}
+      = form.date_field :end_date, class: "form-control", value: @end_date
+  .actions.mb-3
+    = form.submit "Update chart", class: "form-control btn btn-fakturo btn-fakturo-action"
+
+#chart.container.w-100.h-100
+
+= render "dashboards/import_echarts"
+
+= render partial: "dashboards/chart", locals: {option: @option}
+

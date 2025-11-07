@@ -10,18 +10,18 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get category_by_statement" do
-    get statement_dashboards_path
+  test "should get statement (doughnuts)" do
+    get statement_dashboards_doughnuts_path
     assert_response :success
   end
 
-  test "should get category_by_month" do
-    get month_dashboards_path
+  test "should get date (doughnuts)" do
+    get dates_dashboards_doughnuts_path
     assert_response :success
   end
 
-  test "should get category_by_year" do
-    get year_dashboards_path
+  test "should get daily (bars)" do
+    get daily_dashboards_bars_path
     assert_response :success
   end
 end
