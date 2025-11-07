@@ -1,12 +1,11 @@
 class SubcategoriesController < ApplicationController
-  load_and_authorize_resource :category
   before_action :set_subcategory, only: %i[ show edit update destroy ]
-  before_action :set_category, only: %i[ index new create edit update destroy ]
+  before_action :set_category, only: %i[ index show new create edit update destroy ]
   before_action { set_active_page("home") }
 
   # GET /subcategories or /subcategories.json
   def index
-    @subcategories = Subcategory.accessible_by(current_ability).where(category_id: @category.id)
+    @subcategories = policy_scope(Subcategory).where(category_id: @category.id)
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Categories", path: categories_path }, { name: @category.name, path: category_path(@category) }, { name: "Sub-categories" } ]
   end
 
@@ -32,7 +31,7 @@ class SubcategoriesController < ApplicationController
   def create
     @subcategory = Subcategory.new(subcategory_params)
     @subcategory.category = @category
-    @subcategory.user = current_user
+    @subcategory.user = Current.user
 
     respond_to do |format|
       if @subcategory.save
@@ -90,10 +89,12 @@ class SubcategoriesController < ApplicationController
     def set_subcategory
       params.permit(:id, :subcategory_id)
       @subcategory = Subcategory.find(params[:id] || params[:subcategory_id])
+      authorize @subcategory
     end
 
     def set_category
       @category = Category.find(params.expect(:category_id))
+      authorize @category, policy_class: SubcategoryPolicy
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,12 +1,11 @@
 class StatementsController < ApplicationController
-  load_and_authorize_resource
   before_action :set_statement, only: %i[ show edit update destroy ]
   before_action :load_sources, only: %i[ new create edit ]
   before_action { set_active_page("home") }
 
   # GET /statements or /statements.json
   def index
-    @statements = Statement.accessible_by(current_ability)
+    @statements = policy_scope(Statement).all
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Statements" } ]
   end
 
@@ -72,10 +71,11 @@ class StatementsController < ApplicationController
     def set_statement
       params.permit(:id, :statement_id)
       @statement = Statement.find(params[:id] || params[:statement_id])
+      authorize @statement
     end
 
     def load_sources
-      @sources = Source.accessible_by(current_ability)
+      @sources = policy_scope(Source).all
     end
 
     # Only allow a list of trusted parameters through.

@@ -66,6 +66,6 @@ end
 
 gem "haml", "~> 7.0"
 
-gem "cancancan", "~> 3.6"
-
 gem "will_paginate", "~> 4.0"
+
+gem "pundit", "~> 2.5"

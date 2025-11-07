@@ -90,7 +90,6 @@ GEM
     brakeman (7.1.1)
       racc
     builder (3.3.0)
-    cancancan (3.6.1)
     capybara (3.40.0)
       addressable
       matrix
@@ -221,6 +220,8 @@ GEM
     public_suffix (6.0.2)
     puma (7.1.0)
       nio4r (~> 2.0)
+    pundit (2.5.2)
+      activesupport (>= 3.0.0)
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.3)
@@ -393,7 +394,6 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   brakeman
-  cancancan (~> 3.6)
   capybara
   debug
   haml (~> 7.0)
@@ -403,6 +403,7 @@ DEPENDENCIES
   kamal
   propshaft
   puma (>= 5.0)
+  pundit (~> 2.5)
   rails (~> 8.1.1)
   rubocop-rails-omakase
   selenium-webdriver

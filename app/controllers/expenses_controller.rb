@@ -1,12 +1,11 @@
 class ExpensesController < ApplicationController
-  load_and_authorize_resource
   before_action :set_expense, only: %i[ show edit update destroy ]
   before_action { set_active_page("home") }
 
   # GET /expenses or /expenses.json
   def index
     @page = params[:page]||1
-    @expenses = Expense.accessible_by(current_ability).paginate(page: @page).order(date: :asc)
+    @expenses = policy_scope(Expense).all.paginate(page: @page).order(date: :asc)
     @breadcrumb = [ { name: "Home", path: root_path }, { name: "Expenses (Page #{@page})" } ]
   end
 
@@ -70,6 +69,7 @@ class ExpensesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_expense
       @expense = Expense.find(params.expect(:id))
+      authorize @expense
     end
 
     # Only allow a list of trusted parameters through.
