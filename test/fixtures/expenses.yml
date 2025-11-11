@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  date: 2025-09-24
+  date: 2020-01-01
   description: Expense-1
-  value: 1
+  value: 11.01
   ignore: false
   statement: one
   category: one
@@ -11,22 +11,51 @@ one:
   user: one
 
 two:
-  date: 2025-09-26
+  date: 2020-01-02
   description: Expense-2
-  value: 1
+  value: 12.02
   ignore: false
-  statement: two
-  category: two
-  subcategory: two
-  user: two
+  statement: one
+  category: one
+  subcategory: one
+  user: one
 
 three:
-  date: 2025-09-25
+  date: 2020-01-03
   description: Expense-3
-  value: 1
+  value: 13.03
   ignore: false
   statement: two
-  category: two
-  subcategory: two
+  category: three
+  subcategory: three
+  user: one
+
+four:
+  date: 2020-01-04
+  description: Expense-4
+  value: 14.04
+  ignore: true
+  statement: two
+  category: three
+  subcategory: three
+  user: one
+
+five:
+  date: 2020-01-05
+  description: Expense-5
+  value: 15.05
+  ignore: false
+  statement: three
+  category: four
+  subcategory: four
   user: two
 
+six:
+  date: 2020-01-06
+  description: Expense-6
+  value: 16.06
+  ignore: false
+  statement: four
+  category: five
+  subcategory: five
+  user: three

@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class ExpensesTest < ApplicationSystemTestCase
   setup do
-    login_as_user_one
+    login_as(users(:one))
     @expense = expenses(:one)
   end
 
@@ -23,26 +23,27 @@ class ExpensesTest < ApplicationSystemTestCase
     fill_in "Value", with: @expense.value
     click_on "Save"
 
-    assert_text "Expense was successfully created"
-    click_on "Expenses"
+    assert_content "Expense was successfully created"
   end
 
   test "should update Expense" do
     visit page_expenses_url
     within("table.table-striped") do
-      find_button.click
+      find_button(match: :first).click
     end
     check("expense_ignore", visible: false)
     click_on "Save changes", visible: false
-    assert_text "Expenses"
+
+    assert_content "Expense was successfully updated"
   end
 
   test "should destroy Expense" do
     visit page_expenses_url
     within("table.table-striped") do
-      find_button.click
+      find_button(match: :first).click
     end
     click_on "Delete expense", visible: false
-    assert_text "Expenses"
+
+    assert_text "Expense was successfully destroyed"
   end
 end

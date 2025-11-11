@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class DashboardsTest < ApplicationSystemTestCase
   setup do
-    login_as_user_one
+    login_as(users(:one))
   end
 
   test "visiting the index" do

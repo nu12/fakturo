@@ -27,7 +27,7 @@ export default class extends Controller {
     fetch("/expenses/" + id + "/edit").then(response => response.text()).then(data => formPlaceholder.innerHTML = data);
   }
   sendForm() {
-    const csrf = document.querySelector('meta[name=csrf-token]').content;
+    const csrf = document.head.querySelector('meta[name=csrf-token]')?.content;
     const f = this.formTarget;
     var data = new URLSearchParams();
     
@@ -41,7 +41,7 @@ export default class extends Controller {
     }).then(setTimeout(function() {location.reload()}, 100));
   }
   deleteExpense() {
-    const csrf = document.querySelector('meta[name=csrf-token]').content;
+    const csrf = document.head.querySelector('meta[name=csrf-token]')?.content;
     const f = this.formTarget;
     fetch(f.action + ".json", {
       method: 'delete',

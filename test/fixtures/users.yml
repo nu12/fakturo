@@ -1,11 +1,25 @@
-<% password_digest = BCrypt::Password.create("password") %>
+<% password_digest = BCrypt::Password.create("#R?741Y(S70}5.]11HVE<kzY!m|C015r%j7vi07eedn}BcAs22!2b1k") %>
 
 one:
   username: one
   uuid: bde8c2a6-b063-bf1a-0516-2d40abeb2beb
+  access_token: dfdeb4c4-7813-2806-72de-d23d06333bd2
+  access_token_enabled: true
+  access_token_expiry_date: <%= Date.today + 90.days %>
   password_digest: <%= password_digest %>
 
 two:
   username: two
   uuid: f5a98add-cbfc-8d41-27d4-cdb5b1b7cf69
+  access_token: ef1aa4a2-f67c-52ce-0de7-637dbb98d8d6
+  access_token_enabled: false
+  access_token_expiry_date: <%= Date.today + 90.days %>
+  password_digest: <%= password_digest %>
+
+three:
+  username: three
+  uuid: f7dfa6da-ce65-d4d5-96f4-ccb2a08d4717
+  access_token: 65faf1fb-e547-4ef6-90ed-8ac483bddc98
+  access_token_enabled: true
+  access_token_expiry_date: <%= Date.today - 2.days %>
   password_digest: <%= password_digest %>
