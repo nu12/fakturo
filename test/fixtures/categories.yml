@@ -1,11 +1,26 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: Description
+  name: CatOne
+  description: This category has 2 subcategories
   user: one
 
 two:
-  name: MyString
-  description: Description
+  name: CatTwo
+  description: This category has no subcategory
+  user: one
+
+three:
+  name: CatThree
+  description: This category has 1 subcategory
+  user: one
+
+four:
+  name: CatFour
+  description: This category has 1 subcategory
   user: two
+
+five:
+  name: CatFive
+  description: This category has 1 subcategory
+  user: three

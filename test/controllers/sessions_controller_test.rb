@@ -9,7 +9,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create with valid credentials" do
-    post session_path, params: { username: @user.username, password: "password" }
+    post session_path, params: { username: @user.username, password: "#R?741Y(S70}5.]11HVE<kzY!m|C015r%j7vi07eedn}BcAs22!2b1k" }
 
     assert_redirected_to root_path
     assert cookies[:session_id]

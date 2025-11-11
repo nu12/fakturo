@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class SubcategoriesTest < ApplicationSystemTestCase
   setup do
-    login_as_user_one
+    login_as(users(:one))
     @subcategory = subcategories(:one)
   end
 
@@ -19,8 +19,7 @@ class SubcategoriesTest < ApplicationSystemTestCase
     fill_in "Description", with: @subcategory.description
     click_on "Save"
 
-    assert_text "Subcategory was successfully created"
-    click_on @subcategory.category.name
+    assert_content "Subcategory was successfully created"
   end
 
   test "should update Subcategory" do
@@ -31,19 +30,19 @@ class SubcategoriesTest < ApplicationSystemTestCase
     fill_in "Description", with: @subcategory.description
     click_on "Save"
 
-    assert_text "Subcategory was successfully updated"
-    click_on "Sub-categories"
+    assert_content "Subcategory was successfully updated"
   end
 
   test "should edit Subcategory's expenses" do
     visit category_subcategory_url(@subcategory.category, @subcategory)
     within("table.table-striped") do
-      find_button.click
+      find_button(match: :first).click
     end
     check("expense_ignore", visible: false)
     click_on "Save changes", visible: false
 
-    assert_text @subcategory.name
+    assert_content "Expense was successfully updated"
+    #assert_equal([], page.driver.browser.logs.get(:browser))
   end
 
   test "should destroy Subcategory" do
@@ -51,7 +50,7 @@ class SubcategoriesTest < ApplicationSystemTestCase
     click_on "Delete this sub-category"
 
     assert_text "Yes, delete this sub-category"
-    click_on "Yes, delete this sub-category"
+    click_on "Yes, delete this sub-category"    
   end
 
   test "should transfer Subcategory" do
@@ -63,9 +62,8 @@ class SubcategoriesTest < ApplicationSystemTestCase
 
     select(@subcategory.category.name, from: "category_id", visible: false)
     select(@subcategory.name, from: "subcategory_id", visible: false)
-
     click_on "Save", visible: false
 
-    assert_text "Expenses were successfully transfered."
+    assert_content "Expenses were successfully transfered"
   end
 end

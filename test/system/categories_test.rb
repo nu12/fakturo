@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class CategoriesTest < ApplicationSystemTestCase
   setup do
-    login_as_user_one
+    login_as(users(:one))
     @category = categories(:one)
   end
 
@@ -19,8 +19,7 @@ class CategoriesTest < ApplicationSystemTestCase
     fill_in "Description", with: @category.description
     click_on "Save"
 
-    assert_text "Category was successfully created"
-    click_on "Categories"
+    assert_content "Category was successfully created"
   end
 
   test "should update Category" do
@@ -31,19 +30,19 @@ class CategoriesTest < ApplicationSystemTestCase
     fill_in "Description", with: @category.description
     click_on "Save"
 
-    assert_text "Category was successfully updated"
-    click_on "Categories"
+    assert_content "Category was successfully updated"
   end
 
   test "should edit Category's expenses" do
     visit category_url(@category)
     within("table.table-striped") do
-      find_button.click
+      find_button(match: :first).click
     end
     check("expense_ignore", visible: false)
     click_on "Save changes", visible: false
 
-    assert_text @category.name
+    assert_content "Expense was successfully updated"
+    #assert_equal([], page.driver.browser.logs.get(:browser))
   end
 
   test "should destroy Category" do

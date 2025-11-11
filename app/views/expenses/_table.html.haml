@@ -34,7 +34,7 @@
               %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "#{expense.comment}"}
                 %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
                   %use{ "xlink:href" => "#info" }
-          %td{ :class => "#{p 'text-decoration-line-through fw-lighter' if expense.ignore}" }
+          %td{ :class => "#{'text-decoration-line-through fw-lighter' if expense.ignore}" }
             = format("%.2f", expense.value)
           
           - if show.include? :statement

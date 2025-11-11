@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class SourcesTest < ApplicationSystemTestCase
   setup do
-    login_as_user_one
+    login_as(users(:one))
     @source = sources(:one)
   end
 
@@ -18,8 +18,7 @@ class SourcesTest < ApplicationSystemTestCase
     fill_in "Name", with: @source.name
     click_on "Save"
 
-    assert_text "Source was successfully created"
-    click_on "Sources"
+    assert_content "Source was successfully created"
   end
 
   test "should update Source" do
@@ -29,19 +28,19 @@ class SourcesTest < ApplicationSystemTestCase
     fill_in "Name", with: @source.name
     click_on "Save"
 
-    assert_text "Source was successfully updated"
-    click_on "Sources"
+    assert_content "Source was successfully updated"
   end
 
   test "should edit Source's expenses" do
     visit source_url(@source)
     within("table.table-striped") do
-      find_button.click
+      find_button(match: :first).click
     end
     check("expense_ignore", visible: false)
     click_on "Save changes", visible: false
 
-    assert_text @source.name
+    assert_content "Expense was successfully updated"
+    #assert_equal([], page.driver.browser.logs.get(:browser))
   end
 
   test "should destroy Source" do

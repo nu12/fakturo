@@ -2,12 +2,30 @@
 
 one:
   name: SubOne
-  description: Description
+  description: This subcategory has 2 expenses
   category: one
   user: one
 
 two:
   name: SubTwo
-  description: Description
-  category: two
+  description: This subcategory has no expense
+  category: one
+  user: one
+
+three:
+  name: SubThree
+  description: This subcategory has 2 expenses
+  category: three
+  user: one
+
+four:
+  name: SubFour
+  description: This subcategory has 1 expense
+  category: four
   user: two
+
+five:
+  name: SubFive
+  description: This subcategory has 1 expense
+  category: five
+  user: three

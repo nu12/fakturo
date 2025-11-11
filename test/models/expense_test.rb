@@ -2,9 +2,6 @@ require "test_helper"
 
 class ExpenseTest < ActiveSupport::TestCase
   test "valid" do
-    e = Expense.all.first
-    e.ignore = true
-    e.save
     assert Expense.valid.count < Expense.all.count
   end
 
@@ -17,19 +14,29 @@ class ExpenseTest < ActiveSupport::TestCase
   end
 
   test "between_dates" do
-    assert Expense.all.count == 3
-    assert Expense.between_dates("2025-09-24", "2025-09-25").count == 2
+    assert Expense.all.count == 6
+    assert Expense.between_dates("2020-01-01", "2020-01-02").count == 2
   end
 
   test "group by category" do
-    es =  Expense.all.group_by_category
-    assert es[0].name == "MyString"
-    assert es[0].value == 1.0
+    user = users(:one)
+    es = user.expenses.valid.group_by_category
+    
+    assert es[0].name == "CatOne"
+    assert es[0].value == 23.03
+
+    assert es[1].name == "CatThree"
+    assert es[1].value == 13.03
   end
 
   test "group by subcategory" do
-    es =  Expense.all.group_by_subcategory
+    user = users(:one)
+    es = user.expenses.valid.group_by_subcategory
+
     assert es[0].name == "SubOne"
-    assert es[0].value == 1.0
+    assert es[0].value == 23.03
+
+    assert es[1].name == "SubThree"
+    assert es[1].value == 13.03
   end
 end
