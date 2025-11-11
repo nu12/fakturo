@@ -21,6 +21,4 @@ class RegistrationsTest < ApplicationSystemTestCase
     assert_content "You will not be prompted to confirm after clicking in the button below. Proceed with caution."
     click_on "Erase everything"
   end
-
-  
 end

@@ -1,8 +1,8 @@
 require "application_system_test_case"
 
 class PasswordsTest < ApplicationSystemTestCase
-setup do 
-    login_as(users(:one)) 
+setup do
+    login_as(users(:one))
 end
   test "change password" do
     visit edit_password_url
@@ -23,5 +23,4 @@ end
     click_on "Save"
     assert_content "Passwords did not match"
   end
-  
 end

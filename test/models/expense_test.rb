@@ -21,7 +21,7 @@ class ExpenseTest < ActiveSupport::TestCase
   test "group by category" do
     user = users(:one)
     es = user.expenses.valid.group_by_category
-    
+
     assert es[0].name == "CatOne"
     assert es[0].value == 23.03
 

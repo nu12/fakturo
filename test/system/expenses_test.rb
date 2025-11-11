@@ -33,7 +33,7 @@ class ExpensesTest < ApplicationSystemTestCase
     end
     check("expense_ignore", visible: false)
     click_on "Save changes", visible: false
-    
+
     assert_content "Expense was successfully updated"
   end
 
@@ -43,7 +43,7 @@ class ExpensesTest < ApplicationSystemTestCase
       find_button(match: :first).click
     end
     click_on "Delete expense", visible: false
-    
+
     assert_text "Expense was successfully destroyed"
   end
 end

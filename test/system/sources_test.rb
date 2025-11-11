@@ -40,7 +40,7 @@ class SourcesTest < ApplicationSystemTestCase
     click_on "Save changes", visible: false
 
     assert_content "Expense was successfully updated"
-    #assert_equal([], page.driver.browser.logs.get(:browser))
+    # assert_equal([], page.driver.browser.logs.get(:browser))
   end
 
   test "should destroy Source" do
