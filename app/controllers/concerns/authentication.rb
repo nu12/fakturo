@@ -19,8 +19,8 @@ module Authentication
 
     def current_user
       return Current.user if authenticated?
-      user = User.where("access_token_expiry_date >= ?", Time.now).find_by(params.expect(user: [:uuid, :access_token]).merge({access_token_enabled: true}))
-      return user || User.new
+      user = User.where("access_token_expiry_date >= ?", Time.now).find_by(params.expect(user: [ :uuid, :access_token ]).merge({ access_token_enabled: true }))
+      user || User.new
     end
 
     def require_authentication
