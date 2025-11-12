@@ -18,7 +18,10 @@ module Authentication
     end
 
     def current_user
-      Current.user
+      return Current.user if authenticated?
+      params.expect(:uuid, :access_token)
+      user = User.where(access_token_expiry_date: Time.now..DateTime::Infinity.new).find_by(uuid: params[:uuid], access_token: params[:access_token], access_token_enabled: true)
+      user || User.new
     end
 
     def require_authentication
