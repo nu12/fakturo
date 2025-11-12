@@ -1,0 +1,5 @@
+- if data[0]
+  - attributes = data[0].attributes
+  = attributes.keys.join(",")
+  - data.each do |line|
+    = attributes.keys.map{|a| line[a]}.join(",")
