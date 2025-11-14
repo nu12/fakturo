@@ -18,7 +18,7 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create statement" do
     assert_difference("Statement.count") do
-      post statements_url, params: { statement: { is_upload: false, date: "2025-03-10", source_id: @statement.source.id } }
+      post statements_url, params: { statement: { date: "2025-03-10", source_id: @statement.source.id } }
     end
 
     assert_redirected_to statement_url(Statement.last)
@@ -35,7 +35,7 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update statement" do
-    patch statement_url(@statement), params: { statement: { is_upload: @statement.is_upload, month: @statement.month, source_id: @statement.source_id, year: @statement.year } }
+    patch statement_url(@statement), params: { statement: { month: @statement.month, source_id: @statement.source_id, year: @statement.year } }
     assert_redirected_to statement_url(@statement)
   end
 

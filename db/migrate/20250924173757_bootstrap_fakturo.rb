@@ -28,7 +28,6 @@ class BootstrapFakturo < ActiveRecord::Migration[8.0]
       t.date :date
       t.integer :year
       t.integer :month
-      t.boolean :is_upload, default: false
       t.references :source, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
 
