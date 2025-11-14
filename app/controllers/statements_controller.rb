@@ -80,6 +80,6 @@ class StatementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def statement_params
-      params.expect(statement: [ :date, :is_upload, :source_id ])
+      params.expect(statement: [ :date, :file, :source_id ])
     end
 end

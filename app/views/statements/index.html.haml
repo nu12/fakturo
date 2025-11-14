@@ -17,7 +17,7 @@
     - @statements.each do |statement|
       %tr
         %td
-          - if statement.is_upload
+          - if statement.is_upload?
             %a{ "data-bs-toggle" => "tooltip", "data-bs-title" => "This statement was uploaded" }
               %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
                 %use{ "xlink:href" => "#upload" }
