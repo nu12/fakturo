@@ -1,0 +1,4 @@
+upload_file_attachment:
+  name: file
+  record: upload (Statement)
+  blob: upload_file_blob

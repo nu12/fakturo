@@ -71,4 +71,6 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
+  Lockbox.master_key = "32ef1b41472b77867825b3a159afa211b570aafa25355a21edf34091843814ae"
 end

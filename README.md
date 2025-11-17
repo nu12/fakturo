@@ -26,6 +26,20 @@ rails s -b 0.0.0.0
 
 Access `localhost:3000`.
 
+## Using docker/podman
+
+Build a new image:
+
+```
+podman build -t fakturo .
+``` 
+
+Run the image:
+
+```
+podman run --rm --name fakturo -e SECRET_KEY_BASE=<MASTER-KEY> -e RAILS_ENV=test -p 3000:3000 fakturo ./bin/rails server
+``` 
+
 ## Release a new version
 
 Change the version in `config/application` and run `git tag $(bundle exec rake version | tr -d '"') && git push --tags`.
