@@ -87,6 +87,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_14_033106) do
   create_table "statements", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.date "date"
+    t.boolean "is_upload", default: false
     t.integer "month"
     t.integer "source_id", null: false
     t.datetime "updated_at", null: false

@@ -15,8 +15,8 @@ class StatementTest < ActiveSupport::TestCase
     assert_equal(s.year, 2025)
   end
 
-  test "is_upload?" do
+  test "is_upload" do
     s = Statement.create(source: sources(:one), user: users(:one), date: "2025-10-20")
-    assert_equal(s.file.attached?, s.is_upload?)
+    assert_equal(s.file.attached?, s.is_upload)
   end
 end
