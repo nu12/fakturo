@@ -29,4 +29,22 @@ class StatementTest < ActiveSupport::TestCase
     s.save
     assert_equal(s.is_upload, true)
   end
+
+  test "validate content type" do
+    s = Statement.new(source: sources(:one), user: users(:one), date: "2025-10-20")
+
+    s.file.attach(
+      io: File.open("test/fixtures/files/faktura.pdf"),
+      filename: "faktura.pdf",
+      content_type: "application/pdf"
+    )
+    assert_equal(s.valid?, true)
+
+    s.file.attach(
+      io: File.open("app/assets/images/logo.png"),
+      filename: "logo.png",
+      content_type: "image/png"
+    )
+    assert_equal(s.valid?, false)
+  end
 end

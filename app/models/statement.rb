@@ -9,6 +9,7 @@ class Statement < ApplicationRecord
 
   before_create :set_is_upload
   before_save :set_month_and_year
+  validate :document_mime_type
 
   def value
     self.expenses.select { |e| !e[:ignore] }.collect { |k, v| k[:value] }.sum
@@ -22,5 +23,11 @@ class Statement < ApplicationRecord
   def set_month_and_year
     self.month = self.date.month
     self.year = self.date.year
+  end
+
+  def document_mime_type
+    if self.file.attached? && !self.file.content_type.in?(%w[application/pdf])
+      errors.add(:file, "Must be a PDF")
+    end
   end
 end
