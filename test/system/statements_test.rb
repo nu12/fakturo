@@ -28,7 +28,7 @@ class StatementsTest < ApplicationSystemTestCase
 
     fill_in "Date", with: @statement.date
     select(@statement.source.name, from: "statement_source_id")
-    attach_file(:statement_file, File.absolute_path('./test/fixtures/files/faktura.pdf'))
+    attach_file(:statement_file, File.absolute_path("./test/fixtures/files/faktura.pdf"))
     click_on "Save"
 
     assert_content "Statement was successfully created"

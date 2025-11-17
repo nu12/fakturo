@@ -25,7 +25,7 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create statement with file upload" do
-    file = fixture_file_upload("faktura.pdf", 'application/pdf')
+    file = fixture_file_upload("faktura.pdf", "application/pdf")
     assert_difference("Statement.count") do
       post statements_url, params: { statement: { date: "2025-03-12", file: file, source_id: @statement.source.id } }
     end

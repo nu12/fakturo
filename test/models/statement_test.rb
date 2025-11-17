@@ -18,13 +18,13 @@ class StatementTest < ActiveSupport::TestCase
   test "is_upload" do
     s = Statement.new(source: sources(:one), user: users(:one), date: "2025-10-20")
     s.file.attach(
-      io: File.open('test/fixtures/files/faktura.pdf'),
-      filename: 'faktura.pdf',
-      content_type: 'application/pdf'
+      io: File.open("test/fixtures/files/faktura.pdf"),
+      filename: "faktura.pdf",
+      content_type: "application/pdf"
     )
     s.save
     assert_equal(s.is_upload, true)
-    
+
     s.file.purge
     s.save
     assert_equal(s.is_upload, true)
