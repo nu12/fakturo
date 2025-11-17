@@ -24,6 +24,16 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to statement_url(Statement.last)
   end
 
+  test "should create statement with file upload" do
+    file = fixture_file_upload("faktura.pdf", 'application/pdf')
+    assert_difference("Statement.count") do
+      post statements_url, params: { statement: { date: "2025-03-12", file: file, source_id: @statement.source.id } }
+    end
+
+    assert_redirected_to statement_url(Statement.last)
+    assert_response :found
+  end
+
   test "should show statement" do
     get statement_url(@statement)
     assert_response :success

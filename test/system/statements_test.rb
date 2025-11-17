@@ -22,6 +22,18 @@ class StatementsTest < ApplicationSystemTestCase
     assert_content "Statement was successfully created"
   end
 
+  test "should create statement with file upload" do
+    visit statements_url
+    click_on "New Statement"
+
+    fill_in "Date", with: @statement.date
+    select(@statement.source.name, from: "statement_source_id")
+    attach_file(:statement_file, File.absolute_path('./test/fixtures/files/faktura.pdf'))
+    click_on "Save"
+
+    assert_content "Statement was successfully created"
+  end
+
   test "should update statement" do
     visit statement_url(@statement)
     click_on "Edit this statement", match: :first
