@@ -35,6 +35,17 @@ class BootstrapFakturo < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
+    create_table :statement_processings do |t|
+      t.text :raw
+      t.text :result
+      t.string :uuid
+      t.references :user, null: false, foreign_key: true
+      t.references :source, null: false, foreign_key: true
+      t.references :statement, null: false, foreign_key: true
+
+      t.timestamps
+    end
+
     create_table :expenses do |t|
       t.date :date
       t.float :value
