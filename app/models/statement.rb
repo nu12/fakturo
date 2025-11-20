@@ -2,6 +2,7 @@ class Statement < ApplicationRecord
   belongs_to :source
   belongs_to :user
   has_many :expenses, dependent: :destroy
+  has_one :statement_processing, dependent: :destroy
   has_one_attached :file
   encrypts_attached :file
 

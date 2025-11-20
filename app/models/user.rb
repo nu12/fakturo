@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :subcategories, dependent: :destroy
   has_many :sources, dependent: :destroy
   has_many :statements, dependent: :destroy
+  has_many :statement_processings, dependent: :destroy
   has_many :expenses, dependent: :destroy
 
   normalizes :username, with: ->(e) { e.strip.downcase }

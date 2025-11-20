@@ -1,0 +1,22 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+empty:
+  uuid: 40fa89cd-a041-474d-8921-002469260a05
+  user: one
+  source: one
+  statement: upload
+
+raw:
+  raw: encryptedtext
+  uuid: 40fa89cd-a041-474d-8921-002469260a05
+  user: one
+  source: one
+  statement: upload
+
+result:
+  raw: encryptedtext
+  result: "[]"
+  uuid: 40fa89cd-a041-474d-8921-002469260a05
+  user: one
+  source: one
+  statement: upload
