@@ -168,6 +168,8 @@ GEM
       net-smtp
     marcel (1.1.0)
     matrix (0.4.3)
+    mini_magick (5.3.1)
+      logger
     mini_mime (1.1.5)
     minitest (5.26.1)
     msgpack (1.8.0)
@@ -403,6 +405,7 @@ DEPENDENCIES
   jbuilder
   kamal
   lockbox (~> 2.1)
+  mini_magick (~> 5.3)
   propshaft
   puma (>= 5.0)
   pundit (~> 2.5)

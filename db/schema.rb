@@ -86,7 +86,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_24_173757) do
 
   create_table "statement_processings", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.text "raw"
+    t.text "raw_ciphertext"
     t.text "result"
     t.integer "source_id", null: false
     t.integer "statement_id", null: false

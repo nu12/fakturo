@@ -2,8 +2,7 @@ class StatementProcessing < ApplicationRecord
   belongs_to :user
   belongs_to :source
   belongs_to :statement
-  has_many_attached :images
-  encrypts_attached :images
+  has_encrypted :raw
 
   before_create :set_uuid
 

@@ -37,7 +37,7 @@ podman build -t fakturo .
 Run the image:
 
 ```
-podman run --rm --name fakturo -e SECRET_KEY_BASE=<MASTER-KEY> -e RAILS_ENV=test -p 3000:3000 fakturo ./bin/rails server
+podman run --rm --name fakturo -e SECRET_KEY_BASE=<MASTER-KEY> -e RAILS_ENV=development -p 3000:3000 fakturo ./bin/rails server
 ``` 
 
 ## Release a new version
