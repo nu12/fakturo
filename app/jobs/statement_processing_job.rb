@@ -4,7 +4,7 @@ class StatementProcessingJob < ApplicationJob
 
   def perform(sp)
     pdf = MiniMagick::Image.read(sp.statement.file.download)
-    sp.raw = `gs -sDEVICE=txtwrite -sOutputFile=- -q -dNOPAUSE -dBATCH "#{pdf.path}"`
+    sp.raw = IO.popen([ "gs", "-sDEVICE=txtwrite", "-sOutputFile=-", "-q", "-dNOPAUSE", "-dBATCH", pdf.path ]).read
     if sp.save
       sp.statement.file.purge
     end
