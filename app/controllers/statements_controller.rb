@@ -34,6 +34,11 @@ class StatementsController < ApplicationController
 
     respond_to do |format|
       if @statement.save
+        if @statement.file.attached?
+          @sp = StatementProcessing.create(user: current_user, source: @statement.source)
+          @statement.statement_processing = @sp
+          StatementProcessingJob.perform_now @sp
+        end
         format.html { redirect_to @statement, notice: "Statement was successfully created." }
         format.json { render :show, status: :created, location: @statement }
       else
@@ -80,6 +85,6 @@ class StatementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def statement_params
-      params.expect(statement: [ :date, :is_upload, :source_id ])
+      params.expect(statement: [ :date, :file, :source_id ])
     end
 end

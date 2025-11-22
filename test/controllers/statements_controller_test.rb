@@ -18,10 +18,27 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create statement" do
     assert_difference("Statement.count") do
-      post statements_url, params: { statement: { is_upload: false, date: "2025-03-10", source_id: @statement.source.id } }
+      post statements_url, params: { statement: { date: "2025-03-10", source_id: @statement.source.id } }
     end
 
     assert_redirected_to statement_url(Statement.last)
+  end
+
+  test "should create statement with file upload" do
+    file = fixture_file_upload("faktura.pdf", "application/pdf")
+    assert_difference("Statement.count") do
+      post statements_url, params: { statement: { date: "2025-03-12", file: file, source_id: @statement.source.id } }
+    end
+
+    assert_redirected_to statement_url(Statement.last)
+    assert_response :found
+  end
+
+  test "should create statement processing with file upload" do
+    file = fixture_file_upload("faktura.pdf", "application/pdf")
+    assert_difference("StatementProcessing.count") do
+      post statements_url, params: { statement: { date: "2025-03-12", file: file, source_id: @statement.source.id } }
+    end
   end
 
   test "should show statement" do
@@ -35,7 +52,7 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update statement" do
-    patch statement_url(@statement), params: { statement: { is_upload: @statement.is_upload, month: @statement.month, source_id: @statement.source_id, year: @statement.year } }
+    patch statement_url(@statement), params: { statement: { month: @statement.month, source_id: @statement.source_id, year: @statement.year } }
     assert_redirected_to statement_url(@statement)
   end
 

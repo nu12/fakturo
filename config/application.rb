@@ -24,9 +24,11 @@ module Fakturo
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.active_storage.variant_processor = :disabled
+
     config.version = {
       major: 0,
-      minor: 3,
+      minor: 4,
       patch: 0,
       build: 0
     }

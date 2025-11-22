@@ -50,4 +50,6 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  Lockbox.master_key = "7137b5e2d95d8e9b52b826918a90ad924eda8e28c053ee35c83d41d95514a758"
 end

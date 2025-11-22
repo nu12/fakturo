@@ -87,4 +87,6 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  Lockbox.master_key = ENV.fetch("LOCKBOX_MASTER_KEY")
 end

@@ -155,6 +155,7 @@ GEM
       zeitwerk (>= 2.6.18, < 3.0)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
+    lockbox (2.1.0)
     logger (1.7.0)
     loofah (2.24.1)
       crass (~> 1.0.2)
@@ -167,6 +168,8 @@ GEM
       net-smtp
     marcel (1.1.0)
     matrix (0.4.3)
+    mini_magick (5.3.1)
+      logger
     mini_mime (1.1.5)
     minitest (5.26.1)
     msgpack (1.8.0)
@@ -401,6 +404,8 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  lockbox (~> 2.1)
+  mini_magick (~> 5.3)
   propshaft
   puma (>= 5.0)
   pundit (~> 2.5)

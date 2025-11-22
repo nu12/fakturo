@@ -69,3 +69,7 @@ gem "haml", "~> 7.0"
 gem "will_paginate", "~> 4.0"
 
 gem "pundit", "~> 2.5"
+
+gem "lockbox", "~> 2.1"
+
+gem "mini_magick", "~> 5.3"
