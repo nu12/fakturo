@@ -34,8 +34,9 @@ class StatementsController < ApplicationController
 
     respond_to do |format|
       if @statement.save
-        @statement.statement_processing = StatementProcessing.create(user: current_user, source: @statement.source)
-        # Start new job here
+        @sp = StatementProcessing.create(user: current_user, source: @statement.source)
+        @statement.statement_processing = @sp
+        StatementProcessingStartJob.perform_now @sp
         format.html { redirect_to @statement, notice: "Statement was successfully created." }
         format.json { render :show, status: :created, location: @statement }
       else
