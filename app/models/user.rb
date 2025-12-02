@@ -21,7 +21,7 @@ class User < ApplicationRecord
     self.access_token_expiry_date = Time.now + 90.days
   end
 
-  def Uncategorized
+  def uncategorized
     return self.categories.first, self.subcategories.first
   end
 
