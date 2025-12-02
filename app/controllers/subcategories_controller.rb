@@ -59,11 +59,14 @@ class SubcategoriesController < ApplicationController
 
   # DELETE /subcategories/1 or /subcategories/1.json
   def destroy
-    @subcategory.destroy!
-
     respond_to do |format|
-      format.html { redirect_to category_subcategories_path(@category), notice: "Subcategory was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
+      if @subcategory.destroy!
+        format.html { redirect_to category_subcategories_path(@category), notice: "Subcategory was successfully destroyed.", status: :see_other }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to category_subcategories_path(@category), alert: "Subcategory cannot be destroyed.", status: :see_other }
+        format.json { render json: "Subcategory cannot be destroyed.", status: :unprocessable_entity }
+      end
     end
   end
 
