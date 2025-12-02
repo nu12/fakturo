@@ -8,11 +8,8 @@ class RpcJob < ApplicationJob
     p "Start RPC job for #{sp.uuid}"
     client = rpc_client.new("rpc_queue")
     response = client.call(sp)
-    sp.result = response
-    sp.raw = nil
-    sp.save
     client.stop
-    LoadExpensesJob.perform_later(sp) if cascade
+    LoadExpensesJob.perform_later(sp) if sp.update(result: response, raw: nil) && cascade
   end
 
   class StatementProcessingRPCClient
