@@ -5,8 +5,8 @@ class Subcategory < ApplicationRecord
 
   def update(params)
     if self.name_was == "Uncategorized"
-      self.errors.add("This subcategory","cannot be changed")
-      return false 
+      self.errors.add("This subcategory", "cannot be changed")
+      return false
     end
     super params
   end

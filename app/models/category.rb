@@ -5,16 +5,16 @@ class Category < ApplicationRecord
 
   def update(params)
     if self.name_was == "Uncategorized"
-      self.errors.add("This category","cannot be changed")
-      return false 
+      self.errors.add("This category", "cannot be changed")
+      return false
     end
     super params
   end
 
   def update(params)
     if self.name_was == "Uncategorized"
-      self.errors.add("This category","cannot be changed")
-      return false 
+      self.errors.add("This category", "cannot be changed")
+      return false
     end
     super params
   end
@@ -23,5 +23,4 @@ class Category < ApplicationRecord
     return false if self.name == "Uncategorized" && !destroyed_by_association
     super
   end
-
 end
