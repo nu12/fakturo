@@ -1,4 +1,5 @@
-= link_to 'New Sub-category', new_category_subcategory_path, {class: "btn btn-fakturo btn-fakturo-action float-end"}
+- unless @category.name == "Uncategorized"
+  = link_to 'New Sub-category', new_category_subcategory_path, {class: "btn btn-fakturo btn-fakturo-action float-end"}
 
 %h1 Sub-categories
 %p

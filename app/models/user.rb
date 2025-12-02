@@ -11,6 +11,7 @@ class User < ApplicationRecord
   normalizes :username, with: ->(e) { e.strip.downcase }
 
   before_create :set_uuid
+  after_create :create_baseline_categories
 
   def regenerate_token
     factor_1 = self.uuid
@@ -20,9 +21,19 @@ class User < ApplicationRecord
     self.access_token_expiry_date = Time.now + 90.days
   end
 
+  def Uncategorized
+    return self.categories.first, self.subcategories.first
+  end
+
   private
   def set_uuid
     self.uuid = SecureRandom.uuid
     self.regenerate_token
+  end
+
+  def create_baseline_categories
+    c = Category.create!(name: "Uncategorized", user: self)
+    self.categories << c
+    self.subcategories << Subcategory.create!(name: "Uncategorized", user: self, category: c)
   end
 end
