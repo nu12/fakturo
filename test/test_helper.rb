@@ -14,3 +14,13 @@ module ActiveSupport
     # Add more helper methods to be used by all tests here...
   end
 end
+
+class RpcClientStub
+  def initialize(server_queue_name)
+  end
+  def call(sp)
+    "[]"
+  end
+  def stop
+  end
+end

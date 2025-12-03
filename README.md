@@ -26,6 +26,33 @@ rails s -b 0.0.0.0
 
 Access `localhost:3000`.
 
+### Upload processing
+
+Uploaded files are processed asynchronously by ActiveJob.perform_later calls, using a RabbitMQ server for RPC. The instructions bellow will setup the development environment to do so. 
+
+Start the RabbitMQ server with the following command:
+
+```
+podman run -d --hostname localhost --name rabbitmq -p 5672:5672 rabbitmq:3
+```
+
+In a separated terminal, start the RPC server with the following commands:
+
+```
+cd vendor/gpt4all
+source fakturo/bin/activate
+pip install -r requiremets.txt
+python main.py
+```
+
+Start ActiveJob queue processing with the following command in a separated terminal after starting the application:
+
+```
+bin/jobs
+```
+
+`ghostscript` must be installed.
+
 ## Using docker/podman
 
 Build a new image:

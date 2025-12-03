@@ -12,7 +12,7 @@ class StatementProcessingJobTest < ActiveJob::TestCase
     sp = StatementProcessing.create(user: users(:one), statement: s, source: sources(:one))
     assert_nil sp.raw
     perform_enqueued_jobs do
-      StatementProcessingJob.perform_later(sp)
+      StatementProcessingJob.perform_later(sp, nil, false)
     end
     assert_not_equal(sp.reload.raw, nil)
     assert_equal(sp.statement.file.attached?, false)

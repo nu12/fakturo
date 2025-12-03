@@ -19,7 +19,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal("Uncategorized", user.categories.first.name)
     assert_equal("Uncategorized", user.subcategories.first.name)
 
-    category, subcategory = user.Uncategorized
+    category, subcategory = user.uncategorized
     assert_equal(user.categories.first, category)
     assert_equal(user.subcategories.first, subcategory)
   end

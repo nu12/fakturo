@@ -73,3 +73,5 @@ gem "pundit", "~> 2.5"
 gem "lockbox", "~> 2.1"
 
 gem "mini_magick", "~> 5.3"
+
+gem "bunny", "~> 2.24"
