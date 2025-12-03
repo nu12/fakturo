@@ -51,6 +51,8 @@ Start ActiveJob queue processing with the following command in a separated termi
 bin/jobs
 ```
 
+`ghostscript` must be installed.
+
 ## Using docker/podman
 
 Build a new image:
