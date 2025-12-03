@@ -12,11 +12,11 @@ channel.queue_declare(queue='rpc_queue')
 
 def extract_expenses(n):
     model = GPT4All("Meta-Llama-3-8B-Instruct.Q4_0.gguf", n_ctx=4098)
-    prompt = 'You are a financial analyst. The input below is a transcription of a bank statement. It contains information about amounts paid and due, caracteristics of the account, rates and transactions. You are required to filter daily expenses and ignore the rest of the information. The daily expenses filtered should contain date of transaction, name of the merchant and value of the transaction. Here is the text to be analysed: %s' % n
+    prompt = 'You are a financial analyst. The input below is a transcription of a bank statement. It contains information about amounts paid and due, caracteristics of the account, rates and transactions. You are required to filter daily expenses and ignore the rest of the information. The daily expenses may or may not be scattered in multiple tables and you are required to get them all. The daily expenses filtered should contain date of transaction, name of the merchant and value of the transaction. Here is the text to be analysed: %s' % n
     response = ""
     with model.chat_session():
         model.generate(prompt, max_tokens=2048)
-        r = model.generate("Your next job is to convert the list of expenses in JSON format. Each expense must have the following keys: date, description and value. Value must be a number, without any symbol. The collection of expenses must be enclosed in an array, represented by square brackets.", max_tokens=1024)
+        r = model.generate("Your next job is to convert the list of expenses in JSON format. Each expense must have the following keys: date, description and value. Value must be a number, without any symbol. The collection of expenses must be enclosed in an array, represented by square brackets. The output of this prompt must contain all daily expenses without any shortening like ..., even if it is a long list.", max_tokens=1024)
         m = re.search("\[(\n|\s|\S|\")*\]", r)
         response = m.group()
     return response
