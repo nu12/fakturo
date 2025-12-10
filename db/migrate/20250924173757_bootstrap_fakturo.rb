@@ -36,8 +36,7 @@ class BootstrapFakturo < ActiveRecord::Migration[8.0]
     end
 
     create_table :statement_processings do |t|
-      t.text :raw_ciphertext
-      t.text :result
+      t.boolean :has_succeeded
       t.string :uuid
       t.references :user, null: false, foreign_key: true
       t.references :source, null: false, foreign_key: true

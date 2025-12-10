@@ -8,8 +8,20 @@ class UserTest < ActiveSupport::TestCase
 
   test "create uuid before validation" do
     user = User.create(username: "create_uuid", password: "password")
-    assert user.uuid != nil
-    assert user.access_token != nil
+    assert_not_equal(nil, user.uuid)
+    assert_not_equal(nil, user.access_token)
+  end
+
+  test "create Uncategorized category/subcategory" do
+    user = User.create(username: "Uncategorized", password: "password")
+    assert_equal(1, user.categories.count)
+    assert_equal(1, user.subcategories.count)
+    assert_equal("Uncategorized", user.categories.first.name)
+    assert_equal("Uncategorized", user.subcategories.first.name)
+
+    category, subcategory = user.uncategorized
+    assert_equal(user.categories.first, category)
+    assert_equal(user.subcategories.first, subcategory)
   end
 
   test "regenerate access token" do

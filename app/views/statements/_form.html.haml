@@ -14,10 +14,11 @@
     = f.label :date, {class: "form-label"}
     = f.date_field :date, class: "form-control"
 
-  .field.mb-3
-    = f.label :file, {class: "form-label"}
-    %i (Optional)
-    = f.file_field :file, accept: "application/pdf", class: "form-control"
+  - if @statement.new_record?
+    .field.mb-3
+      = f.label :file, {class: "form-label"}
+      %i (Optional)
+      = f.file_field :file, accept: "application/pdf", class: "form-control"
 
   .actions.mb-3
     = f.submit 'Save', class: "form-control btn btn-fakturo btn-fakturo-action"

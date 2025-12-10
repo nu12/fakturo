@@ -15,7 +15,7 @@ bundle install
 Create the database, migrate and seed for local developpment:
 
 ```
-rails db:create && rails db:migrate && rails db:seed
+rails db:create && rails db:prepare
 ```
 
 Run the application locally:
@@ -25,6 +25,34 @@ rails s -b 0.0.0.0
 ```
 
 Access `localhost:3000`.
+
+### Upload processing (optional)
+
+Uploaded files are processed asynchronously by ActiveJob.perform_later calls, using a RabbitMQ server for RPC. The instructions bellow will setup the development environment to do so. 
+
+Start the RabbitMQ server with the following command:
+
+```
+podman run -d --hostname localhost --name rabbitmq -p 5672:5672 rabbitmq:3
+```
+
+Start ActiveJob queue processing with the following command in a separated terminal after starting the application:
+
+```
+bin/jobs
+```
+
+Note: `ghostscript` and `imagemagick` must be installed.
+
+#### RPC server (examples in /vendor)
+
+The RPC server connected to the RabbitMQ is responsible for processing the content of uploaded files. As this tend to be very specific and difficult to predict, it was left out of the scope of the project. If you decide to deploy this project and wants to take advantage of this feature, you are required to provide your own implementation of the RPC server.
+
+To guide developments in this area, the folder `/vendor` contains examples that can be used to bootstrap a custom solution.
+
+#### RabbitMQ authentication
+
+As of gem `bunny` version `~> 2.24`, the `RABBITMQ_URL` environment variable can be used to [configure authentication and other connection parameters](https://github.com/ruby-amqp/bunny/blob/main/docs/guides/connecting.md#the-rabbitmq_url-environment-variable).
 
 ## Using docker/podman
 

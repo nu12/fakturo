@@ -57,11 +57,14 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1 or /categories/1.json
   def destroy
-    @category.destroy!
-
     respond_to do |format|
-      format.html { redirect_to categories_path, notice: "Category was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
+      if @category.destroy!
+        format.html { redirect_to categories_path, notice: "Category was successfully destroyed.", status: :see_other }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to categories_path, alert: "Category cannot be destroyed.", status: :see_other }
+        format.json { render json: "Category cannot be destroyed.", status: :unprocessable_entity }
+      end
     end
   end
 
