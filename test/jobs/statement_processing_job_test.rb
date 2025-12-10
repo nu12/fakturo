@@ -1,7 +1,7 @@
 require "test_helper"
 
 class StatementProcessingJobTest < ActiveJob::TestCase
-  test "raw" do
+  test "perform" do
     s = Statement.new(source: sources(:one), user: users(:one), date: "2025-10-20")
     s.file.attach(
       io: File.open("test/fixtures/files/faktura.pdf"),
@@ -10,11 +10,12 @@ class StatementProcessingJobTest < ActiveJob::TestCase
     )
     s.save
     sp = StatementProcessing.create(user: users(:one), statement: s, source: sources(:one))
-    assert_nil sp.raw
+    assert_nil sp.has_succeeded
     perform_enqueued_jobs do
-      StatementProcessingJob.perform_later(sp, nil, false)
+      StatementProcessingJob.perform_later(sp, RpcClientStub)
     end
-    assert_not_equal(sp.reload.raw, nil)
-    assert_equal(sp.statement.file.attached?, false)
+    assert_equal(true, sp.reload.has_succeeded)
+    assert_equal(false, sp.statement.file.attached?)
+    assert_equal(3, s.reload.expenses.count)
   end
 end

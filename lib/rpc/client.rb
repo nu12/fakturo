@@ -1,18 +1,5 @@
-require "bunny"
-require "thread"
-
-class RpcJob < ApplicationJob
-  queue_as :default
-
-  def perform(sp, rpc_client, cascade = true)
-    p "Start RPC job for #{sp.uuid}"
-    client = rpc_client.new("rpc_queue")
-    response = client.call(sp)
-    client.stop
-    LoadExpensesJob.perform_later(sp) if sp.update(result: response, raw: nil) && cascade
-  end
-
-  class StatementProcessingRPCClient
+module Rpc::Client
+  class StatementProcessingRpcClient
     attr_accessor :call_id, :response, :lock, :condition, :connection,
                   :channel, :server_queue_name, :reply_queue, :exchange
 
@@ -27,10 +14,10 @@ class RpcJob < ApplicationJob
       setup_reply_queue
     end
 
-    def call(sp)
+    def call(sp, content)
       @call_id = sp.uuid
 
-      exchange.publish(sp.raw,
+      exchange.publish(content,
                       routing_key: server_queue_name,
                       correlation_id: call_id,
                       reply_to: reply_queue.name)
