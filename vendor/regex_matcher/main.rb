@@ -49,7 +49,7 @@ class RegexMatcherServer
     result = []
     lines = text.gsub(/ +/, " ").gsub("\r\n", "\n").split("\n")
     lines.each do |line|
-      m = /(?<day>\d{2})\W(?<month>\d{2})\W\d{2}\W\d{2}\W(?<description>[\w' ]+).+\D(?<value>\d+.\d{2}|\d+.\d{2}CR)$/.match(line)
+      m = /(?<day>\d{2})\W(?<month>\d{2})\W\d{2}\W\d{2}\W(?<description>[\w' ]+).+\D(?<value>\d+.\d{2}|\d+.\d{2}CR)\s*$/.match(line)
       next unless m
       if m[:day] && m[:month] && m[:description] && m[:value]
         result << {date: "#{Date.today.year}-#{m[:month]}-#{m[:day]}", description: m[:description], value: m[:value].to_f}

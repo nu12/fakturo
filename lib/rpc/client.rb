@@ -14,10 +14,10 @@ module Rpc::Client
       setup_reply_queue
     end
 
-    def call(sp)
+    def call(sp, content)
       @call_id = sp.uuid
 
-      exchange.publish(sp.raw,
+      exchange.publish(content,
                       routing_key: server_queue_name,
                       correlation_id: call_id,
                       reply_to: reply_queue.name)

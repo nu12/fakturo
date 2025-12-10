@@ -21,6 +21,19 @@
             %a{ "data-bs-toggle" => "tooltip", "data-bs-title" => "This statement was uploaded" }
               %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
                 %use{ "xlink:href" => "#upload" }
+            - if statement.statement_processing.has_succeeded.nil?
+              %a{ "data-bs-toggle" => "tooltip", "data-bs-title" => "Statement is processing" }
+                %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+                  %use{ "xlink:href" => "#hourglass" }
+            - elsif statement.statement_processing.has_succeeded
+              %a{ "data-bs-toggle" => "tooltip", "data-bs-title" => "Statement processing successful" }
+                %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+                  %use{ "xlink:href" => "#check-circle" }
+            - else
+              %a{ "data-bs-toggle" => "tooltip", "data-bs-title" => "Statement processing failed" }
+                %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+                  %use{ "xlink:href" => "#x-circle" }
+            
         %td
           = statement.source.name
         %td= statement.year

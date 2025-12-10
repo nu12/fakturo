@@ -7,15 +7,12 @@ empty:
   statement: upload
 
 raw:
-  raw_ciphertext: <%= StatementProcessing.generate_raw_ciphertext("encryptedtext").inspect %>
   uuid: 40fa89cd-a041-474d-8921-002469260a05
   user: one
   source: one
   statement: upload
 
 result:
-  raw_ciphertext: <%= StatementProcessing.generate_raw_ciphertext("encryptedtext").inspect %>
-  result: "[]"
   uuid: 40fa89cd-a041-474d-8921-002469260a05
   user: one
   source: one
