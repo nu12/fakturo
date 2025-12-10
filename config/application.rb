@@ -30,7 +30,7 @@ module Fakturo
       major: 0,
       minor: 4,
       patch: 0,
-      build: 0
+      build: 1
     }
   end
 end
