@@ -49,30 +49,36 @@ class RegexMatcherServer
     result = []
     lines = text.gsub(/ +/, " ").gsub("\r\n", "\n").split("\n")
     lines.each do |line|
-      m = /(?<day>\d{2})\W(?<month>\d{2})\W\d{2}\W\d{2}\W(?<description>[\w' ]+).+\D(?<value>\d+.\d{2}|\d+.\d{2}CR)\s*$/.match(line)
-      n = /^\s*(?<month>\S{3,})\s(?<day>\d{2})\s+\S{3,}\s\d{2}[\s\W]+(?<description>[\w' ]+).*\D(?<value>\d+,\d{2})/.match(line.force_encoding(Encoding::ISO_8859_1))
-      next unless m || n
-      if m && m[:day] && m[:month] && m[:description] && m[:value]
-        result << {date: "#{Date.today.year}-#{m[:month]}-#{m[:day]}", description: m[:description], value: m[:value].to_f}
-      elsif n && n[:day] && n[:month] && n[:description] && n[:value]
-        months = {
-          "jan" => "01",
-          "fév" => "02",
-          "mar" => "03",
-          "avr" => "04",
-          "mai" => "05",
-          "jun" => "06",
-          "jlt" => "07",
-          "aoû" => "08",
-          "sep" => "09",
-          "oct" => "10",
-          "nov" => "11",
-          "déc" => "12"
-        }
-        result << {date: "#{Date.today.year}-#{months[n[:month].force_encoding(Encoding::UTF_8)]}-#{n[:day]}", description: n[:description], value: n[:value].gsub(",", ".").to_f}
-      end
+      matched = match_a(line) || match_b(line)
+      next unless matched
+      result << matched
     end
     return result
+  end
+
+  def match_a(line)
+    m = /(?<day>\d{2})\W(?<month>\d{2})\W\d{2}\W\d{2}\W(?<description>[\w' ]+).+\D(?<value>\d+.\d{2}|\d+.\d{2}CR)\s*$/.match(line)
+    return {date: "#{Date.today.year}-#{m[:month]}-#{m[:day]}", description: m[:description], value: m[:value].to_f} if m && m[:day] && m[:month] && m[:description] && m[:value]
+    return nil
+  end
+  def match_b(line)
+    month_matrix = {
+      "jan" => "01",
+      "fév" => "02",
+      "mar" => "03",
+      "avr" => "04",
+      "mai" => "05",
+      "jun" => "06",
+      "jlt" => "07",
+      "aoû" => "08",
+      "sep" => "09",
+      "oct" => "10",
+      "nov" => "11",
+      "déc" => "12"
+    }
+    m = /^\s*(?<month>\S{3,})\s(?<day>\d{2})\s+\S{3,}\s\d{2}[\s\W]+(?<description>[\w' ]+).*\D(?<value>\d+,\d{2})/.match(line.force_encoding(Encoding::ISO_8859_1))
+    return {date: "#{Date.today.year}-#{month_matrix[m[:month].force_encoding(Encoding::UTF_8)]}-#{m[:day]}", description: m[:description], value: m[:value].gsub(",", ".").to_f} if m && m[:day] && m[:month] && m[:description] && m[:value]
+    return nil
   end
 end
 
