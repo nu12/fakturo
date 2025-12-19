@@ -182,3 +182,21 @@ persistentVolumeClaim:
   request: 1Gi
   accessModes:
   - ReadWriteOnce
+
+
+rabbitmq:
+  enabled: true
+  nameOverride: ""
+  image:
+    repository: rabbitmq
+    pullPolicy: IfNotPresent
+    tag: "3"
+  imagePullSecrets: []
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  securityContext: {}
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
