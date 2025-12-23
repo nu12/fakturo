@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.persistentVolume.name }}
+spec:
+  capacity:
+    storage: {{ .Values.persistentVolume.capacity }}
+  accessModes:
+    {{ .Values.persistentVolume.accessModes }}
+  storageClassName: standard
+  {{- with .Values.persistentVolume.plugin }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.persistentVolumeClaim.name }}
+spec:
+  accessModes:
+    {{ .Values.persistentVolumeClaim.accessModes }}
+  resources:
+    requests:
+      storage: {{ .Values.persistentVolumeClaim.request }}
+  volumeName: {{ .Values.persistentVolume.name }}
