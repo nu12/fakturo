@@ -1,0 +1,84 @@
+{{- if .Values.rpcServer.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fakturo.rpcServerName" . }}
+  labels:
+    app: rpcServer
+spec:
+  replicas: {{ .Values.rpcServer.replicaCount }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: rpcServer
+  template:
+    metadata:
+      {{- with .Values.rpcServer.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: rpcServer
+        {{- include "fakturo.labels" . | nindent 8 }}
+        {{- with .Values.rpcServer.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.rpcServer.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "fakturo.serviceAccountName" . }}
+      {{- with .Values.rpcServer.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        - name: init
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          command: ["sh","-c","cp -r /data/..data/* /app && chmod +x /app/entrypoint.sh"]
+          volumeMounts:
+            - name: config-volume
+              mountPath: /data
+            - name: app-volume
+              mountPath: /app
+      containers:
+        - name: rpc-server
+          {{- with .Values.rpcServer.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.rpcServer.image.repository }}:{{ .Values.rpcServer.image.tag }}"
+          imagePullPolicy: {{ .Values.rpcServer.image.pullPolicy }}
+          env:
+            - name: RABBITMQ_URL
+              value: amqp://rabbitmq
+          {{- with .Values.rpcServer.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          command: ["sh","-c","/app/entrypoint.sh"]
+          volumeMounts:
+            - name: app-volume
+              mountPath: /app
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "fakturo.rpcServerName" . }}
+        - name: app-volume
+          emptyDir: {}
+      {{- with .Values.rpcServer.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.rpcServer.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.rpcServer.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

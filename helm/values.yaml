@@ -183,9 +183,8 @@ persistentVolumeClaim:
   accessModes:
   - ReadWriteOnce
 
-
 rabbitmq:
-  enabled: true
+  enabled: false
   nameOverride: ""
   image:
     repository: rabbitmq
@@ -200,3 +199,81 @@ rabbitmq:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+
+rpcServer:
+  enabled: false
+  nameOverride: ""
+  image:
+    repository: ruby
+    pullPolicy: IfNotPresent
+    tag: "3.2.8"
+  replicaCount: 1
+  imagePullSecrets: []
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  securityContext: {}
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  configMap:
+    entrypoint.sh: |
+      #!/bin/bash
+      cd /app
+      bundle install
+      ruby main.rb
+    main.rb: |
+      #!/usr/bin/env ruby
+      require 'bunny'
+      class RpcServer
+        def initialize
+          @connection = Bunny.new
+          @connection.start
+          @channel = @connection.create_channel
+        end
+
+        def start(queue_name)
+          @queue = channel.queue(queue_name)
+          @exchange = channel.default_exchange
+          subscribe_to_queue
+        end
+
+        def stop
+          channel.close
+          connection.close
+        end
+
+        def loop_forever
+          # This loop only exists to keep the main thread
+          # alive. Many real world apps won't need this.
+          loop { sleep 5 }
+        end
+
+        private
+        attr_reader :channel, :exchange, :queue, :connection
+        def subscribe_to_queue
+          queue.subscribe do |_delivery_info, properties, payload|
+            p "[#{properties.correlation_id}] Start processing..."
+            exchange.publish(
+              "[]",
+              routing_key: properties.reply_to,
+              correlation_id: properties.correlation_id
+            )
+            p "[#{properties.correlation_id}] Done"
+          end
+        end
+      end
+
+      begin
+        server = RpcServer.new
+        puts 'Server starting, waiting RPC requests...'
+        server.start('rpc_queue')
+        server.loop_forever
+      rescue Interrupt => _
+        server.stop
+      end
+
+    Gemfile: |
+      source "https://rubygems.org"
+      gem "bunny", "~> 2.24"

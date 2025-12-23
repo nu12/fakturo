@@ -67,3 +67,10 @@ Create the name of the RabbitMQ components
 {{- define "fakturo.rabbitmqName" -}}
 {{- default "rabbitmq" .Values.rabbitmq.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
+
+{{/*
+Create the name of the RPC server components
+*/}}
+{{- define "fakturo.rpcServerName" -}}
+{{- default "rpc-server" .Values.rpcServer.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
