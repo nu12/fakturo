@@ -13,6 +13,17 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+env: {}
+
+jobs:
+  enabled: false
+  nameOverride: ""
+  securityContext: {}
+  resources: {}
+  env:
+    - name: "RABBITMQ_URL"
+      value: "amqp://rabbitmq"
+
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
 # This is to override the chart name.
@@ -217,6 +228,9 @@ rpcServer:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+  env:
+    - name: "RABBITMQ_URL"
+      value: "amqp://rabbitmq"
   configMap:
     entrypoint.sh: |
       #!/bin/bash

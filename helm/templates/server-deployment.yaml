@@ -53,6 +53,9 @@ spec:
               secretKeyRef:
                 name: master-keys
                 key: rails
+          {{- with .Values.env }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: 80
@@ -75,6 +78,45 @@ spec:
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
+      {{- if .Values.jobs.enabled }}
+        - name: {{ include "fakturo.fakturoJobsName" . }}
+          {{- with .Values.jobs.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["sh","-c","./bin/jobs"]
+          env:
+          - name: LOCKBOX_MASTER_KEY
+            valueFrom:
+              secretKeyRef:
+                name: master-keys
+                key: lockbox
+          - name: SECRET_KEY_BASE
+            valueFrom:
+              secretKeyRef:
+                name: master-keys
+                key: rails
+          {{- with .Values.jobs.env }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.jobs.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.jobs.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.jobs.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - mountPath: "/rails/storage"
+              name: storage
+      {{- end }}
       volumes:
         - name: storage
           persistentVolumeClaim:

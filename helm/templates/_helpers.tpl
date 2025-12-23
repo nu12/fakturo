@@ -62,6 +62,13 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
+Create the name of the jobs components
+*/}}
+{{- define "fakturo.fakturoJobsName" -}}
+{{- default "jobs" .Values.jobs.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
 Create the name of the RabbitMQ components
 */}}
 {{- define "fakturo.rabbitmqName" -}}

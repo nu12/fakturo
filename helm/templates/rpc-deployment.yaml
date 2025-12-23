@@ -52,9 +52,10 @@ spec:
           {{- end }}
           image: "{{ .Values.rpcServer.image.repository }}:{{ .Values.rpcServer.image.tag }}"
           imagePullPolicy: {{ .Values.rpcServer.image.pullPolicy }}
+          {{- with .Values.jobs.env }}
           env:
-            - name: RABBITMQ_URL
-              value: amqp://rabbitmq
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
           {{- with .Values.rpcServer.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
