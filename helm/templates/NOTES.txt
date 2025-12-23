@@ -1,12 +1,43 @@
-1. Application secrets
-  The following secrets are required to run the application in production:
-  - LOCKBOX_MASTER_KEY
-  - RAILS_MASTER_KEY
+=================================
+======= REQUIRED SECRETS ========
+=================================
 
-  Use to following command to create them:
-  kubectl create secret generic master-keys --from-literal=lockbox=<KEY-GOES-HERE> --from-literal=rails=<KEY-GOES-HERE>
+The following secrets are required to run the application in production:
+- LOCKBOX_MASTER_KEY
+- RAILS_MASTER_KEY
 
-2. Get the application URL by running these commands:
+They are stored in the Kubernetes secret master-keys. If it doesn't exist yet, use the following command to create it:
+
+kubectl create secret generic master-keys --from-literal=lockbox=<KEY-GOES-HERE> --from-literal=rails=<KEY-GOES-HERE> -n <NAMESPACE>
+
+Note: replace the placeholders.
+
+{{- if .Values.rabbitmq.enabled }}
+
+=================================
+=========== RabbitMQ ============
+=================================
+
+You've enabled the RabbitMQ server available in this helm chart. It is meant to be an easy way to bootstrap the application for testing and therefore is not production-ready.
+
+Please provide your own RabbitMQ/AMQP server with authentication to be used.
+{{- end }}
+{{- if .Values.rpcServer.enabled }}
+
+=================================
+========== RPC Server ===========
+=================================
+
+You've enabled the RPC server available in this helm chart. It is meant to be an easy way to bootstrap the application for testing and therefore is not production-ready.
+
+Please provide your own RPC server to be used.
+{{- end }}
+
+=================================
+======== OTHER MESSAGES =========
+=================================
+
+1. Get the application URL by running these commands:
 {{- if .Values.httpRoute.enabled }}
 {{- if .Values.httpRoute.hostnames }}
     export APP_HOSTNAME={{ .Values.httpRoute.hostnames | first }}
