@@ -54,7 +54,7 @@ To guide developments in this area, the folder `/vendor` contains examples that 
 
 As of gem `bunny` version `~> 2.24`, the `RABBITMQ_URL` environment variable can be used to [configure authentication and other connection parameters](https://github.com/ruby-amqp/bunny/blob/main/docs/guides/connecting.md#the-rabbitmq_url-environment-variable).
 
-## Using docker/podman
+### Using docker/podman
 
 Build a new image:
 
@@ -67,6 +67,14 @@ Run the image:
 ```
 podman run --rm --name fakturo -e SECRET_KEY_BASE=<MASTER-KEY> -e RAILS_ENV=development -p 3000:3000 fakturo ./bin/rails server
 ``` 
+
+## Production
+
+### Helm
+
+```
+helm upgrade --install fakturo helm/
+```
 
 ## Release a new version
 
