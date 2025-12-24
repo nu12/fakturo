@@ -13,6 +13,17 @@ module ActiveSupport
 
     # Add more helper methods to be used by all tests here...
   end
+  class Helper
+    def self.bootstrap
+      user = User.create(username: "bootstrap", password: "123456")
+      category = Category.create(name: "Bootstrap", user: user)
+      subcategory = Subcategory.create(name: "Bootstrap", user: user, category: category)
+      source = Source.create(name: "Bootstrap", user: user)
+      statement = Statement.create(date: "2020-01-10", user: user, source: source)
+      expense = Expense.create(date: "2020-01-01", raw_description: "autocat", description: "Bootstrap", user: user, statement: statement, category: category, subcategory: subcategory)
+      return user, category, subcategory, source, statement, expense
+    end
+  end
 end
 
 class RpcClientStub

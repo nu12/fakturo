@@ -12,7 +12,8 @@ class StatementProcessingJob < ApplicationJob
       results = JSON.load(response)
       cat, sub = sp.user.uncategorized
       results.each do | result |
-        sp.statement.expenses << Expense.create!(date: result["date"], description: result["description"], value: result["value"], statement: sp.statement, user: sp.user, category: cat, subcategory: sub)
+        expense = Expense.create!(date: result["date"], raw_description: result["description"], description: result["description"], value: result["value"], statement: sp.statement, user: sp.user, category: cat, subcategory: sub)
+        ExpensesHelper.auto_find_category expense
       end
       sp.update(has_succeeded: true)
     rescue
