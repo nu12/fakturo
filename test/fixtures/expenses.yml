@@ -2,7 +2,6 @@
 
 one:
   date: 2020-01-01
-  raw_description: autocat
   description: Expense-1
   value: 11.01
   ignore: false
