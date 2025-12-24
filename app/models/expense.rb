@@ -20,7 +20,7 @@ class Expense < ApplicationRecord
   private
 
   ## Statements usually contain expenses from previous month, meaning that the Statement from January
-  # is likely to contain most of expenses from december. 
+  # is likely to contain most of expenses from december.
   #
   # Only affects creation of expenses from uploaded statements.
   # Don't need to run the change if dates from statement and expense have the same month.
