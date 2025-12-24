@@ -42,10 +42,16 @@ class ExpenseTest < ActiveSupport::TestCase
 
   test "adjusted year" do
     st = statements(:one)
-    cat, sub = user.uncategorized
-    same_year = Expense.create("2020-01-01", description: "Same year", value: 92.11, statement: st, user: st.user, category: cat, subcategory: sub)
+    st.update(is_upload: true)
+    cat, sub = st.user.uncategorized
+    same_year = Expense.create(date: "2020-01-01", description: "Same year", value: 92.11, statement: st, user: st.user, category: cat, subcategory: sub)
     assert_equal(2020, same_year.date.year)
-    last_year = Expense.create("2020-12-20", description: "Last year", value: 528.81, statement: st, user: st.user, category: cat, subcategory: sub)
+    last_year = Expense.create(date: "2020-12-20", description: "Last year", value: 528.81, statement: st, user: st.user, category: cat, subcategory: sub)
     assert_equal(2019, last_year.date.year)
+
+    st = statements(:two)
+    st.update(is_upload: true)
+    previous_month = Expense.create(date: "2020-01-12", description: "Previous month, same year", value: 12.98, statement: st, user: st.user, category: cat, subcategory: sub)
+    assert_equal(2020, previous_month.date.year)
   end
 end
