@@ -6,9 +6,8 @@
   %table.table.table-sm.table-striped
     %thead
       %tr
-        - if show.include? :checkbox
-          %th
-            %input.form-check-input{ :type => :checkbox, "data-action" => "expenses#changeAll" }
+        %th
+          %input.form-check-input{ :type => :checkbox, "data-action" => "expenses#changeAll" }
         %th Date
         %th Description
         %th Value
@@ -21,12 +20,15 @@
         - if show.include? :subcategory
           %th Sub-category
         %th
+          %button.btn.btn-sm{"data-bs-toggle" => "modal", "data-bs-target" => "#transferExpensesModal", "data-action" => "expenses#getSelectedSubcategories"}
+            %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "Edit selected"}
+              %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+                %use{ "xlink:href" => "#edit" }
     %tbody
       - expenses.ordered.each do |expense|
         %tr
-          - if show.include? :checkbox
-            %td
-              %input.form-check-input{ :type => :checkbox, "data-expenses-target" => "expense", "data-id" => "#{expense.id}"}
+          %td
+            %input.form-check-input{ :type => :checkbox, "data-expenses-target" => "expense", "data-id" => "#{expense.id}"}
           %td
             - if expense.date
               = expense.date.strftime("%Y-%m-%d")
@@ -62,11 +64,6 @@
                 %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
                   %use{ "xlink:href" => "#edit" }
 
-  - if show.include? :checkbox
-    .mb-3
-      %button.btn.btn-primary.form-control{"data-bs-toggle" => "modal", "data-bs-target" => "#transferExpensesModal", "data-action" => "expenses#getSelectedSubcategories"}
-        Transfer selected
-
   .digg_pagination.d-flex.justify-content-center.mb-3
     = will_paginate expenses, :container => false
     
@@ -77,25 +74,42 @@
           Edit expense
           %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
         .modal-body#formPlaceholder
-  - if show.include? :checkbox
-    .modal.fade#transferExpensesModal{ :tabindex => "-1", "aria-labelledby" => "transferExpensesModalLabel", "aria-hidden" => "true"}
-      .modal-dialog
-        .modal-content
-          .modal-header
-            Transfer expenses
-            %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
-          = form_with url: transfer_subcategory_path do |f|
-            .modal-body
-              .alert.alert-info
-                The selected expenses will be transfered to the category and sub-category selected below.
-              
-              = f.hidden_field :subcategories, {:id => "selected", :name => "selected"}
-              .field.mb-3
-                = f.label :category_id, {class: "form-label"}
-                = f.select :category_id, Current.user.categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" }, {"data-action" => "expenses#updateSubcategorySelector", class: "form-control" }
-              .field.mb-3
-                = f.label :subcategory_id, {class: "form-label"}
-                = f.select :subcategory_id, [], { prompt: "Select a category" }, {class: "form-control subcategorySelector" }
-            .modal-footer
-              .actions.mb-3
-                = f.submit 'Save', class: "form-control btn btn-fakturo btn-fakturo-action"
+  .modal.fade#transferExpensesModal{ :tabindex => "-1", "aria-labelledby" => "transferExpensesModalLabel", "aria-hidden" => "true"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          Edit selected
+          %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
+        .modal-body
+          .accordion#accordionExpenses
+            .accordion-item
+              %h2.accordion-header
+                %button.accordion-button.collapsed{:type => "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapseOne", "aria-expanded" => "false", "aria-controls" => "collapseOne"}
+                  Transfer
+              #collapseOne.accordion-collapse.collapse{"data-bs-parent" => "#accordionExpenses"}
+                .accordion-body
+                  = form_with url: bulk_expenses_path, method: :put do |f|
+                    .alert.alert-info
+                      The selected expenses will be transfered to the category and sub-category selected below.
+                    = f.hidden_field :subcategories, {:name => "selected"}
+                    .field.mb-3
+                      = f.label :category_id, {class: "form-label"}
+                      = f.select :category_id, Current.user.categories.map { |c| [c.name, c.id] }, { prompt: "Select a category" }, {"data-action" => "expenses#updateSubcategorySelector", class: "form-control" }
+                    .field.mb-3
+                      = f.label :subcategory_id, {class: "form-label"}
+                      = f.select :subcategory_id, [], { prompt: "Select a category" }, {class: "form-control subcategorySelector" }
+                    .actions.mb-3
+                      = f.submit 'Transfer selected', class: "form-control btn btn-fakturo btn-fakturo-action"
+
+            .accordion-item
+              %h2.accordion-header
+                %button.accordion-button.collapsed{:type => "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapseTwo", "aria-expanded" => "false", "aria-controls" => "collapseTwo"}
+                  Delete
+              #collapseTwo.accordion-collapse.collapse{"data-bs-parent" => "#accordionExpenses"}
+                .accordion-body
+                  = form_with url: bulk_expenses_path, method: :delete do |f|
+                    .alert.alert-danger
+                      The selected expenses will be deleted.
+                    = f.hidden_field :subcategories, {:name => "selected"}
+                    .actions.mb-3
+                      = f.submit 'Delete selected', class: "form-control btn btn-danger"

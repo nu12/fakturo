@@ -47,7 +47,7 @@ class StatementsTest < ApplicationSystemTestCase
 
   test "should edit Statement's expenses" do
     visit statement_url(@statement)
-    within("table.table-striped") do
+    within("table.table-striped tbody") do
       find_button(match: :first).click
     end
     check("expense_ignore", visible: false)

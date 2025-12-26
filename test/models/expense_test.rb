@@ -20,38 +20,41 @@ class ExpenseTest < ActiveSupport::TestCase
 
   test "group by category" do
     user = users(:one)
-    es = user.expenses.valid.group_by_category
+    expenses = user.expenses.valid.group_by_category
 
-    assert es[0].name == "CatOne"
-    assert es[0].value == 23.03
+    assert expenses[0].name == "CatOne"
+    assert expenses[0].value == 23.03
 
-    assert es[1].name == "CatThree"
-    assert es[1].value == 13.03
+    assert expenses[1].name == "CatThree"
+    assert expenses[1].value == 13.03
   end
 
   test "group by subcategory" do
     user = users(:one)
-    es = user.expenses.valid.group_by_subcategory
+    expenses = user.expenses.valid.group_by_subcategory
 
-    assert es[0].name == "SubOne"
-    assert es[0].value == 23.03
+    assert expenses[0].name == "SubOne"
+    assert expenses[0].value == 23.03
 
-    assert es[1].name == "SubThree"
-    assert es[1].value == 13.03
+    assert expenses[1].name == "SubThree"
+    assert expenses[1].value == 13.03
   end
 
-  test "adjusted year" do
-    st = statements(:one)
-    st.update(is_upload: true)
-    cat, sub = st.user.uncategorized
-    same_year = Expense.create(date: "2020-01-01", description: "Same year", value: 92.11, statement: st, user: st.user, category: cat, subcategory: sub)
+  test "year to be adjusted" do
+    statement = statements(:one)
+    statement.update(is_upload: true)
+    cat, sub = statement.user.uncategorized
+    same_year = Expense.create(date: "2020-01-01", description: "Same year", value: 92.11, statement: statement, user: statement.user, category: cat, subcategory: sub)
     assert_equal(2020, same_year.date.year)
-    last_year = Expense.create(date: "2020-12-20", description: "Last year", value: 528.81, statement: st, user: st.user, category: cat, subcategory: sub)
+    last_year = Expense.create(date: "2020-12-20", description: "Last year", value: 528.81, statement: statement, user: statement.user, category: cat, subcategory: sub)
     assert_equal(2019, last_year.date.year)
+  end
 
-    st = statements(:two)
-    st.update(is_upload: true)
-    previous_month = Expense.create(date: "2020-01-12", description: "Previous month, same year", value: 12.98, statement: st, user: st.user, category: cat, subcategory: sub)
+  test "year not to be adjusted" do
+    statement = statements(:two)
+    statement.update(is_upload: true)
+    cat, sub = statement.user.uncategorized
+    previous_month = Expense.create(date: "2020-01-12", description: "Previous month, same year", value: 12.98, statement: statement, user: statement.user, category: cat, subcategory: sub)
     assert_equal(2020, previous_month.date.year)
   end
 end

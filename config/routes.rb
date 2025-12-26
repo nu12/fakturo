@@ -21,8 +21,8 @@ Rails.application.routes.draw do
     resources :subcategories, only: [], concerns: :paginatable
   end
   resources :categories, only: [], concerns: :paginatable
-  resource :subcategory, only: [] do
-    post :transfer
+  namespace :bulk do
+    resource :expenses, only: [ :update, :destroy ]
   end
 
   resources :dashboards, only: [ :index ], controller: "dashboards/dashboards"
