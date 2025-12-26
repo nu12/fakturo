@@ -35,7 +35,7 @@ class CategoriesTest < ApplicationSystemTestCase
 
   test "should edit Category's expenses" do
     visit category_url(@category)
-    within("table.table-striped") do
+    within("table.table-striped tbody") do
       find_button(match: :first).click
     end
     check("expense_ignore", visible: false)

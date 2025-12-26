@@ -28,7 +28,7 @@ class ExpensesTest < ApplicationSystemTestCase
 
   test "should update Expense" do
     visit page_expenses_url
-    within("table.table-striped") do
+    within("table.table-striped tbody") do
       find_button(match: :first).click
     end
     check("expense_ignore", visible: false)
@@ -39,7 +39,7 @@ class ExpensesTest < ApplicationSystemTestCase
 
   test "should destroy Expense" do
     visit page_expenses_url
-    within("table.table-striped") do
+    within("table.table-striped tbody") do
       find_button(match: :first).click
     end
     click_on "Delete expense", visible: false

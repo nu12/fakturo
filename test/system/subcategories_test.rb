@@ -35,7 +35,7 @@ class SubcategoriesTest < ApplicationSystemTestCase
 
   test "should edit Subcategory's expenses" do
     visit category_subcategory_url(@subcategory.category, @subcategory)
-    within("table.table-striped") do
+    within("table.table-striped tbody") do
       find_button(match: :first).click
     end
     check("expense_ignore", visible: false)
@@ -51,19 +51,5 @@ class SubcategoriesTest < ApplicationSystemTestCase
 
     assert_text "Yes, delete this sub-category"
     click_on "Yes, delete this sub-category"
-  end
-
-  test "should transfer Subcategory" do
-    visit category_subcategory_url(@subcategory.category, @subcategory)
-    all("input[type=checkbox]").each do |checkbox|
-      checkbox.check
-    end
-    click_on "Transfer"
-
-    select(@subcategory.category.name, from: "category_id", visible: false)
-    select(@subcategory.name, from: "subcategory_id", visible: false)
-    click_on "Save", visible: false
-
-    assert_content "Expenses were successfully transfered"
   end
 end

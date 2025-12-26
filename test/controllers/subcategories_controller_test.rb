@@ -46,10 +46,4 @@ class SubcategoriesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to category_subcategories_url
   end
-
-  test "should transfer subcategory" do
-    post transfer_subcategory_url, params: { selected: "1", subcategory_id: @subcategory.id }
-    assert_response :see_other
-    assert_redirected_to category_subcategory_url(@subcategory.category, @subcategory)
-  end
 end

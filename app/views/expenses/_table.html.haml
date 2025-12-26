@@ -99,7 +99,7 @@
                       = f.label :subcategory_id, {class: "form-label"}
                       = f.select :subcategory_id, [], { prompt: "Select a category" }, {class: "form-control subcategorySelector" }
                     .actions.mb-3
-                      = f.submit 'Save', class: "form-control btn btn-fakturo btn-fakturo-action"
+                      = f.submit 'Transfer selected', class: "form-control btn btn-fakturo btn-fakturo-action"
 
             .accordion-item
               %h2.accordion-header
@@ -112,4 +112,4 @@
                       The selected expenses will be deleted.
                     = f.hidden_field :subcategories, {:name => "selected"}
                     .actions.mb-3
-                      = f.submit 'Delete', class: "form-control btn btn-danger"
+                      = f.submit 'Delete selected', class: "form-control btn btn-danger"

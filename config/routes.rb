@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
   resources :categories, only: [], concerns: :paginatable
   namespace :bulk do
-    resource :expenses, only: [:update, :destroy]
+    resource :expenses, only: [ :update, :destroy ]
   end
 
   resources :dashboards, only: [ :index ], controller: "dashboards/dashboards"

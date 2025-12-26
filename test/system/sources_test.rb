@@ -33,7 +33,7 @@ class SourcesTest < ApplicationSystemTestCase
 
   test "should edit Source's expenses" do
     visit source_url(@source)
-    within("table.table-striped") do
+    within("table.table-striped tbody") do
       find_button(match: :first).click
     end
     check("expense_ignore", visible: false)
