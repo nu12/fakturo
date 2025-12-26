@@ -30,4 +30,4 @@
 
 - if @subcategory.expenses.count > 0
   %hr
-  = render partial: "expenses/table", locals: {expenses: @paginated_expenses, show: %i[ checkbox statement source ]}
+  = render partial: "expenses/table", locals: {expenses: @paginated_expenses, show: %i[ statement source ]}

@@ -56,7 +56,7 @@ export default class extends Controller {
     });
   }
 
-  // Get values from selected checkbozes
+  // Get values from selected checkboxes
   getSelectedSubcategories(){
     var selected = []
     this.expenseTargets.forEach(element => {
@@ -64,7 +64,9 @@ export default class extends Controller {
         selected.push(element.getAttribute("data-id"))
       }
     });
-    document.getElementById("selected").value = selected.join()
+    document.querySelectorAll("input[name=selected]").forEach(element => {
+      element.value = selected.join()
+    });
   }
 }
 
