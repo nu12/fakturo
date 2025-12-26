@@ -13,7 +13,10 @@ class BulkControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should delete expenses" do
-    delete bulk_expenses_url, params: { selected: "1", subcategory_id: @subcategory.id }, headers: { "HTTP_REFERER" => root_url }
+    expenses = [expenses(:one), expenses(:two)]
+    assert_difference("Expense.count", -2) do
+      delete bulk_expenses_url, params: { selected: expenses.map{|e| e.id}.join(",") }, headers: { "HTTP_REFERER" => root_url }
+    end
     assert_response :see_other
     assert_redirected_to root_url
   end
