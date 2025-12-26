@@ -17,7 +17,7 @@ class Bulk::ExpensesController < ApplicationController
     redirect_with_message_or_error "Expenses were successfully destroyed."
   end
 
-  private  
+  private
   def set_expenses
     params.expect(:selected)
     selected_expenses = params[:selected].split(",")
