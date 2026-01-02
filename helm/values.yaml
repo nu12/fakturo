@@ -95,7 +95,7 @@ gateway:
   - allowedRoutes:
       namespaces:
         from: Same
-    name: http
+    name: web
     port: 8000
     protocol: HTTP
 
