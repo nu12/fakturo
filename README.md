@@ -72,8 +72,42 @@ podman run --rm --name fakturo -e SECRET_KEY_BASE=<MASTER-KEY> -e RAILS_ENV=deve
 
 ### Helm
 
+A secret with the keys for rails and lockbox is needed, but is not managed by the chart. Create the secret manually with the following command:
+
 ```
-helm upgrade --install fakturo helm/
+cat <<EOF | kubectl apply -n fakturo -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: master-keys
+type: Opaque
+data:
+  rails: 
+  lockbox: 
+EOF
+```
+
+To deploy the chart
+
+```
+helm upgrade --install fakturo helm/ -n fakturo
+```
+
+### TLS with Gateway Api
+
+When creating a HTTPS endpoint via the Kubernetes Gateway API, a secret with the certificate and key is needed. Create it with the following command:
+
+```
+cat <<EOF | kubectl apply -n fakturo -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fakturo-tls
+type: Opaque
+data:
+  tls.crt: 
+  tls.key: 
+EOF
 ```
 
 ## Release a new version
