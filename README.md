@@ -87,7 +87,7 @@ data:
 EOF
 ```
 
-To deploy the chart
+To deploy the chart:
 
 ```
 helm upgrade --install fakturo helm/ -n fakturo
