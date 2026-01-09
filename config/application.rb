@@ -29,7 +29,7 @@ module Fakturo
     config.version = {
       major: 0,
       minor: 6,
-      patch: 0,
+      patch: 1,
       build: 0
     }
   end
