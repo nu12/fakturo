@@ -4,7 +4,7 @@ module Rpc::Client
                   :channel, :server_queue_name, :reply_queue, :exchange
 
     def initialize(server_queue_name)
-      @connection = Bunny.new(automatically_recover: false)
+      @connection = Bunny.new
       @connection.start
 
       @channel = connection.create_channel
