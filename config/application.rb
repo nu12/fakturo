@@ -27,9 +27,9 @@ module Fakturo
     config.active_storage.variant_processor = :disabled
 
     config.version = {
-      major: 0,
-      minor: 6,
-      patch: 1,
+      major: 1,
+      minor: 0,
+      patch: 0,
       build: 0
     }
   end

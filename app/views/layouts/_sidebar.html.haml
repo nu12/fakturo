@@ -43,9 +43,8 @@
           %use{ "xlink:href" => "#info" }
         Data & Privacy policy
   %hr
-  .dropdown
-    %a.d-flex.align-items-center.link-body-emphasis.text-decoration-none.dropdown-toggle{ :href => "#", "data-bs-toggle" => "dropdown", "aria-expanded" => "false" }
-      %img.rounded-circle.me-2{ :src => "https://github.com/mdo.png", :alt => "", :width => "32", :height => "32" } 
+  .dropdown.text-center
+    %a.text-center.link-body-emphasis.text-decoration-none.dropdown-toggle{ :href => "#", "data-bs-toggle" => "dropdown", "aria-expanded" => "false" }
       %strong
         = Current.user.username
     %ul.dropdown-menu.text-small.shadow
