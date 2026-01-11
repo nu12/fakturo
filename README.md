@@ -82,8 +82,8 @@ metadata:
   name: master-keys
 type: Opaque
 data:
-  rails: 
-  lockbox: 
+  rails: cGxhY2Vob2xkZXIK
+  lockbox: cGxhY2Vob2xkZXIK
 EOF
 ```
 
@@ -105,9 +105,48 @@ metadata:
   name: fakturo-tls
 type: Opaque
 data:
-  tls.crt: 
-  tls.key: 
+  tls.crt: cGxhY2Vob2xkZXIK
+  tls.key: cGxhY2Vob2xkZXIK
 EOF
+```
+
+### RabbitMQ Authentication
+
+To authenticate to a RabbitMQ server in production, first create the user and password in the RabbitMQ container:
+
+```
+rabbitmqctl add_user 'username' 'password'
+```
+
+Grant permissions to the virtual host be to user (also in the RabbitMQ container):
+
+```
+rabbitmqctl set_permissions -p "/" "username" ".*" ".*" ".*"
+```
+
+Create the secret with the connection string and :
+
+```
+cat <<EOF | kubectl apply -n fakturo -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fakturo-rabbitmq
+type: Opaque
+data:
+  connection_string: YW1xcDovL1VTRVJOQU1FOlBBU1NXT1JEQHJhYmJpdG1x
+EOF
+```
+
+Then, use the secret to create the RABBITMQ_URL environment variable:
+
+```
+env:        
+- name: RABBITMQ_URL
+  valueFrom:
+    secretKeyRef:
+      name: fakturo-rabbitmq
+      key: connection_string
 ```
 
 ## Release a new version
