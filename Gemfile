@@ -76,4 +76,4 @@ gem "mini_magick", "~> 5.3"
 
 gem "bunny", "~> 2.24"
 
-gem "minitest", "< 6"
+gem "minitest", "< 7"
