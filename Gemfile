@@ -64,7 +64,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "haml", "~> 7.1"
+gem "haml", "~> 7.2"
 
 gem "will_paginate", "~> 4.0"
 
