@@ -31,4 +31,11 @@ class UserTest < ActiveSupport::TestCase
     user.regenerate_token
     assert user.access_token != previous_token
   end
+
+  test "username uniqueness" do
+    one = users(:one)
+    user = User.new(username: one.username)
+    assert_equal false, user.save
+    assert user.errors.full_messages.include? "Username can't be used"
+  end
 end
