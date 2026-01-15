@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :expenses, dependent: :destroy
 
   normalizes :username, with: ->(e) { e.strip.downcase }
+  validates :username, uniqueness: { message: "can't be used" }
 
   before_create :set_uuid
   after_create :create_baseline_categories
