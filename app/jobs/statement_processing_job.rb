@@ -16,11 +16,12 @@ class StatementProcessingJob < ApplicationJob
         ExpensesHelper.auto_find_category expense
       end
       sp.update(has_succeeded: true)
-    rescue
-      "[#{sp.uuid}] Error"
-      sp.update(has_succeeded: false)
-    ensure
       sp.statement.file.purge_later
+    rescue StandardError => e
+      "[#{sp.uuid}] Error: #{e.message}"
+      sp.update(has_succeeded: false)
+      sp.statement.file.purge_later(wait: 48.hours)
+    ensure
       client.stop
       p "[#{sp.uuid}] Statement processing completed"
     end

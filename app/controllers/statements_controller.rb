@@ -34,11 +34,7 @@ class StatementsController < ApplicationController
 
     respond_to do |format|
       if @statement.save
-        if @statement.file.attached?
-          @sp = StatementProcessing.create(user: current_user, source: @statement.source)
-          @statement.statement_processing = @sp
-          StatementProcessingJob.perform_later @sp, Rpc::Client::StatementProcessingRpcClient
-        end
+        StatementProcessing.create(user: current_user, source: @statement.source, statement: @statement).run if @statement.file.attached?
         format.html { redirect_to @statement, notice: "Statement was successfully created." }
         format.json { render :show, status: :created, location: @statement }
       else

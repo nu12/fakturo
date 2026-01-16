@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     concerns :paginatable, action: :index
   end
 
+  resources :statement_processings, only: [ :update ]
   resources :statements, except: [ :show ]
   resources :statements, only: [], concerns: :paginatable
 
