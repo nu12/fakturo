@@ -49,6 +49,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "minitest", "< 6"
 end
 
 group :development do
@@ -75,5 +77,3 @@ gem "lockbox", "~> 2.1"
 gem "mini_magick", "~> 5.3"
 
 gem "bunny", "~> 2.24"
-
-gem "minitest", "< 6"
