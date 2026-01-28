@@ -10,6 +10,4 @@ permissions:
 jobs:
   cd:
     name: Release
-    uses: nu12/templates/.github/workflows/go-release.yml@main
-    with:
-      ruby-version: .ruby-version
+    uses: nu12/templates/.github/workflows/rails-release.v1.yml@main
