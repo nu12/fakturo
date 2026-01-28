@@ -9,6 +9,6 @@ permissions:
 
 jobs:
   cd:
-    name: Release
+    name: CD
     uses: nu12/templates/.github/workflows/rails-release.v1.yml@main
     secrets: inherit
