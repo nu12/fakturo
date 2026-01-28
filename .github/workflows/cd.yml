@@ -1,4 +1,4 @@
-name: CD
+name: Release
 on:
   push:
     tags:
@@ -8,16 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v6
-    - name: Release
-      uses: nu12/templates/actions/github/release@main
-      with:
-        version: '${{ github.ref_name }}'
-    - name: Build
-      uses: nu12/templates/actions/build/docker@main
-      with:
-        tag: '${{ github.ref_name }}'
-        registry-password: '${{ secrets.TOKEN }}'
+  cd:
+    name: Release
+    uses: nu12/templates/.github/workflows/rails-release.v1.yml@main
+    secrets: inherit
