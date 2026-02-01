@@ -232,7 +232,7 @@ rpcServer:
   image:
     repository: ruby
     pullPolicy: IfNotPresent
-    tag: "3.2.8"
+    tag: "3.4.8"
   replicaCount: 1
   imagePullSecrets: []
   podAnnotations: {}
