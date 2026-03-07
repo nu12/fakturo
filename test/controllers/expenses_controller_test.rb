@@ -24,6 +24,22 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to expense_url(Expense.last)
   end
 
+  test "should create expense with empty value" do
+    assert_difference("Expense.count") do
+      post expenses_url, params: { expense: { date: "2025-12-31", statement_id: @expense.statement_id, ignore: @expense.ignore, category_id: @expense.category_id, subcategory_id: @expense.subcategory_id } }
+    end
+
+    expense = Expense.last
+    assert_redirected_to expense_url(expense)
+    assert_equal 0, expense.value
+  end
+
+  test "shouldn't create expense with empty date" do
+    assert_difference("Expense.count", 0) do
+      post expenses_url, params: { expense: { statement_id: @expense.statement_id, ignore: @expense.ignore, category_id: @expense.category_id, subcategory_id: @expense.subcategory_id } }
+    end
+  end
+
   test "should update expense" do
     patch expense_url(@expense, format: :json), params: { expense: { date: @expense.date, statement_id: @expense.statement_id, ignore: @expense.ignore, subcategory_id: @expense.subcategory_id, value: @expense.value } }
     assert_response :success

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_09_24_173757) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_07_182748) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -52,7 +52,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_24_173757) do
     t.integer "category_id", null: false
     t.string "comment"
     t.datetime "created_at", null: false
-    t.date "date"
+    t.date "date", null: false
     t.string "description"
     t.boolean "ignore", default: false
     t.string "raw_description"
@@ -60,7 +60,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_24_173757) do
     t.integer "subcategory_id", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
-    t.float "value"
+    t.float "value", default: 0.0, null: false
     t.index ["category_id"], name: "index_expenses_on_category_id"
     t.index ["statement_id"], name: "index_expenses_on_statement_id"
     t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"

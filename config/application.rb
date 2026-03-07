@@ -29,8 +29,8 @@ module Fakturo
     config.version = {
       major: 1,
       minor: 1,
-      patch: 0,
-      build: 4
+      patch: 1,
+      build: 0
     }
   end
 end
