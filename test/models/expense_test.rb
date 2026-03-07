@@ -57,4 +57,18 @@ class ExpenseTest < ActiveSupport::TestCase
     previous_month = Expense.create(date: "2020-01-12", description: "Previous month, same year", value: 12.98, statement: statement, user: statement.user, category: cat, subcategory: sub)
     assert_equal(2020, previous_month.date.year)
   end
+
+  test "value cannot be nil" do
+    statement = statements(:two)
+    cat, sub = statement.user.uncategorized
+    expense = Expense.create(date: "2020-01-12", description: "Previous month, same year", statement: statement, user: statement.user, category: cat, subcategory: sub)
+    assert_equal(0, expense.value)
+  end
+
+  test "date cannot be nil" do
+    statement = statements(:two)
+    cat, sub = statement.user.uncategorized
+    expense = Expense.create(description: "Previous month, same year", statement: statement, user: statement.user, category: cat, subcategory: sub)
+    assert_equal(false, expense.valid?)
+  end
 end

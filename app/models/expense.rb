@@ -10,6 +10,8 @@ class Expense < ApplicationRecord
 
   before_create :adjust_year
 
+  validates :date, presence: true
+
   def self.group_by_category
     order(category_id: :desc).joins(:category).select("categories.id as id, categories.name as name, sum(value) as value").group("categories.id", "categories.name")
   end
