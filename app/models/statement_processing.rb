@@ -10,6 +10,7 @@ class StatementProcessing < ApplicationRecord
   end
 
   def retry
+    self.statement.expenses.delete_all
     unless self.statement.file.attached?
       errors.add :base, :invalid, message: "Statement file has already been deleted."
       return false
