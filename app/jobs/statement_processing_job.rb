@@ -4,6 +4,7 @@ class StatementProcessingJob < ApplicationJob
 
   def perform(sp, rpc_client)
     client = rpc_client.new("rpc_queue")
+    sp.statement.expenses.delete_all
     begin
       p "[#{sp.uuid}] Start statement processing job"
       pdf = MiniMagick::Image.read(sp.statement.file.download)
@@ -20,7 +21,6 @@ class StatementProcessingJob < ApplicationJob
     rescue StandardError => e
       p "[#{sp.uuid}] Error: #{e.message}"
       sp.update(has_succeeded: false)
-      sp.statement.file.purge_later(wait: 48.hours)
     ensure
       client.stop
       p "[#{sp.uuid}] Statement processing completed"

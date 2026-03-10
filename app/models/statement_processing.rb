@@ -19,7 +19,6 @@ class StatementProcessing < ApplicationRecord
       errors.add :base, :invalid, message: "Statement has already been sucessfully processed."
       return false
     end
-    self.statement.expenses.delete_all
     update(has_succeeded: nil)
     run
   end
