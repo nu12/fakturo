@@ -18,7 +18,7 @@ class StatementProcessingJob < ApplicationJob
       sp.update(has_succeeded: true)
       sp.statement.file.purge_later
     rescue StandardError => e
-      "[#{sp.uuid}] Error: #{e.message}"
+      p "[#{sp.uuid}] Error: #{e.message}"
       sp.update(has_succeeded: false)
       sp.statement.file.purge_later(wait: 48.hours)
     ensure
