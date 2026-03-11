@@ -8,4 +8,9 @@ document.addEventListener('turbo:load',() => {
   tooltipTriggerList.forEach(tooltipTriggerEl => {
     new bootstrap.Tooltip(tooltipTriggerEl)
   })
+
+  const toastElList = document.querySelectorAll('.toast')
+  toastElList.forEach(toastEl => {
+    new bootstrap.Toast(toastEl, {"autohide": true}).show()
+  })
 })
