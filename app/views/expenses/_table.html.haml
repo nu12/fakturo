@@ -59,21 +59,19 @@
             %td= expense.subcategory.name
           
           %td
-            %button.btn.btn-sm{ :type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#editExpenseModal", "data-action" => "expenses#renderForm", "data-expenses-id-param" => "#{expense.id}" }
-              %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "Edit"}
-                %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
-                  %use{ "xlink:href" => "#edit" }
+            %button.btn.btn-sm{ :type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#editExpenseModal"}
+              %turbo-frame#loadModal{:target => "modalPlaceholder"}
+                %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "Edit", :href => edit_expense_path(expense.id)}
+                  %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
+                    %use{ "xlink:href" => "#edit" }
 
   .digg_pagination.d-flex.justify-content-center.mb-3
     = will_paginate expenses, :container => false
     
   .modal.fade#editExpenseModal{ :tabindex => "-1", "aria-labelledby" => "editExpenseModalLabel", "aria-hidden" => "true"}
     .modal-dialog
-      .modal-content
-        .modal-header
-          Edit expense
-          %button.btn-close{ :type => "button", "data-bs-dismiss" => "modal", "aria-label" => "Close" }
-        .modal-body#formPlaceholder
+      %turbo-frame#modalPlaceholder
+
   .modal.fade#transferExpensesModal{ :tabindex => "-1", "aria-labelledby" => "transferExpensesModalLabel", "aria-hidden" => "true"}
     .modal-dialog
       .modal-content

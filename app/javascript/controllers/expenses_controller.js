@@ -21,11 +21,6 @@ export default class extends Controller {
     console.log(optionsHTML);
     Array.from(subcategorySelectors).forEach((s) => s.innerHTML = optionsHTML);
   }
-  renderForm(e){
-    const id = e.params.id;
-    var formPlaceholder = document.getElementById("formPlaceholder")
-    fetch("/expenses/" + id + "/edit").then(response => response.text()).then(data => formPlaceholder.innerHTML = data);
-  }
   sendForm() {
     const csrf = document.head.querySelector('meta[name=csrf-token]')?.content;
     const f = this.formTarget;

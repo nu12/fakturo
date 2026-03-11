@@ -23,7 +23,7 @@ class ExpensesController < ApplicationController
 
   # GET /expenses/1/edit
   def edit
-    render partial: "form", layout: false, locals: { expense: @expense, statements: Current.user.statements, categories: Current.user.categories, async: true }
+    render partial: "modal", layout: false, locals: { expense: @expense, statements: Current.user.statements, categories: Current.user.categories, async: true }
   end
 
   # POST /expenses or /expenses.json
