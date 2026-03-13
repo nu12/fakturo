@@ -47,10 +47,10 @@ class ExpensesController < ApplicationController
   def update
     respond_to do |format|
       if @expense.update(expense_params)
-        flash[:notice] = "Expense was successfully updated."
+        format.html { redirect_to session[:origin_url], notice: "Expense was successfully updated." }
         format.json { render json: @expense, status: :ok }
       else
-        flash[:alert] = "#{@expense.errors.full_messages.join('. ')}."
+        format.html { redirect_to session[:origin_url], alert: "#{@expense.errors.full_messages.join('. ')}." }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
       end
     end

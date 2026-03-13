@@ -36,8 +36,7 @@
         .w-50.pe-2
           = link_to "Delete expense", expense_path(expense), class: "btn btn-danger form-control", data: {turbo_method: :delete, turbo_frame: "_top"}
         .w-50.ps-2
-          %button.btn.btn-fakturo-action.form-control{ :type => "button", "data-action" => "expenses#sendForm"} 
-            Save changes
+          = f.submit 'Save changes', class: "form-control btn btn-fakturo-action", "data-turbo-frame" => "_top"
     - else # if the form is loaded from expenses/new 
       .actions.mb-3
         = f.submit 'Save', class: "form-control btn btn-fakturo btn-fakturo-action"
