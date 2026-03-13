@@ -61,7 +61,7 @@
           %td
             %button.btn.btn-sm{ :type => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#editExpenseModal"}
               %turbo-frame#loadModal{:target => "modalPlaceholder"}
-                %a{"data-bs-toggle" => "tooltip", "data-bs-title" => "Edit", :href => edit_expense_path(expense.id)}
+                %a.link-dark{"data-bs-toggle" => "tooltip", "data-bs-title" => "Edit", :href => edit_expense_path(expense.id)}
                   %svg.bi.pe-none.me-2{ :width => "16", :height => "16", "aria-hidden" => "true" }
                     %use{ "xlink:href" => "#edit" }
 

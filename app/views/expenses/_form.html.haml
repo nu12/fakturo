@@ -34,8 +34,7 @@
     - if async # If the form is loaded from async request from any expenses table 
       .field.mb-3.d-flex
         .w-50.pe-2
-          %button.btn.btn-danger.form-control{ :type => "button", "data-action" => "expenses#deleteExpense"} 
-            Delete expense
+          = link_to "Delete expense", expense_path(expense), class: "btn btn-danger form-control", data: {turbo_method: :delete, turbo_frame: "_top"}
         .w-50.ps-2
           %button.btn.btn-fakturo-action.form-control{ :type => "button", "data-action" => "expenses#sendForm"} 
             Save changes

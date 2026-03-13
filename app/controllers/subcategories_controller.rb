@@ -1,6 +1,7 @@
 class SubcategoriesController < ApplicationController
   before_action :set_subcategory, only: %i[ show edit update destroy ]
   before_action :set_category, only: %i[ index show new create edit update destroy ]
+  before_action :set_origin_url, only: %i[ show ]
   before_action { set_active_page("home") }
 
   # GET /subcategories or /subcategories.json

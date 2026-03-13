@@ -35,14 +35,6 @@ export default class extends Controller {
       headers: {"X-CSRF-Token": csrf},
     }).then(setTimeout(function() {location.reload()}, 100));
   }
-  deleteExpense() {
-    const csrf = document.head.querySelector('meta[name=csrf-token]')?.content;
-    const f = this.formTarget;
-    fetch(f.action + ".json", {
-      method: 'delete',
-      headers: {"X-CSRF-Token": csrf},
-    }).then(setTimeout(function() {location.reload()}, 100));
-  }
   
   // When the checkbox are visible, toogle all checkboxes
   changeAll(e){

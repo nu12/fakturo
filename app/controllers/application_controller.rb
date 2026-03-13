@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
   def set_active_page(page)
     @active = page
   end
+
+  def set_origin_url
+    session[:origin_url] = request.original_url
+  end
 end

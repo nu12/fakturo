@@ -1,5 +1,6 @@
 class ExpensesController < ApplicationController
   before_action :set_expense, only: %i[ show edit update destroy ]
+  before_action :set_origin_url, only: %i[ index ]
   before_action { set_active_page("home") }
 
   # GET /expenses or /expenses.json
@@ -60,7 +61,7 @@ class ExpensesController < ApplicationController
     @expense.destroy!
 
     respond_to do |format|
-      flash[:notice] = "Expense was successfully destroyed."
+      format.html { redirect_to session[:origin_url], notice: "Expense was successfully destroyed." }
       format.json { head :no_content }
     end
   end
