@@ -1,6 +1,7 @@
 class StatementsController < ApplicationController
   before_action :set_statement, only: %i[ show edit update destroy ]
   before_action :load_sources, only: %i[ new create edit ]
+  before_action :set_origin_url, only: %i[ show ]
   before_action { set_active_page("home") }
 
   # GET /statements or /statements.json

@@ -21,28 +21,6 @@ export default class extends Controller {
     console.log(optionsHTML);
     Array.from(subcategorySelectors).forEach((s) => s.innerHTML = optionsHTML);
   }
-  sendForm() {
-    const csrf = document.head.querySelector('meta[name=csrf-token]')?.content;
-    const f = this.formTarget;
-    var data = new URLSearchParams();
-    
-    for (const pair of new FormData(f)) {
-      data.append(pair[0], pair[1]);
-    }
-    fetch(f.action + ".json", {
-      method: 'post',
-      body: data,
-      headers: {"X-CSRF-Token": csrf},
-    }).then(setTimeout(function() {location.reload()}, 100));
-  }
-  deleteExpense() {
-    const csrf = document.head.querySelector('meta[name=csrf-token]')?.content;
-    const f = this.formTarget;
-    fetch(f.action + ".json", {
-      method: 'delete',
-      headers: {"X-CSRF-Token": csrf},
-    }).then(setTimeout(function() {location.reload()}, 100));
-  }
   
   // When the checkbox are visible, toogle all checkboxes
   changeAll(e){

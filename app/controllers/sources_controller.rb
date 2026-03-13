@@ -1,5 +1,6 @@
 class SourcesController < ApplicationController
   before_action :set_source, only: %i[ show edit update destroy ]
+  before_action :set_origin_url, only: %i[ show ]
   before_action { set_active_page("home") }
 
   # GET /sources or /sources.json
