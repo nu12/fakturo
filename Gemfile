@@ -76,4 +76,4 @@ gem "lockbox", "~> 2.2"
 
 gem "mini_magick", "~> 5.3"
 
-gem "bunny", "~> 2.24"
+gem "bunny", "~> 3.1"

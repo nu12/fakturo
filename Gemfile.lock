@@ -77,7 +77,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.9)
       public_suffix (>= 2.0.2, < 8.0)
-    amq-protocol (2.5.1)
+    amq-protocol (2.7.0)
     ast (2.4.3)
     base64 (0.3.0)
     bcrypt (3.1.22)
@@ -89,8 +89,9 @@ GEM
     brakeman (8.0.4)
       racc
     builder (3.3.0)
-    bunny (2.24.0)
-      amq-protocol (~> 2.3)
+    bunny (3.1.0)
+      amq-protocol (~> 2.7)
+      logger (~> 1, >= 1.7)
       sorted_set (~> 1, >= 1.0.2)
     capybara (3.40.0)
       addressable
@@ -402,7 +403,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.21)
   bootsnap
   brakeman
-  bunny (~> 2.24)
+  bunny (~> 3.1)
   capybara
   debug
   haml (~> 7.2)
