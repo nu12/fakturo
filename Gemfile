@@ -57,7 +57,7 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  gem "haml-rails", "~> 3.0"
+  gem "haml-rails", "~> 3.1"
 end
 
 group :test do
