@@ -120,7 +120,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.4.0)
       activesupport (>= 6.1)
-    haml (7.5.0)
+    haml (7.5.1)
       prism (>= 1.1.0)
       temple (>= 0.8.2)
       thor
@@ -172,7 +172,7 @@ GEM
       net-smtp
     marcel (1.2.1)
     matrix (0.4.3)
-    mini_magick (5.3.3)
+    mini_magick (5.4.0)
       logger
     mini_mime (1.1.5)
     minitest (5.27.0)
@@ -413,7 +413,7 @@ DEPENDENCIES
   jbuilder
   kamal
   lockbox (~> 2.2)
-  mini_magick (~> 5.3)
+  mini_magick (~> 5.4)
   minitest (< 6)
   propshaft
   puma (>= 5.0)
