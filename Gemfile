@@ -72,7 +72,7 @@ gem "will_paginate", "~> 4.0"
 
 gem "pundit", "~> 2.5"
 
-gem "lockbox", "~> 2.2"
+gem "lockbox", "~> 2.3"
 
 gem "mini_magick", "~> 5.4"
 
